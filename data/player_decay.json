@@ -1,0 +1,419 @@
+{
+  "bucket_order": [
+    "0-4.1 min",
+    "4.1-6.5 min",
+    "6.5+ min"
+  ],
+  "edges": [
+    4.1,
+    6.5
+  ],
+  "players": [
+    {
+      "pId": 1643420,
+      "name": "Laura Juskaite",
+      "stints": 157,
+      "total_minutes": 960.7,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -1.85,
+          "minutes": 97.4,
+          "stints": 40
+        },
+        "4.1-6.5 min": {
+          "per5min": -1.89,
+          "minutes": 307.5,
+          "stints": 59
+        },
+        "6.5+ min": {
+          "per5min": -0.12,
+          "minutes": 555.7,
+          "stints": 58
+        }
+      }
+    },
+    {
+      "pId": 1629576,
+      "name": "Maria Conde",
+      "stints": 124,
+      "total_minutes": 873.5,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -1.98,
+          "minutes": 63.2,
+          "stints": 24
+        },
+        "4.1-6.5 min": {
+          "per5min": -1.54,
+          "minutes": 220.6,
+          "stints": 42
+        },
+        "6.5+ min": {
+          "per5min": -0.48,
+          "minutes": 589.8,
+          "stints": 58
+        }
+      }
+    },
+    {
+      "pId": 204330,
+      "name": "Isabelle Harrison",
+      "stints": 121,
+      "total_minutes": 643.2,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -1.35,
+          "minutes": 122.2,
+          "stints": 43
+        },
+        "4.1-6.5 min": {
+          "per5min": -1.69,
+          "minutes": 230.8,
+          "stints": 46
+        },
+        "6.5+ min": {
+          "per5min": -0.84,
+          "minutes": 290.3,
+          "stints": 32
+        }
+      }
+    },
+    {
+      "pId": 1628915,
+      "name": "Kia Nurse",
+      "stints": 118,
+      "total_minutes": 528.4,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -1.34,
+          "minutes": 172.2,
+          "stints": 64
+        },
+        "4.1-6.5 min": {
+          "per5min": -1.81,
+          "minutes": 179.7,
+          "stints": 35
+        },
+        "6.5+ min": {
+          "per5min": -1.53,
+          "minutes": 176.6,
+          "stints": 19
+        }
+      }
+    },
+    {
+      "pId": 1629497,
+      "name": "Marina Mabrey",
+      "stints": 114,
+      "total_minutes": 910.1,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -1.49,
+          "minutes": 30.2,
+          "stints": 11
+        },
+        "4.1-6.5 min": {
+          "per5min": -1.12,
+          "minutes": 147.9,
+          "stints": 27
+        },
+        "6.5+ min": {
+          "per5min": -0.97,
+          "minutes": 732.0,
+          "stints": 76
+        }
+      }
+    },
+    {
+      "pId": 1627700,
+      "name": "Julie Allemand",
+      "stints": 101,
+      "total_minutes": 794.3,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -3.0,
+          "minutes": 31.7,
+          "stints": 11
+        },
+        "4.1-6.5 min": {
+          "per5min": -0.03,
+          "minutes": 144.5,
+          "stints": 27
+        },
+        "6.5+ min": {
+          "per5min": -0.96,
+          "minutes": 618.2,
+          "stints": 63
+        }
+      }
+    },
+    {
+      "pId": 1631055,
+      "name": "Nyara Sabally",
+      "stints": 100,
+      "total_minutes": 543.6,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -2.7,
+          "minutes": 74.2,
+          "stints": 26
+        },
+        "4.1-6.5 min": {
+          "per5min": 0.28,
+          "minutes": 251.4,
+          "stints": 48
+        },
+        "6.5+ min": {
+          "per5min": -1.42,
+          "minutes": 218.0,
+          "stints": 26
+        }
+      }
+    },
+    {
+      "pId": 1643445,
+      "name": "Kiki Rice",
+      "stints": 94,
+      "total_minutes": 638.8,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": 0.85,
+          "minutes": 59.0,
+          "stints": 19
+        },
+        "4.1-6.5 min": {
+          "per5min": -2.89,
+          "minutes": 159.1,
+          "stints": 30
+        },
+        "6.5+ min": {
+          "per5min": -0.01,
+          "minutes": 420.7,
+          "stints": 45
+        }
+      }
+    },
+    {
+      "pId": 1643457,
+      "name": "Teonni Key",
+      "stints": 90,
+      "total_minutes": 341.1,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -3.31,
+          "minutes": 137.5,
+          "stints": 55
+        },
+        "4.1-6.5 min": {
+          "per5min": 0.94,
+          "minutes": 133.1,
+          "stints": 26
+        },
+        "6.5+ min": {
+          "per5min": -0.71,
+          "minutes": 70.5,
+          "stints": 9
+        }
+      }
+    },
+    {
+      "pId": 1627701,
+      "name": "Temi Fagbenle",
+      "stints": 87,
+      "total_minutes": 398.5,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -1.8,
+          "minutes": 111.2,
+          "stints": 42
+        },
+        "4.1-6.5 min": {
+          "per5min": -2.81,
+          "minutes": 124.4,
+          "stints": 25
+        },
+        "6.5+ min": {
+          "per5min": -0.31,
+          "minutes": 162.9,
+          "stints": 20
+        }
+      }
+    },
+    {
+      "pId": 1628279,
+      "name": "Brittney Sykes",
+      "stints": 47,
+      "total_minutes": 458.6,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -2.63,
+          "minutes": 13.3,
+          "stints": 6
+        },
+        "4.1-6.5 min": {
+          "per5min": 0.0,
+          "minutes": 33.7,
+          "stints": 6
+        },
+        "6.5+ min": {
+          "per5min": -0.3,
+          "minutes": 411.7,
+          "stints": 35
+        }
+      }
+    },
+    {
+      "pId": 1643647,
+      "name": "Tima Pouye",
+      "stints": 45,
+      "total_minutes": 170.4,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -0.65,
+          "minutes": 69.2,
+          "stints": 28
+        },
+        "4.1-6.5 min": {
+          "per5min": -2.0,
+          "minutes": 72.5,
+          "stints": 14
+        },
+        "6.5+ min": {
+          "per5min": -1.05,
+          "minutes": 28.7,
+          "stints": 3
+        }
+      }
+    },
+    {
+      "pId": 1643706,
+      "name": "Ornella Bankole",
+      "stints": 30,
+      "total_minutes": 134.9,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -0.86,
+          "minutes": 34.9,
+          "stints": 14
+        },
+        "4.1-6.5 min": {
+          "per5min": -4.25,
+          "minutes": 51.8,
+          "stints": 10
+        },
+        "6.5+ min": {
+          "per5min": 0.41,
+          "minutes": 48.2,
+          "stints": 6
+        }
+      }
+    },
+    {
+      "pId": 1642800,
+      "name": "Aneesah Morrow",
+      "stints": 22,
+      "total_minutes": 136.0,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -6.49,
+          "minutes": 21.6,
+          "stints": 8
+        },
+        "4.1-6.5 min": {
+          "per5min": -1.83,
+          "minutes": 35.6,
+          "stints": 7
+        },
+        "6.5+ min": {
+          "per5min": 1.9,
+          "minutes": 78.8,
+          "stints": 7
+        }
+      }
+    },
+    {
+      "pId": 1631263,
+      "name": "Nikolina Milic",
+      "stints": 20,
+      "total_minutes": 63.1,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -1.1,
+          "minutes": 41.1,
+          "stints": 16
+        },
+        "4.1-6.5 min": {
+          "per5min": -1.07,
+          "minutes": 14.0,
+          "stints": 3
+        },
+        "6.5+ min": {
+          "per5min": -1.26,
+          "minutes": 8.0,
+          "stints": 1
+        }
+      }
+    },
+    {
+      "pId": 1631118,
+      "name": "Lexi Held",
+      "stints": 15,
+      "total_minutes": 60.0,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": 0.68,
+          "minutes": 29.4,
+          "stints": 11
+        },
+        "4.1-6.5 min": {
+          "per5min": 1.89,
+          "minutes": 15.9,
+          "stints": 3
+        },
+        "6.5+ min": {
+          "per5min": -2.38,
+          "minutes": 14.7,
+          "stints": 1
+        }
+      }
+    },
+    {
+      "pId": 203405,
+      "name": "Kayla Alexander",
+      "stints": 13,
+      "total_minutes": 40.3,
+      "buckets": {
+        "0-4.1 min": {
+          "per5min": -4.46,
+          "minutes": 20.2,
+          "stints": 9
+        },
+        "4.1-6.5 min": {
+          "per5min": -3.72,
+          "minutes": 20.1,
+          "stints": 4
+        },
+        "6.5+ min": null
+      }
+    },
+    {
+      "pId": 1630461,
+      "name": "Kiana Williams",
+      "stints": 12,
+      "total_minutes": 58.8,
+      "buckets": {
+        "0-4.1 min": null,
+        "4.1-6.5 min": {
+          "per5min": -2.77,
+          "minutes": 41.4,
+          "stints": 8
+        },
+        "6.5+ min": {
+          "per5min": 1.83,
+          "minutes": 13.7,
+          "stints": 2
+        }
+      }
+    }
+  ]
+}

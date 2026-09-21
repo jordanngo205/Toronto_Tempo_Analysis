@@ -1,19 +1,20 @@
 # Toronto Tempo Analysis
 
-WNBA play-by-play scraping and rotation/fatigue-decay analysis for the Toronto Tempo (2026 expansion franchise, team ID `1611661332`).
+Rotation/fatigue-decay analysis for the Toronto Tempo (2026 WNBA expansion franchise, team ID `1611661332`): net rating segmented by elapsed time within each on-court stint, with bucket edges set from the real stint-length distribution (terciles) rather than guessed.
 
-Same methodology as the Canada senior women's national team rotation-decay analysis: reconstruct on-court stints from play-by-play substitution events, then look at team net rating segmented by elapsed time within each stint, with per-bucket stint counts as a reliability signal.
+## Data source
 
-## Scraping
+`stats.wnba.com` blocks requests from cloud/datacenter IPs (including GitHub Actions runners), so this doesn't hit the live API. Instead it pulls from [`sportsdataverse/wehoop-wnba-stats-raw`](https://github.com/sportsdataverse/wehoop-wnba-stats-raw), a public repo that mirrors raw stats.wnba.com payloads, updated through the current season. Specifically the `gamerotation` endpoint, which records every continuous on-court stint directly (check-in time, check-out time, point differential across that window) — no play-by-play reconstruction needed.
 
-`wnba_scrape.py` pulls team game logs, play-by-play, and box scores from the `stats.wnba.com` API and writes:
-
-- `<name>/data/<name> - game details.csv`
-- `<name>/data/<name> - pbp.csv`
-- `<name>/data/<name> - player box scores.csv`
+## Build
 
 ```
-python3 wnba_scrape.py --team-id 1611661332 --team-name "Toronto Tempo" --season 2026 --name "Toronto Tempo 2026"
+python3 build_tempo_analysis.py --team-id 1611661332 --season 2026 --template template.html --out docs/index.html --data-dir data
 ```
 
-The `.github/workflows/scrape-wnba-tempo.yml` workflow runs this on demand (`workflow_dispatch`) and commits the resulting data.
+Writes:
+- `data/stints.json` — every individual stint (raw)
+- `data/player_decay.json` — bucketed per-player net rating
+- `docs/index.html` — the rendered dashboard (served via GitHub Pages if enabled on this repo)
+
+The `.github/workflows/update-tempo-analysis.yml` workflow runs this weekly and on demand (`workflow_dispatch`), committing the refreshed data and dashboard.

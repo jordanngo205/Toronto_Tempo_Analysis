@@ -1,14 +1,16 @@
-name: Scrape WNBA Toronto Tempo
+name: Update Toronto Tempo rotation-decay analysis
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * 2"  # weekly, Tuesdays
 
 concurrency:
-  group: scrape-wnba-tempo
+  group: update-tempo-analysis
   cancel-in-progress: false
 
 jobs:
-  scrape:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -22,26 +24,24 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install pandas curl_cffi
-
-      - name: Scrape Toronto Tempo 2026 season
+      - name: Build analysis
         run: |
-          python wnba_scrape.py \
+          python build_tempo_analysis.py \
             --team-id 1611661332 \
-            --team-name "Toronto Tempo" \
             --season 2026 \
-            --name "Toronto Tempo 2026"
+            --template template.html \
+            --out docs/index.html \
+            --data-dir data
 
       - name: Commit and push
         run: |
           git config user.name "jordanngo205"
           git config user.email "113134291+jordanngo205@users.noreply.github.com"
-          git add -A "Toronto Tempo 2026"
+          git add -A data docs
           if git diff --staged --quiet; then
             echo "Nothing to commit"
           else
-            git commit -m "chore: scrape Toronto Tempo 2026 WNBA season data"
+            git commit -m "chore: refresh Toronto Tempo rotation-decay analysis"
             git pull --rebase --autostash origin main || {
               echo "Rebase hit a conflict — leaving branch alone; retry the run."
               exit 0

@@ -1,0 +1,219 @@
+<title>Rotation Decay — Toronto Tempo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f2f4f7;
+    --surface: #ffffff;
+    --surface-2: #f7f8fa;
+    --border: #e1e5eb;
+    --text: #12151c;
+    --text-2: #545b68;
+    --muted: #8e94a0;
+    --brand: #612C51;
+    --tempo-blue: #9CC3E5;
+    --pos: #2a78d6;
+    --neg: #e34948;
+    --zero: #ccd1da;
+    --thin-bg: repeating-linear-gradient(135deg, currentColor 0 2px, transparent 2px 7px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14161b; --surface: #1c1f26; --surface-2: #191b21; --border: #313640;
+      --text: #f1f2f5; --text-2: #b6bcc7; --muted: #838a97;
+      --brand: #a85f83; --tempo-blue: #9CC3E5; --pos: #3987e5; --neg: #e66767; --zero: #454b57;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14161b; --surface: #1c1f26; --surface-2: #191b21; --border: #313640;
+    --text: #f1f2f5; --text-2: #b6bcc7; --muted: #838a97;
+    --brand: #a85f83; --tempo-blue: #9CC3E5; --pos: #3987e5; --neg: #e66767; --zero: #454b57;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif; line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+  }
+  header { background: var(--brand); color: #fff; padding: 28px 20px 24px; }
+  .header-inner { max-width: 1180px; margin: 0 auto; }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .85; margin-bottom: 6px; }
+  h1 { margin: 0 0 8px; font-size: 24px; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+  header p { margin: 0; font-size: 13.5px; opacity: .92; max-width: 62ch; }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 22px 20px 60px; }
+
+  .methodology {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 18px; margin-bottom: 18px; font-size: 12.5px; color: var(--text-2);
+  }
+  .methodology strong { color: var(--text); }
+
+  .hist-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 18px; margin-bottom: 22px;
+  }
+  .hist-title { font-size: 12.5px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .hist-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 12px; }
+  .hist-chart { display: flex; align-items: flex-end; gap: 4px; height: 118px; }
+  .hist-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+  .hist-count { font-size: 9px; font-weight: 700; color: var(--text-2); margin-bottom: 2px; }
+  .hist-bar { width: 100%; min-height: 3px; border-radius: 2px 2px 0 0; background: var(--muted); }
+  .hist-bar.in-edge { background: var(--tempo-blue); }
+  .hist-label { font-size: 9px; color: var(--muted); margin-top: 4px; }
+  .hist-edge-line { position: relative; }
+  .hist-edges { display: flex; justify-content: space-between; font-size: 10px; color: var(--brand); font-weight: 700; margin-top: 8px; }
+
+  .legend { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--text-2); margin-bottom: 18px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+  .legend-swatch.thin { background: var(--muted); opacity: .35; background-image: var(--thin-bg); color: var(--muted); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 12px; break-inside: avoid; page-break-inside: avoid; }
+  @media print { .methodology, header { break-inside: avoid; page-break-inside: avoid; } }
+  .card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+  .card-name { font-size: 14px; font-weight: 700; }
+  .card-n { font-size: 11px; color: var(--muted); font-weight: 600; }
+
+  .chart { position: relative; height: 118px; margin: 14px 4px 6px; display: flex; align-items: stretch; gap: 10px; }
+  .zero-line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--zero); }
+  .bar-col { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+  .bar { position: absolute; left: 8%; right: 8%; border-radius: 3px; top: 50%; }
+  .bar.thin { opacity: .38; }
+  .bar-val { position: absolute; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .bar-val.pos { color: var(--pos); }
+  .bar-val.neg { color: var(--neg); }
+  .bar-val.na { color: var(--muted); font-weight: 500; font-size: 10px; }
+
+  .bucket-labels { display: flex; gap: 10px; margin-top: 2px; }
+  .bucket-labels span { flex: 1; text-align: center; font-size: 10px; color: var(--muted); font-weight: 600; }
+  .bucket-mins { display: flex; gap: 10px; margin-top: 1px; }
+  .bucket-mins span { flex: 1; text-align: center; font-size: 9.5px; color: var(--muted); }
+
+  details { margin-top: 26px; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--text-2); padding: 4px 0; }
+  .tbl-note { margin: 4px 0 0; font-size: 12px; color: var(--muted); max-width: 68ch; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { background: var(--surface-2); font-weight: 700; color: var(--text-2); font-size: 11px; text-transform: uppercase; letter-spacing: .03em; }
+  tr:last-child td { border-bottom: none; }
+  .tbl-wrap { overflow-x: auto; }
+  td.pos { color: var(--pos); font-weight: 600; }
+  td.neg { color: var(--neg); font-weight: 600; }
+</style>
+
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">Toronto Tempo · 2026 Season · Prototype</div>
+    <h1>Rotation Decay</h1>
+    <p>Net rating by stint length, Toronto Tempo's inaugural WNBA season.</p>
+  </div>
+</header>
+
+<main>
+  <div class="methodology">
+    <strong>How this is built:</strong> the WNBA tracks every stint directly (check-in, check-out, point diff).
+    <br><br>
+    <strong>Bucket edges come from the real data:</strong> 4.1 min and 6.5 min are the terciles of actual stint lengths.
+  </div>
+
+  <div class="hist-card">
+    <div class="hist-title">Real stint-length distribution — all Tempo stints, 2026 season</div>
+    <div class="hist-sub">1320 stints, true 1-minute bins throughout (longest stint of the season: 31.4 min, folded into the 20+ bar). Highlighted bars mark where the two bucket edges (4.1 min, 6.5 min) fall.</div>
+    <div class="hist-chart" id="hist"></div>
+    <div class="hist-edges"><span>0 min</span><span>20+ min</span></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--pos)"></span>Net positive per 5 min</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--neg)"></span>Net negative per 5 min</div>
+    <div class="legend-item"><span class="legend-swatch thin"></span>Under 15 min or under 3 stints — read with caution</div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <details open>
+    <summary>Full numbers (table view)</summary>
+    <p class="tbl-note">Each cell is net points per 5 minutes; in parentheses, the total minutes and the number of separate stints behind it.</p>
+    <div class="tbl-wrap">
+      <table id="tbl">
+        <thead>
+          <tr><th>Player</th><th>Stints</th><th>0-4.1 min</th><th>4.1-6.5 min</th><th>6.5+ min</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+</main>
+
+<script>
+const DATA = [{"pId": 1643420, "name": "Laura Juskaite", "stints": 157, "total_minutes": 960.7, "buckets": {"0-4.1 min": {"per5min": -1.85, "minutes": 97.4, "stints": 40}, "4.1-6.5 min": {"per5min": -1.89, "minutes": 307.5, "stints": 59}, "6.5+ min": {"per5min": -0.12, "minutes": 555.7, "stints": 58}}}, {"pId": 1629576, "name": "Maria Conde", "stints": 124, "total_minutes": 873.5, "buckets": {"0-4.1 min": {"per5min": -1.98, "minutes": 63.2, "stints": 24}, "4.1-6.5 min": {"per5min": -1.54, "minutes": 220.6, "stints": 42}, "6.5+ min": {"per5min": -0.48, "minutes": 589.8, "stints": 58}}}, {"pId": 204330, "name": "Isabelle Harrison", "stints": 121, "total_minutes": 643.2, "buckets": {"0-4.1 min": {"per5min": -1.35, "minutes": 122.2, "stints": 43}, "4.1-6.5 min": {"per5min": -1.69, "minutes": 230.8, "stints": 46}, "6.5+ min": {"per5min": -0.84, "minutes": 290.3, "stints": 32}}}, {"pId": 1628915, "name": "Kia Nurse", "stints": 118, "total_minutes": 528.4, "buckets": {"0-4.1 min": {"per5min": -1.34, "minutes": 172.2, "stints": 64}, "4.1-6.5 min": {"per5min": -1.81, "minutes": 179.7, "stints": 35}, "6.5+ min": {"per5min": -1.53, "minutes": 176.6, "stints": 19}}}, {"pId": 1629497, "name": "Marina Mabrey", "stints": 114, "total_minutes": 910.1, "buckets": {"0-4.1 min": {"per5min": -1.49, "minutes": 30.2, "stints": 11}, "4.1-6.5 min": {"per5min": -1.12, "minutes": 147.9, "stints": 27}, "6.5+ min": {"per5min": -0.97, "minutes": 732.0, "stints": 76}}}, {"pId": 1627700, "name": "Julie Allemand", "stints": 101, "total_minutes": 794.3, "buckets": {"0-4.1 min": {"per5min": -3.0, "minutes": 31.7, "stints": 11}, "4.1-6.5 min": {"per5min": -0.03, "minutes": 144.5, "stints": 27}, "6.5+ min": {"per5min": -0.96, "minutes": 618.2, "stints": 63}}}, {"pId": 1631055, "name": "Nyara Sabally", "stints": 100, "total_minutes": 543.6, "buckets": {"0-4.1 min": {"per5min": -2.7, "minutes": 74.2, "stints": 26}, "4.1-6.5 min": {"per5min": 0.28, "minutes": 251.4, "stints": 48}, "6.5+ min": {"per5min": -1.42, "minutes": 218.0, "stints": 26}}}, {"pId": 1643445, "name": "Kiki Rice", "stints": 94, "total_minutes": 638.8, "buckets": {"0-4.1 min": {"per5min": 0.85, "minutes": 59.0, "stints": 19}, "4.1-6.5 min": {"per5min": -2.89, "minutes": 159.1, "stints": 30}, "6.5+ min": {"per5min": -0.01, "minutes": 420.7, "stints": 45}}}, {"pId": 1643457, "name": "Teonni Key", "stints": 90, "total_minutes": 341.1, "buckets": {"0-4.1 min": {"per5min": -3.31, "minutes": 137.5, "stints": 55}, "4.1-6.5 min": {"per5min": 0.94, "minutes": 133.1, "stints": 26}, "6.5+ min": {"per5min": -0.71, "minutes": 70.5, "stints": 9}}}, {"pId": 1627701, "name": "Temi Fagbenle", "stints": 87, "total_minutes": 398.5, "buckets": {"0-4.1 min": {"per5min": -1.8, "minutes": 111.2, "stints": 42}, "4.1-6.5 min": {"per5min": -2.81, "minutes": 124.4, "stints": 25}, "6.5+ min": {"per5min": -0.31, "minutes": 162.9, "stints": 20}}}, {"pId": 1628279, "name": "Brittney Sykes", "stints": 47, "total_minutes": 458.6, "buckets": {"0-4.1 min": {"per5min": -2.63, "minutes": 13.3, "stints": 6}, "4.1-6.5 min": {"per5min": 0.0, "minutes": 33.7, "stints": 6}, "6.5+ min": {"per5min": -0.3, "minutes": 411.7, "stints": 35}}}, {"pId": 1643647, "name": "Tima Pouye", "stints": 45, "total_minutes": 170.4, "buckets": {"0-4.1 min": {"per5min": -0.65, "minutes": 69.2, "stints": 28}, "4.1-6.5 min": {"per5min": -2.0, "minutes": 72.5, "stints": 14}, "6.5+ min": {"per5min": -1.05, "minutes": 28.7, "stints": 3}}}, {"pId": 1643706, "name": "Ornella Bankole", "stints": 30, "total_minutes": 134.9, "buckets": {"0-4.1 min": {"per5min": -0.86, "minutes": 34.9, "stints": 14}, "4.1-6.5 min": {"per5min": -4.25, "minutes": 51.8, "stints": 10}, "6.5+ min": {"per5min": 0.41, "minutes": 48.2, "stints": 6}}}, {"pId": 1642800, "name": "Aneesah Morrow", "stints": 22, "total_minutes": 136.0, "buckets": {"0-4.1 min": {"per5min": -6.49, "minutes": 21.6, "stints": 8}, "4.1-6.5 min": {"per5min": -1.83, "minutes": 35.6, "stints": 7}, "6.5+ min": {"per5min": 1.9, "minutes": 78.8, "stints": 7}}}, {"pId": 1631263, "name": "Nikolina Milic", "stints": 20, "total_minutes": 63.1, "buckets": {"0-4.1 min": {"per5min": -1.1, "minutes": 41.1, "stints": 16}, "4.1-6.5 min": {"per5min": -1.07, "minutes": 14.0, "stints": 3}, "6.5+ min": {"per5min": -1.26, "minutes": 8.0, "stints": 1}}}, {"pId": 1631118, "name": "Lexi Held", "stints": 15, "total_minutes": 60.0, "buckets": {"0-4.1 min": {"per5min": 0.68, "minutes": 29.4, "stints": 11}, "4.1-6.5 min": {"per5min": 1.89, "minutes": 15.9, "stints": 3}, "6.5+ min": {"per5min": -2.38, "minutes": 14.7, "stints": 1}}}, {"pId": 203405, "name": "Kayla Alexander", "stints": 13, "total_minutes": 40.3, "buckets": {"0-4.1 min": {"per5min": -4.46, "minutes": 20.2, "stints": 9}, "4.1-6.5 min": {"per5min": -3.72, "minutes": 20.1, "stints": 4}, "6.5+ min": null}}, {"pId": 1630461, "name": "Kiana Williams", "stints": 12, "total_minutes": 58.8, "buckets": {"0-4.1 min": null, "4.1-6.5 min": {"per5min": -2.77, "minutes": 41.4, "stints": 8}, "6.5+ min": {"per5min": 1.83, "minutes": 13.7, "stints": 2}}}];
+const BUCKETS = ["0-4.1 min", "4.1-6.5 min", "6.5+ min"];
+const HIST = [{"bin": "0-1", "count": 41}, {"bin": "1-2", "count": 71}, {"bin": "2-3", "count": 126}, {"bin": "3-4", "count": 185}, {"bin": "4-5", "count": 190}, {"bin": "5-6", "count": 172}, {"bin": "6-7", "count": 145}, {"bin": "7-8", "count": 115}, {"bin": "8-9", "count": 97}, {"bin": "9-10", "count": 38}, {"bin": "10-11", "count": 43}, {"bin": "11-12", "count": 19}, {"bin": "12-13", "count": 9}, {"bin": "13-14", "count": 13}, {"bin": "14-15", "count": 10}, {"bin": "15-16", "count": 9}, {"bin": "16-17", "count": 19}, {"bin": "17-18", "count": 4}, {"bin": "18-19", "count": 4}, {"bin": "19-20", "count": 2}, {"bin": "20+", "count": 8}];
+const EDGES = [4.1, 6.5];
+const SCALE = 6; // symmetric axis: +/-6 net pts per 5 min
+
+const grid = document.getElementById('grid');
+const tbody = document.querySelector('#tbl tbody');
+
+// histogram
+const histEl = document.getElementById('hist');
+const maxCount = Math.max(...HIST.map(h => h.count));
+HIST.forEach((h, i) => {
+  const pct = (h.count / maxCount) * 100;
+  const binStart = i; // bin i = "i-(i+1)" minutes, last is 12+
+  const inEdgeBand = binStart < Math.ceil(EDGES[1]);
+  const col = document.createElement('div');
+  col.className = 'hist-bar-col';
+  const showCount = pct < 25; // small bars need a real number, the shape alone won't show it
+  col.innerHTML = `${showCount ? `<div class="hist-count">${h.count}</div>` : ''}<div class="hist-bar${inEdgeBand ? ' in-edge' : ''}" style="height:${pct}%" title="${h.bin} min: ${h.count} stints"></div><div class="hist-label">${h.bin}</div>`;
+  histEl.appendChild(col);
+});
+
+DATA.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const barsHtml = BUCKETS.map(b => {
+    const v = p.buckets[b];
+    if (!v) {
+      return `<div class="bar-col"><div class="bar-val na" style="top:calc(50% - 14px)">n/a</div></div>`;
+    }
+    const pct = Math.min(Math.abs(v.per5min) / SCALE, 1) * 50;
+    const isPos = v.per5min >= 0;
+    const thin = (v.minutes < 15 || v.stints < 3) ? ' thin' : '';
+    const barStyle = isPos
+      ? `height:${pct}%; top:${50 - pct}%; background:var(--pos)`
+      : `height:${pct}%; top:50%; background:var(--neg)`;
+    const labelTop = isPos ? `calc(${50 - pct}% - 15px)` : `calc(${50 + pct}% + 3px)`;
+    return `<div class="bar-col" title="${p.name} — ${b}: ${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} net pts / 5 min over ${v.minutes} min across ${v.stints} stint${v.stints===1?'':'s'}">
+      <div class="bar${thin}" style="${barStyle}"></div>
+      <div class="bar-val ${isPos?'pos':'neg'}" style="top:${labelTop}">${v.per5min>=0?'+':''}${v.per5min.toFixed(1)}</div>
+    </div>`;
+  }).join('');
+
+  card.innerHTML = `
+    <div class="card-head">
+      <div class="card-name">${p.name}</div>
+      <div class="card-n">${p.stints} stints</div>
+    </div>
+    <div class="chart"><div class="zero-line"></div>${barsHtml}</div>
+    <div class="bucket-labels">${BUCKETS.map(b=>`<span>${b}</span>`).join('')}</div>
+    <div class="bucket-mins">${BUCKETS.map(b=>{const v=p.buckets[b]; return `<span>${v?v.minutes+'m &middot; '+v.stints+'x':''}</span>`;}).join('')}</div>
+  `;
+  grid.appendChild(card);
+
+  const tr = document.createElement('tr');
+  const cellFor = b => {
+    const v = p.buckets[b];
+    if (!v) return `<td>—</td>`;
+    const cls = v.per5min >= 0 ? 'pos' : 'neg';
+    return `<td class="${cls}">${v.per5min>=0?'+':''}${v.per5min.toFixed(2)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span></td>`;
+  };
+  tr.innerHTML = `<td>${p.name}</td><td>${p.stints}</td>${BUCKETS.map(cellFor).join('')}`;
+  tbody.appendChild(tr);
+});
+</script>
