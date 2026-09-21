@@ -28,6 +28,16 @@ Five things get built:
      (as opposed to #1, which is about individual stint length). Each
      lineup-sweep segment already is one continuous run bounded by real
      substitutions, so no extra reconstruction is needed here either.
+  6. Shot-quality decay: unlike net rating (confounded by the other 9
+     players on the floor), a player's OWN shot selection -- eFG%, shot
+     distance -- as a function of elapsed time in their current stint is
+     an individually attributable signal. Every shot's exact location and
+     result comes straight from `playbyplayv3`.
+  7. Foul-trouble cost: for every instance of a player reaching 2 personal
+     fouls in the 1st period, check whether the coach pulled them within
+     90 seconds, and if so, what the team's actual net rating was during
+     that forced-bench window (parsed straight out of each foul action's
+     own description string, e.g. "(P2.T3)").
 
 Usage:
     python3 build_tempo_analysis.py --team-id 1611661332 --season 2026 \
@@ -138,18 +148,28 @@ def _period_len(period: int) -> int:
 
 
 @functools.lru_cache(maxsize=None)
-def build_score_timeline(season: str, game_id: str) -> list[tuple[float, int, int]] | None:
+def fetch_playbyplay_actions(season: str, game_id: str) -> list[dict] | None:
     payload = fetch_json(f"playbyplayv3/{season}/{game_id}.json")
     if payload is None:
         return None
+    return payload["game"]["actions"]
+
+
+def action_elapsed_s(a: dict) -> float:
+    p = a["period"]
+    remaining = _clock_to_seconds(a["clock"])
+    return _period_offset(p) + (_period_len(p) - remaining)
+
+
+def build_score_timeline(season: str, game_id: str) -> list[tuple[float, int, int]] | None:
+    actions = fetch_playbyplay_actions(season, game_id)
+    if actions is None:
+        return None
     timeline = []
-    for a in payload["game"]["actions"]:
+    for a in actions:
         if not a.get("scoreHome"):
             continue
-        p = a["period"]
-        remaining = _clock_to_seconds(a["clock"])
-        elapsed = _period_offset(p) + (_period_len(p) - remaining)
-        timeline.append((elapsed, int(a["scoreHome"]), int(a["scoreAway"])))
+        timeline.append((action_elapsed_s(a), int(a["scoreHome"]), int(a["scoreAway"])))
     timeline.sort()
     return timeline
 
@@ -180,6 +200,152 @@ def add_margin_at_checkin(season: str, team_id: int, stints: list[dict]) -> None
             h, a = score_at(tl, s["in_s"])
             tempo, opp = (h, a) if home else (a, h)
             s["margin_at_checkin"] = tempo - opp
+
+
+def fetch_shots_and_fouls(season: str, team_id: int, games: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Every Tempo field-goal attempt (with shot quality) and personal foul,
+    across all games, with the raw elapsed-game-clock time attached."""
+    _FOUL_RE = re.compile(r"\(P(\d+)\.")
+    shots, fouls = [], []
+    for g in games:
+        actions = fetch_playbyplay_actions(season, g["gameId"])
+        if actions is None:
+            continue
+        for a in actions:
+            if a.get("teamId") != team_id:
+                continue
+            elapsed = action_elapsed_s(a)
+            if a["actionType"] in ("Made Shot", "Missed Shot"):
+                shots.append({
+                    "gameId": g["gameId"], "pId": a["personId"], "name": a["playerName"],
+                    "elapsed_s": elapsed, "period": a["period"],
+                    "made": a["actionType"] == "Made Shot",
+                    "shotValue": a["shotValue"], "shotDistance": a["shotDistance"],
+                })
+            elif a["actionType"] == "Foul":
+                m = _FOUL_RE.search(a.get("description", ""))
+                if m:
+                    fouls.append({
+                        "gameId": g["gameId"], "pId": a["personId"], "name": a["playerName"],
+                        "elapsed_s": elapsed, "period": a["period"], "personal_count": int(m.group(1)),
+                    })
+    return shots, fouls
+
+
+def match_shots_to_stints(shots: list[dict], stints_with_times: list[dict]) -> None:
+    """Mutates shots in place, adding since_checkin_s: how far into that
+    player's current stint the shot was taken."""
+    by_game_player = defaultdict(list)
+    for s in stints_with_times:
+        by_game_player[(s["gameId"], s["pId"])].append((s["in_s"], s["out_s"]))
+    for shot in shots:
+        hit = None
+        for in_s, out_s in by_game_player.get((shot["gameId"], shot["pId"]), []):
+            if in_s <= shot["elapsed_s"] <= out_s:
+                hit = in_s
+                break
+        shot["since_checkin_s"] = None if hit is None else shot["elapsed_s"] - hit
+
+
+def build_shot_quality_decay(shots: list[dict], min_fga: int = 30):
+    matched = [s for s in shots if s["since_checkin_s"] is not None]
+    lens_min = sorted(s["since_checkin_s"] / 60.0 for s in matched)
+    n = len(lens_min)
+    e1 = round(lens_min[int(33 / 100 * (n - 1))], 1)
+    e2 = round(lens_min[int(66 / 100 * (n - 1))], 1)
+    labels = [f"0-{e1:g} min", f"{e1:g}-{e2:g} min", f"{e2:g}+ min"]
+
+    def bkt(m):
+        if m < e1:
+            return labels[0]
+        if m < e2:
+            return labels[1]
+        return labels[2]
+
+    def efg_stats(sub):
+        fga = len(sub)
+        if fga == 0:
+            return None
+        fgm = sum(1 for s in sub if s["made"])
+        threes_made = sum(1 for s in sub if s["made"] and s["shotValue"] == 3)
+        efg = (fgm + 0.5 * threes_made) / fga
+        avg_dist = sum(s["shotDistance"] for s in sub) / fga
+        return {"fga": fga, "fgm": fgm, "efg": round(efg, 3), "avg_dist": round(avg_dist, 1)}
+
+    by_bucket = defaultdict(list)
+    for s in matched:
+        by_bucket[bkt(s["since_checkin_s"] / 60.0)].append(s)
+    pooled = {b: efg_stats(by_bucket[b]) for b in labels}
+
+    by_player_bucket = defaultdict(lambda: defaultdict(list))
+    names, totals = {}, defaultdict(int)
+    for s in matched:
+        pid = s["pId"]
+        by_player_bucket[pid][bkt(s["since_checkin_s"] / 60.0)].append(s)
+        names[pid] = s["name"]
+        totals[pid] += 1
+
+    players = []
+    for pid, tot in totals.items():
+        if tot < min_fga:
+            continue
+        row = {"pId": pid, "name": names[pid], "fga": tot, "buckets": {}}
+        for b in labels:
+            st = efg_stats(by_player_bucket[pid][b])
+            row["buckets"][b] = st if (st and st["fga"] >= 5) else None
+        players.append(row)
+    players.sort(key=lambda r: -r["fga"])
+
+    return labels, pooled, players
+
+
+def build_foul_trouble_cost(season: str, fouls: list[dict], stints_with_times: list[dict],
+                              home_by_game: dict, foul_count_threshold: int = 2, period_cutoff: int = 1,
+                              pull_window_s: float = 90.0):
+    """For every instance of a player reaching `foul_count_threshold` personal
+    fouls within `period_cutoff` periods, check whether the coach pulled them
+    shortly after, and if so, what the team's net rating was during that
+    forced-bench window versus checking back in."""
+    by_game_player = defaultdict(list)
+    for s in stints_with_times:
+        by_game_player[(s["gameId"], s["pId"])].append(s)
+
+    early = [f for f in fouls if f["personal_count"] == foul_count_threshold and f["period"] <= period_cutoff]
+    results = []
+    for f in early:
+        stints = by_game_player.get((f["gameId"], f["pId"]), [])
+        containing = [s for s in stints if s["in_s"] <= f["elapsed_s"] <= s["out_s"]]
+        if not containing:
+            continue
+        stint = min(containing, key=lambda s: s["out_s"] - f["elapsed_s"])
+        time_to_out = stint["out_s"] - f["elapsed_s"]
+        if time_to_out > pull_window_s:
+            continue  # coach kept them in -- not a forced-bench instance
+
+        tl = build_score_timeline(season, f["gameId"])
+        if tl is None:
+            continue
+        home = home_by_game[f["gameId"]]
+        bench_start = stint["out_s"]
+        later = sorted([s["in_s"] for s in stints if s["in_s"] > bench_start])
+        bench_end = min(later[0], 1200.0) if later else 1200.0
+        if bench_end <= bench_start:
+            continue
+        h0, a0 = score_at(tl, bench_start)
+        h1, a1 = score_at(tl, bench_end)
+        tempo0, opp0 = (h0, a0) if home else (a0, h0)
+        tempo1, opp1 = (h1, a1) if home else (a1, h1)
+        net = (tempo1 - opp1) - (tempo0 - opp0)
+        minutes = (bench_end - bench_start) / 60.0
+        results.append({
+            "name": f["name"], "gameId": f["gameId"], "bench_minutes": round(minutes, 1),
+            "net_pts": net, "per5min": round(net / minutes * 5, 2) if minutes > 0 else None,
+        })
+
+    total_min = sum(r["bench_minutes"] for r in results)
+    total_net = sum(r["net_pts"] for r in results)
+    pooled_per5 = round(total_net / total_min * 5, 2) if total_min > 0 else None
+    return {"instances": results, "pooled": {"minutes": round(total_min, 1), "net_pts": total_net, "per5min": pooled_per5}}
 
 
 # ---- bucketing ---------------------------------------------------------------
@@ -386,7 +552,8 @@ def build_benchmarks(season: str, schedule: dict, e1: float, e2: float, exclude_
 # ---- render ------------------------------------------------------------------
 
 def render(template_path: Path, out_path: Path, *, data, buckets, hist, edges, n_stints, max_stint,
-           tail_start, margin_split, benchmarks, lineups, lineup_buckets, lineup_decay_pooled, lineup_decay_per_lineup):
+           tail_start, margin_split, benchmarks, lineups, lineup_buckets, lineup_decay_pooled, lineup_decay_per_lineup,
+           shot_buckets, shot_decay_pooled, shot_decay_players, foul_trouble):
     tpl = template_path.read_text()
     tpl = tpl.replace("__DATA_JSON__", json.dumps(data))
     tpl = tpl.replace("__BUCKETS_JSON__", json.dumps(buckets))
@@ -403,6 +570,10 @@ def render(template_path: Path, out_path: Path, *, data, buckets, hist, edges, n
     tpl = tpl.replace("__LINEUP_BUCKETS_JSON__", json.dumps(lineup_buckets))
     tpl = tpl.replace("__LINEUP_DECAY_POOLED_JSON__", json.dumps(lineup_decay_pooled))
     tpl = tpl.replace("__LINEUP_DECAY_PER_LINEUP_JSON__", json.dumps(lineup_decay_per_lineup))
+    tpl = tpl.replace("__SHOT_BUCKETS_JSON__", json.dumps(shot_buckets))
+    tpl = tpl.replace("__SHOT_DECAY_POOLED_JSON__", json.dumps(shot_decay_pooled))
+    tpl = tpl.replace("__SHOT_DECAY_PLAYERS_JSON__", json.dumps(shot_decay_players))
+    tpl = tpl.replace("__FOUL_TROUBLE_JSON__", json.dumps(foul_trouble))
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(tpl)
 
@@ -456,6 +627,16 @@ def main() -> None:
     for b in benchmarks:
         print(f"  {b['label']} ({b['record']})")
 
+    print("Fetching shot + foul events...")
+    shots, fouls = fetch_shots_and_fouls(args.season, args.team_id, games)
+    match_shots_to_stints(shots, stints)
+    shot_buckets, shot_decay_pooled, shot_decay_players = build_shot_quality_decay(shots)
+    print(f"  {len(shots)} shot attempts, edges: {shot_buckets}")
+
+    home_by_game = {g["gameId"]: g["home"] for g in games}
+    foul_trouble = build_foul_trouble_cost(args.season, fouls, stints, home_by_game)
+    print(f"  {len(foul_trouble['instances'])} foul-trouble forced-bench instances, pooled {foul_trouble['pooled']}")
+
     data_dir = Path(args.data_dir)
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "stints.json").write_text(json.dumps(stints))
@@ -465,6 +646,9 @@ def main() -> None:
     (data_dir / "benchmarks.json").write_text(json.dumps(benchmarks, indent=2))
     (data_dir / "lineup_decay.json").write_text(json.dumps(
         {"bucket_order": lineup_buckets, "pooled": lineup_decay_pooled, "per_lineup": lineup_decay_per_lineup}, indent=2))
+    (data_dir / "shot_quality_decay.json").write_text(json.dumps(
+        {"bucket_order": shot_buckets, "pooled": shot_decay_pooled, "players": shot_decay_players}, indent=2))
+    (data_dir / "foul_trouble_cost.json").write_text(json.dumps(foul_trouble, indent=2))
     print(f"Wrote data files to {data_dir}/")
 
     render(
@@ -474,6 +658,8 @@ def main() -> None:
         margin_split=margin_split, benchmarks=benchmarks, lineups=lineups,
         lineup_buckets=lineup_buckets, lineup_decay_pooled=lineup_decay_pooled,
         lineup_decay_per_lineup=lineup_decay_per_lineup,
+        shot_buckets=shot_buckets, shot_decay_pooled=shot_decay_pooled, shot_decay_players=shot_decay_players,
+        foul_trouble=foul_trouble,
     )
     print(f"Rendered {args.out}")
 

@@ -184,6 +184,32 @@
       <tbody></tbody>
     </table>
   </div>
+
+  <h2 class="section-h">Does shot quality decay? (a cleaner signal than net rating)</h2>
+  <p class="section-sub">Net rating above is confounded by the other 9 players on the floor -- that's why it kept reducing to "coaches sub players out when things go wrong." A player's own shot selection isn't confounded that way. eFG% and average shot distance, by how long the shooter had been in their current stint when they took it.</p>
+  <div class="tbl-wrap">
+    <table id="shotPooledTbl">
+      <thead><tr><th>All Tempo shots</th><th id="sqB0h"></th><th id="sqB1h"></th><th id="sqB2h"></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="tbl-note">Per player (at least 30 shots this season). Green/red shows whether that bucket's eFG% is above or below the team average for that same bucket.</p>
+  <div class="tbl-wrap">
+    <table id="shotPlayerTbl">
+      <thead><tr><th>Player</th><th>FGA</th><th id="sqB0"></th><th id="sqB1"></th><th id="sqB2"></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h2 class="section-h">What does early foul trouble actually cost?</h2>
+  <p class="section-sub">Every instance this season a Tempo player reached 2 personal fouls in the 1st period and was pulled within 90 seconds. Team net rating during the resulting forced-bench window, versus the team's own season baseline.</p>
+  <p class="tbl-note" id="foulSummary"></p>
+  <div class="tbl-wrap">
+    <table id="foulTbl">
+      <thead><tr><th>Player</th><th>Bench minutes</th><th>Net pts</th><th>Net / 5min</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </main>
 
 <script>
@@ -197,6 +223,10 @@ const LINEUPS = __LINEUPS_JSON__;
 const LINEUP_BUCKETS = __LINEUP_BUCKETS_JSON__;
 const LINEUP_DECAY_POOLED = __LINEUP_DECAY_POOLED_JSON__;
 const LINEUP_DECAY_PER_LINEUP = __LINEUP_DECAY_PER_LINEUP_JSON__;
+const SHOT_BUCKETS = __SHOT_BUCKETS_JSON__;
+const SHOT_DECAY_POOLED = __SHOT_DECAY_POOLED_JSON__;
+const SHOT_DECAY_PLAYERS = __SHOT_DECAY_PLAYERS_JSON__;
+const FOUL_TROUBLE = __FOUL_TROUBLE_JSON__;
 const SCALE = 6; // symmetric axis: +/-6 net pts per 5 min
 
 const grid = document.getElementById('grid');
@@ -321,5 +351,52 @@ LINEUP_DECAY_PER_LINEUP.forEach(l => {
   };
   tr.innerHTML = `<td>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td>${LINEUP_BUCKETS.map(cellFor).join('')}`;
   lineupDecayTbody.appendChild(tr);
+});
+
+// shot quality decay -- pooled
+['sqB0h','sqB1h','sqB2h','sqB0','sqB1','sqB2'].forEach((id,i) => {
+  document.getElementById(id).textContent = SHOT_BUCKETS[i % 3];
+});
+const shotPooledTbody = document.querySelector('#shotPooledTbl tbody');
+{
+  const tr = document.createElement('tr');
+  const cellFor = b => {
+    const v = SHOT_DECAY_POOLED[b];
+    if (!v) return `<td>—</td>`;
+    return `<td>${(v.efg*100).toFixed(1)}% <span style="color:var(--muted);font-weight:400">(${v.fga} fga, ${v.avg_dist}ft)</span></td>`;
+  };
+  tr.innerHTML = `<td>eFG%</td>${SHOT_BUCKETS.map(cellFor).join('')}`;
+  shotPooledTbody.appendChild(tr);
+}
+
+// shot quality decay -- per player, colored relative to the pooled bucket average
+const shotPlayerTbody = document.querySelector('#shotPlayerTbl tbody');
+SHOT_DECAY_PLAYERS.forEach(p => {
+  const tr = document.createElement('tr');
+  const cellFor = b => {
+    const v = p.buckets[b];
+    if (!v) return `<td>—</td>`;
+    const poolAvg = SHOT_DECAY_POOLED[b] ? SHOT_DECAY_POOLED[b].efg : null;
+    const cls = poolAvg == null ? '' : (v.efg >= poolAvg ? 'pos' : 'neg');
+    return `<td class="${cls}">${(v.efg*100).toFixed(1)}% <span style="color:var(--muted);font-weight:400">(${v.fga})</span></td>`;
+  };
+  tr.innerHTML = `<td>${p.name}</td><td>${p.fga}</td>${SHOT_BUCKETS.map(cellFor).join('')}`;
+  shotPlayerTbody.appendChild(tr);
+});
+
+// foul trouble cost
+const ft = FOUL_TROUBLE;
+// season baseline net/5min, recomputed from MARGIN_SPLIT.all bucket minutes+rate
+let baseMin = 0, baseNet = 0;
+Object.values(MARGIN_SPLIT.all).forEach(v => { if (v) { baseMin += v.minutes; baseNet += v.per5min/5*v.minutes; } });
+const baseline = baseMin > 0 ? (baseNet/baseMin*5) : null;
+document.getElementById('foulSummary').textContent =
+  `${ft.instances.length} instances, ${ft.pooled.minutes} total forced-bench minutes. Team net rating in those windows: ${ft.pooled.per5min>=0?'+':''}${ft.pooled.per5min.toFixed(2)} pts/5min, vs the team's own season baseline of ${baseline!=null?(baseline>=0?'+':'')+baseline.toFixed(2):'n/a'} pts/5min. Sample is small (18 instances) -- read as a hint, not a verdict.`;
+const foulTbody = document.querySelector('#foulTbl tbody');
+ft.instances.forEach(i => {
+  const tr = document.createElement('tr');
+  const cls = i.per5min >= 0 ? 'pos' : 'neg';
+  tr.innerHTML = `<td>${i.name}</td><td>${i.bench_minutes}</td><td class="${cls}">${i.net_pts>=0?'+':''}${i.net_pts}</td><td class="${cls}">${i.per5min>=0?'+':''}${i.per5min.toFixed(2)}</td>`;
+  foulTbody.appendChild(tr);
 });
 </script>

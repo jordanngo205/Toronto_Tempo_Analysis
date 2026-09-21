@@ -1,0 +1,354 @@
+{
+  "bucket_order": [
+    "0-2.3 min",
+    "2.3-4.9 min",
+    "4.9+ min"
+  ],
+  "pooled": {
+    "0-2.3 min": {
+      "fga": 853,
+      "fgm": 371,
+      "efg": 0.503,
+      "avg_dist": 11.6
+    },
+    "2.3-4.9 min": {
+      "fga": 890,
+      "fgm": 391,
+      "efg": 0.516,
+      "avg_dist": 11.9
+    },
+    "4.9+ min": {
+      "fga": 900,
+      "fgm": 401,
+      "efg": 0.516,
+      "avg_dist": 12.1
+    }
+  },
+  "players": [
+    {
+      "pId": 1629497,
+      "name": "Mabrey",
+      "fga": 474,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 122,
+          "fgm": 47,
+          "efg": 0.471,
+          "avg_dist": 15.8
+        },
+        "2.3-4.9 min": {
+          "fga": 133,
+          "fgm": 66,
+          "efg": 0.643,
+          "avg_dist": 16.9
+        },
+        "4.9+ min": {
+          "fga": 219,
+          "fgm": 97,
+          "efg": 0.537,
+          "avg_dist": 15.6
+        }
+      }
+    },
+    {
+      "pId": 1643420,
+      "name": "Juskaite",
+      "fga": 305,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 79,
+          "fgm": 39,
+          "efg": 0.551,
+          "avg_dist": 8.6
+        },
+        "2.3-4.9 min": {
+          "fga": 110,
+          "fgm": 48,
+          "efg": 0.505,
+          "avg_dist": 9.1
+        },
+        "4.9+ min": {
+          "fga": 116,
+          "fgm": 53,
+          "efg": 0.517,
+          "avg_dist": 11.2
+        }
+      }
+    },
+    {
+      "pId": 204330,
+      "name": "Harrison",
+      "fga": 284,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 107,
+          "fgm": 55,
+          "efg": 0.57,
+          "avg_dist": 9.1
+        },
+        "2.3-4.9 min": {
+          "fga": 118,
+          "fgm": 48,
+          "efg": 0.428,
+          "avg_dist": 8.7
+        },
+        "4.9+ min": {
+          "fga": 59,
+          "fgm": 24,
+          "efg": 0.415,
+          "avg_dist": 8.3
+        }
+      }
+    },
+    {
+      "pId": 1629576,
+      "name": "Conde",
+      "fga": 274,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 75,
+          "fgm": 29,
+          "efg": 0.48,
+          "avg_dist": 15.0
+        },
+        "2.3-4.9 min": {
+          "fga": 84,
+          "fgm": 26,
+          "efg": 0.399,
+          "avg_dist": 15.6
+        },
+        "4.9+ min": {
+          "fga": 115,
+          "fgm": 47,
+          "efg": 0.513,
+          "avg_dist": 11.5
+        }
+      }
+    },
+    {
+      "pId": 1628279,
+      "name": "Sykes",
+      "fga": 224,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 48,
+          "fgm": 23,
+          "efg": 0.51,
+          "avg_dist": 10.9
+        },
+        "2.3-4.9 min": {
+          "fga": 60,
+          "fgm": 22,
+          "efg": 0.375,
+          "avg_dist": 10.5
+        },
+        "4.9+ min": {
+          "fga": 116,
+          "fgm": 46,
+          "efg": 0.435,
+          "avg_dist": 10.5
+        }
+      }
+    },
+    {
+      "pId": 1643445,
+      "name": "Rice",
+      "fga": 206,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 67,
+          "fgm": 34,
+          "efg": 0.597,
+          "avg_dist": 12.3
+        },
+        "2.3-4.9 min": {
+          "fga": 59,
+          "fgm": 25,
+          "efg": 0.458,
+          "avg_dist": 10.5
+        },
+        "4.9+ min": {
+          "fga": 80,
+          "fgm": 40,
+          "efg": 0.531,
+          "avg_dist": 9.6
+        }
+      }
+    },
+    {
+      "pId": 1631055,
+      "name": "Sabally",
+      "fga": 200,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 84,
+          "fgm": 44,
+          "efg": 0.565,
+          "avg_dist": 6.8
+        },
+        "2.3-4.9 min": {
+          "fga": 86,
+          "fgm": 47,
+          "efg": 0.622,
+          "avg_dist": 9.1
+        },
+        "4.9+ min": {
+          "fga": 30,
+          "fgm": 14,
+          "efg": 0.467,
+          "avg_dist": 6.3
+        }
+      }
+    },
+    {
+      "pId": 1628915,
+      "name": "Nurse",
+      "fga": 178,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 68,
+          "fgm": 18,
+          "efg": 0.375,
+          "avg_dist": 15.9
+        },
+        "2.3-4.9 min": {
+          "fga": 69,
+          "fgm": 28,
+          "efg": 0.522,
+          "avg_dist": 16.3
+        },
+        "4.9+ min": {
+          "fga": 41,
+          "fgm": 17,
+          "efg": 0.561,
+          "avg_dist": 16.0
+        }
+      }
+    },
+    {
+      "pId": 1627700,
+      "name": "Allemand",
+      "fga": 122,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 40,
+          "fgm": 18,
+          "efg": 0.575,
+          "avg_dist": 20.6
+        },
+        "2.3-4.9 min": {
+          "fga": 32,
+          "fgm": 21,
+          "efg": 0.859,
+          "avg_dist": 17.2
+        },
+        "4.9+ min": {
+          "fga": 50,
+          "fgm": 27,
+          "efg": 0.67,
+          "avg_dist": 15.1
+        }
+      }
+    },
+    {
+      "pId": 1627701,
+      "name": "Fagbenle",
+      "fga": 99,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 48,
+          "fgm": 20,
+          "efg": 0.448,
+          "avg_dist": 7.5
+        },
+        "2.3-4.9 min": {
+          "fga": 33,
+          "fgm": 18,
+          "efg": 0.606,
+          "avg_dist": 5.1
+        },
+        "4.9+ min": {
+          "fga": 18,
+          "fgm": 13,
+          "efg": 0.806,
+          "avg_dist": 11.4
+        }
+      }
+    },
+    {
+      "pId": 1643457,
+      "name": "Key",
+      "fga": 71,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 35,
+          "fgm": 14,
+          "efg": 0.414,
+          "avg_dist": 4.4
+        },
+        "2.3-4.9 min": {
+          "fga": 27,
+          "fgm": 12,
+          "efg": 0.481,
+          "avg_dist": 6.9
+        },
+        "4.9+ min": {
+          "fga": 9,
+          "fgm": 2,
+          "efg": 0.222,
+          "avg_dist": 4.9
+        }
+      }
+    },
+    {
+      "pId": 1643647,
+      "name": "Pouye",
+      "fga": 55,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 22,
+          "fgm": 10,
+          "efg": 0.545,
+          "avg_dist": 10.3
+        },
+        "2.3-4.9 min": {
+          "fga": 27,
+          "fgm": 7,
+          "efg": 0.315,
+          "avg_dist": 13.6
+        },
+        "4.9+ min": {
+          "fga": 6,
+          "fgm": 2,
+          "efg": 0.417,
+          "avg_dist": 13.8
+        }
+      }
+    },
+    {
+      "pId": 1642800,
+      "name": "Morrow",
+      "fga": 54,
+      "buckets": {
+        "0-2.3 min": {
+          "fga": 16,
+          "fgm": 4,
+          "efg": 0.281,
+          "avg_dist": 11.7
+        },
+        "2.3-4.9 min": {
+          "fga": 20,
+          "fgm": 9,
+          "efg": 0.5,
+          "avg_dist": 10.5
+        },
+        "4.9+ min": {
+          "fga": 18,
+          "fgm": 10,
+          "efg": 0.583,
+          "avg_dist": 9.9
+        }
+      }
+    }
+  ]
+}
