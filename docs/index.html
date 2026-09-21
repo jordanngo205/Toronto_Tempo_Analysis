@@ -103,6 +103,11 @@
   .tbl-wrap { overflow-x: auto; }
   td.pos { color: var(--pos); font-weight: 600; }
   td.neg { color: var(--neg); font-weight: 600; }
+
+  .section-h { font-size: 15px; font-weight: 800; margin: 30px 0 4px; letter-spacing: -0.01em; }
+  .section-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; max-width: 68ch; }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .card-sub { font-size: 10.5px; color: var(--muted); margin-top: -2px; margin-bottom: 4px; }
 </style>
 
 <header>
@@ -147,6 +152,25 @@
       </table>
     </div>
   </details>
+
+  <h2 class="section-h">Does this hold in a competitive game?</h2>
+  <p class="section-sub">Same buckets, split by the score margin when the player checked in. If the short-stint pattern is mostly coaches reacting to blowouts, it should mostly disappear in the "close" column.</p>
+  <div class="grid grid-3" id="marginGrid"></div>
+
+  <h2 class="section-h">Is this just Tempo, or every team?</h2>
+  <p class="section-sub">Same buckets applied to the league's best and worst records this season, for context on whether Tempo's pattern is unusual.</p>
+  <div class="grid grid-3" id="benchGrid"></div>
+
+  <h2 class="section-h">Which 5-man lineups actually work</h2>
+  <p class="section-sub">Reconstructed from on/off overlap, scored against the same play-by-play. Lineups with at least 15 minutes together.</p>
+  <div class="tbl-wrap">
+    <table id="lineupTbl">
+      <thead>
+        <tr><th>Lineup</th><th>Minutes</th><th>Net / 5min</th><th>Segments</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </main>
 
 <script>
@@ -154,10 +178,49 @@ const DATA = [{"pId": 1643420, "name": "Laura Juskaite", "stints": 157, "total_m
 const BUCKETS = ["0-4.1 min", "4.1-6.5 min", "6.5+ min"];
 const HIST = [{"bin": "0-1", "count": 41}, {"bin": "1-2", "count": 71}, {"bin": "2-3", "count": 126}, {"bin": "3-4", "count": 185}, {"bin": "4-5", "count": 190}, {"bin": "5-6", "count": 172}, {"bin": "6-7", "count": 145}, {"bin": "7-8", "count": 115}, {"bin": "8-9", "count": 97}, {"bin": "9-10", "count": 38}, {"bin": "10-11", "count": 43}, {"bin": "11-12", "count": 19}, {"bin": "12-13", "count": 9}, {"bin": "13-14", "count": 13}, {"bin": "14-15", "count": 10}, {"bin": "15-16", "count": 9}, {"bin": "16-17", "count": 19}, {"bin": "17-18", "count": 4}, {"bin": "18-19", "count": 4}, {"bin": "19-20", "count": 2}, {"bin": "20+", "count": 8}];
 const EDGES = [4.1, 6.5];
+const MARGIN_SPLIT = {"all": {"0-4.1 min": {"per5min": -1.82, "minutes": 1146.8, "stints": 435}, "4.1-6.5 min": {"per5min": -1.37, "minutes": 2193.8, "stints": 422}, "6.5+ min": {"per5min": -0.58, "minutes": 4459.5, "stints": 463}}, "close": {"0-4.1 min": {"per5min": -2.06, "minutes": 668.0, "stints": 245}, "4.1-6.5 min": {"per5min": -1.54, "minutes": 1564.4, "stints": 303}, "6.5+ min": {"per5min": -1.22, "minutes": 3216.6, "stints": 331}}, "blowout": {"0-4.1 min": {"per5min": -1.48, "minutes": 478.8, "stints": 190}, "4.1-6.5 min": {"per5min": -0.94, "minutes": 629.3, "stints": 119}, "6.5+ min": {"per5min": 1.08, "minutes": 1242.9, "stints": 132}}};
+const BENCHMARKS = [{"label": "Minnesota Lynx", "record": "31-9", "buckets": {"0-4.1 min": {"per5min": -0.4, "minutes": 754.2, "stints": 310}, "4.1-6.5 min": {"per5min": 0.99, "minutes": 1298.3, "stints": 245}, "6.5+ min": {"per5min": 1.21, "minutes": 5747.5, "stints": 532}}}, {"label": "Seattle Storm", "record": "8-31", "buckets": {"0-4.1 min": {"per5min": -2.2, "minutes": 1207.8, "stints": 472}, "4.1-6.5 min": {"per5min": -1.39, "minutes": 2054.0, "stints": 396}, "6.5+ min": {"per5min": 0.05, "minutes": 4538.2, "stints": 455}}}];
+const LINEUPS = [{"names": ["Isabelle Harrison", "Julie Allemand", "Marina Mabrey", "Maria Conde", "Laura Juskaite"], "minutes": 68.2, "per5min": -0.29, "segments": 27}, {"names": ["Julie Allemand", "Marina Mabrey", "Maria Conde", "Nyara Sabally", "Laura Juskaite"], "minutes": 62.1, "per5min": -2.41, "segments": 25}, {"names": ["Brittney Sykes", "Marina Mabrey", "Nyara Sabally", "Laura Juskaite", "Kiki Rice"], "minutes": 60.8, "per5min": -0.33, "segments": 23}, {"names": ["Julie Allemand", "Temi Fagbenle", "Marina Mabrey", "Maria Conde", "Laura Juskaite"], "minutes": 43.6, "per5min": 2.98, "segments": 17}, {"names": ["Isabelle Harrison", "Julie Allemand", "Marina Mabrey", "Maria Conde", "Nyara Sabally"], "minutes": 41.4, "per5min": -0.24, "segments": 17}, {"names": ["Brittney Sykes", "Marina Mabrey", "Maria Conde", "Laura Juskaite", "Kiki Rice"], "minutes": 31.3, "per5min": 0.16, "segments": 8}, {"names": ["Isabelle Harrison", "Julie Allemand", "Brittney Sykes", "Marina Mabrey", "Laura Juskaite"], "minutes": 28.7, "per5min": -1.4, "segments": 9}, {"names": ["Julie Allemand", "Maria Conde", "Nyara Sabally", "Laura Juskaite", "Kiki Rice"], "minutes": 24.8, "per5min": 5.45, "segments": 6}, {"names": ["Isabelle Harrison", "Temi Fagbenle", "Kia Nurse", "Laura Juskaite", "Kiki Rice"], "minutes": 23.3, "per5min": -4.29, "segments": 9}, {"names": ["Julie Allemand", "Brittney Sykes", "Marina Mabrey", "Nyara Sabally", "Laura Juskaite"], "minutes": 20.0, "per5min": 1.0, "segments": 8}, {"names": ["Brittney Sykes", "Marina Mabrey", "Maria Conde", "Kiki Rice", "Teonni Key"], "minutes": 19.6, "per5min": -0.51, "segments": 7}, {"names": ["Isabelle Harrison", "Julie Allemand", "Kia Nurse", "Maria Conde", "Nyara Sabally"], "minutes": 19.5, "per5min": -4.88, "segments": 9}, {"names": ["Isabelle Harrison", "Julie Allemand", "Temi Fagbenle", "Laura Juskaite", "Kiki Rice"], "minutes": 19.0, "per5min": -0.79, "segments": 6}, {"names": ["Isabelle Harrison", "Julie Allemand", "Temi Fagbenle", "Marina Mabrey", "Maria Conde"], "minutes": 18.4, "per5min": -0.54, "segments": 9}, {"names": ["Brittney Sykes", "Marina Mabrey", "Maria Conde", "Nyara Sabally", "Kiki Rice"], "minutes": 17.1, "per5min": -2.05, "segments": 10}, {"names": ["Isabelle Harrison", "Julie Allemand", "Kia Nurse", "Maria Conde", "Laura Juskaite"], "minutes": 16.7, "per5min": -4.5, "segments": 10}];
 const SCALE = 6; // symmetric axis: +/-6 net pts per 5 min
 
 const grid = document.getElementById('grid');
 const tbody = document.querySelector('#tbl tbody');
+
+function barsHtmlFor(buckets, label) {
+  return BUCKETS.map(b => {
+    const v = buckets[b];
+    if (!v) {
+      return `<div class="bar-col"><div class="bar-val na" style="top:calc(50% - 14px)">n/a</div></div>`;
+    }
+    const pct = Math.min(Math.abs(v.per5min) / SCALE, 1) * 50;
+    const isPos = v.per5min >= 0;
+    const thin = (v.minutes < 15 || v.stints < 3) ? ' thin' : '';
+    const barStyle = isPos
+      ? `height:${pct}%; top:${50 - pct}%; background:var(--pos)`
+      : `height:${pct}%; top:50%; background:var(--neg)`;
+    const labelTop = isPos ? `calc(${50 - pct}% - 15px)` : `calc(${50 + pct}% + 3px)`;
+    return `<div class="bar-col" title="${label} — ${b}: ${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} net pts / 5 min over ${v.minutes} min across ${v.stints} stint${v.stints===1?'':'s'}">
+      <div class="bar${thin}" style="${barStyle}"></div>
+      <div class="bar-val ${isPos?'pos':'neg'}" style="top:${labelTop}">${v.per5min>=0?'+':''}${v.per5min.toFixed(1)}</div>
+    </div>`;
+  }).join('');
+}
+
+function makeCard(title, subtitle, nTag, buckets) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-head">
+      <div class="card-name">${title}</div>
+      <div class="card-n">${nTag}</div>
+    </div>
+    ${subtitle ? `<div class="card-sub">${subtitle}</div>` : ''}
+    <div class="chart"><div class="zero-line"></div>${barsHtmlFor(buckets, title)}</div>
+    <div class="bucket-labels">${BUCKETS.map(b=>`<span>${b}</span>`).join('')}</div>
+    <div class="bucket-mins">${BUCKETS.map(b=>{const v=buckets[b]; return `<span>${v?v.minutes+'m &middot; '+v.stints+'x':''}</span>`;}).join('')}</div>
+  `;
+  return card;
+}
 
 // histogram
 const histEl = document.getElementById('hist');
@@ -174,37 +237,7 @@ HIST.forEach((h, i) => {
 });
 
 DATA.forEach(p => {
-  const card = document.createElement('div');
-  card.className = 'card';
-
-  const barsHtml = BUCKETS.map(b => {
-    const v = p.buckets[b];
-    if (!v) {
-      return `<div class="bar-col"><div class="bar-val na" style="top:calc(50% - 14px)">n/a</div></div>`;
-    }
-    const pct = Math.min(Math.abs(v.per5min) / SCALE, 1) * 50;
-    const isPos = v.per5min >= 0;
-    const thin = (v.minutes < 15 || v.stints < 3) ? ' thin' : '';
-    const barStyle = isPos
-      ? `height:${pct}%; top:${50 - pct}%; background:var(--pos)`
-      : `height:${pct}%; top:50%; background:var(--neg)`;
-    const labelTop = isPos ? `calc(${50 - pct}% - 15px)` : `calc(${50 + pct}% + 3px)`;
-    return `<div class="bar-col" title="${p.name} — ${b}: ${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} net pts / 5 min over ${v.minutes} min across ${v.stints} stint${v.stints===1?'':'s'}">
-      <div class="bar${thin}" style="${barStyle}"></div>
-      <div class="bar-val ${isPos?'pos':'neg'}" style="top:${labelTop}">${v.per5min>=0?'+':''}${v.per5min.toFixed(1)}</div>
-    </div>`;
-  }).join('');
-
-  card.innerHTML = `
-    <div class="card-head">
-      <div class="card-name">${p.name}</div>
-      <div class="card-n">${p.stints} stints</div>
-    </div>
-    <div class="chart"><div class="zero-line"></div>${barsHtml}</div>
-    <div class="bucket-labels">${BUCKETS.map(b=>`<span>${b}</span>`).join('')}</div>
-    <div class="bucket-mins">${BUCKETS.map(b=>{const v=p.buckets[b]; return `<span>${v?v.minutes+'m &middot; '+v.stints+'x':''}</span>`;}).join('')}</div>
-  `;
-  grid.appendChild(card);
+  grid.appendChild(makeCard(p.name, null, `${p.stints} stints`, p.buckets));
 
   const tr = document.createElement('tr');
   const cellFor = b => {
@@ -215,5 +248,35 @@ DATA.forEach(p => {
   };
   tr.innerHTML = `<td>${p.name}</td><td>${p.stints}</td>${BUCKETS.map(cellFor).join('')}`;
   tbody.appendChild(tr);
+});
+
+// score-margin-at-checkin split
+const marginGrid = document.getElementById('marginGrid');
+const marginRows = [
+  ['All stints', MARGIN_SPLIT.all, ''],
+  ['Close at check-in', MARGIN_SPLIT.close, '&le;10 pt margin'],
+  ['Blowout at check-in', MARGIN_SPLIT.blowout, '&gt;10 pt margin'],
+];
+marginRows.forEach(([title, buckets, sub]) => {
+  const nTag = Object.values(buckets).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' stints';
+  marginGrid.appendChild(makeCard(title, sub, nTag, buckets));
+});
+
+// league benchmark
+const benchGrid = document.getElementById('benchGrid');
+benchGrid.appendChild(makeCard('Toronto Tempo', 'this team', `${DATA.reduce((s,p)=>s+p.stints,0)} stints`, MARGIN_SPLIT.all));
+BENCHMARKS.forEach(b => {
+  const nTag = Object.values(b.buckets).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' stints';
+  benchGrid.appendChild(makeCard(b.label, b.record, nTag, b.buckets));
+});
+
+// lineups
+const lineupTbody = document.querySelector('#lineupTbl tbody');
+LINEUPS.forEach(l => {
+  const tr = document.createElement('tr');
+  const cls = l.per5min >= 0 ? 'pos' : 'neg';
+  const thin = l.segments < 5 ? ' style="opacity:.55"' : '';
+  tr.innerHTML = `<td${thin}>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td><td${thin}>${l.minutes}</td><td class="${cls}"${thin}>${l.per5min>=0?'+':''}${l.per5min.toFixed(2)}</td><td${thin}>${l.segments}</td>`;
+  lineupTbody.appendChild(tr);
 });
 </script>

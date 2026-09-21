@@ -1,0 +1,53 @@
+{
+  "all": {
+    "0-4.1 min": {
+      "per5min": -1.82,
+      "minutes": 1146.8,
+      "stints": 435
+    },
+    "4.1-6.5 min": {
+      "per5min": -1.37,
+      "minutes": 2193.8,
+      "stints": 422
+    },
+    "6.5+ min": {
+      "per5min": -0.58,
+      "minutes": 4459.5,
+      "stints": 463
+    }
+  },
+  "close": {
+    "0-4.1 min": {
+      "per5min": -2.06,
+      "minutes": 668.0,
+      "stints": 245
+    },
+    "4.1-6.5 min": {
+      "per5min": -1.54,
+      "minutes": 1564.4,
+      "stints": 303
+    },
+    "6.5+ min": {
+      "per5min": -1.22,
+      "minutes": 3216.6,
+      "stints": 331
+    }
+  },
+  "blowout": {
+    "0-4.1 min": {
+      "per5min": -1.48,
+      "minutes": 478.8,
+      "stints": 190
+    },
+    "4.1-6.5 min": {
+      "per5min": -0.94,
+      "minutes": 629.3,
+      "stints": 119
+    },
+    "6.5+ min": {
+      "per5min": 1.08,
+      "minutes": 1242.9,
+      "stints": 132
+    }
+  }
+}
