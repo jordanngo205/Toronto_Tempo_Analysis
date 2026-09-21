@@ -9,7 +9,7 @@ HTTPS from raw.githubusercontent.com -- not a full git clone (the repo is
 4+ GB) and not a live call to stats.wnba.com itself (that API blocks
 requests from cloud/datacenter IPs, which is what GitHub Actions runners are).
 
-Four things get built:
+Five things get built:
   1. Per-player net rating by stint length, bucket edges set from the real
      stint-length distribution (terciles) via the `gamerotation` endpoint
      (which records every stint's check-in/check-out/point-diff directly --
@@ -23,6 +23,11 @@ Four things get built:
   4. The same short-vs-long bucket pattern for two benchmark teams (best and
      worst record in the league), to see whether Tempo's pattern is unusual
      or just a league-wide coaching/substitution artifact.
+  5. Lineup decay: does a specific 5-man unit's performance change the
+     longer THAT exact lineup has been on the floor together, continuously
+     (as opposed to #1, which is about individual stint length). Each
+     lineup-sweep segment already is one continuous run bounded by real
+     substitutions, so no extra reconstruction is needed here either.
 
 Usage:
     python3 build_tempo_analysis.py --team-id 1611661332 --season 2026 \
@@ -31,6 +36,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import functools
 import json
 import re
 import urllib.request
@@ -131,6 +137,7 @@ def _period_len(period: int) -> int:
     return 600 if period <= 4 else 300
 
 
+@functools.lru_cache(maxsize=None)
 def build_score_timeline(season: str, game_id: str) -> list[tuple[float, int, int]] | None:
     payload = fetch_json(f"playbyplayv3/{season}/{game_id}.json")
     if payload is None:
@@ -260,14 +267,16 @@ def build_histogram(stints: list[dict], tail_start: int = 20):
 
 # ---- lineups ------------------------------------------------------------------
 
-def build_lineups(season: str, stints_with_times: list[dict], min_minutes: float = 15.0) -> list[dict]:
+def build_lineup_segments(season: str, stints_with_times: list[dict]) -> tuple[list[dict], dict]:
+    """Every maximal continuous run of a given 5-man unit (bounded by real
+    substitutions -- each boundary in the sweep is an actual Tempo sub, so
+    each segment IS one continuous lineup stint, not an arbitrary slice)."""
     by_game = defaultdict(list)
     for s in stints_with_times:
         by_game[s["gameId"]].append(s)
-
     names = {s["pId"]: s["name"] for s in stints_with_times}
-    lineup_agg = defaultdict(lambda: {"seconds": 0.0, "net_pts": 0.0, "segments": 0})
 
+    segments = []
     for gid, glist in by_game.items():
         tl = build_score_timeline(season, gid)
         if tl is None:
@@ -285,10 +294,17 @@ def build_lineups(season: str, stints_with_times: list[dict], min_minutes: float
             tempo0, opp0 = (h0, a0) if home else (a0, h0)
             tempo1, opp1 = (h1, a1) if home else (a1, h1)
             net = (tempo1 - opp1) - (tempo0 - opp0)
-            key = tuple(sorted(on_court))
-            lineup_agg[key]["seconds"] += (t1 - t0)
-            lineup_agg[key]["net_pts"] += net
-            lineup_agg[key]["segments"] += 1
+            segments.append({"key": tuple(sorted(on_court)), "length_s": t1 - t0, "net_pts": net})
+    return segments, names
+
+
+def build_lineups(segments: list[dict], names: dict, min_minutes: float = 15.0) -> list[dict]:
+    lineup_agg = defaultdict(lambda: {"seconds": 0.0, "net_pts": 0.0, "segments": 0})
+    for s in segments:
+        d = lineup_agg[s["key"]]
+        d["seconds"] += s["length_s"]
+        d["net_pts"] += s["net_pts"]
+        d["segments"] += 1
 
     rows = []
     for key, d in lineup_agg.items():
@@ -304,6 +320,53 @@ def build_lineups(season: str, stints_with_times: list[dict], min_minutes: float
         })
     rows.sort(key=lambda r: -r["minutes"])
     return rows
+
+
+def build_lineup_decay(segments: list[dict], names: dict, top_n: int = 6, min_lineup_segments: int = 10):
+    """Does a 5-man unit's own performance decay the longer that exact
+    lineup has been on the floor together, continuously (separate question
+    from individual player stint length)."""
+    lens_min = sorted(s["length_s"] / 60.0 for s in segments)
+    n = len(lens_min)
+    e1 = round(lens_min[int(33 / 100 * (n - 1))], 2)
+    e2 = round(lens_min[int(66 / 100 * (n - 1))], 2)
+    labels = [f"0-{e1:g} min", f"{e1:g}-{e2:g} min", f"{e2:g}+ min"]
+
+    def bucketed(seglist):
+        by_bucket = defaultdict(lambda: {"minutes": 0.0, "net_pts": 0.0, "stints": 0})
+        for s in seglist:
+            m = s["length_s"] / 60.0
+            b = bucket_for(m, e1, e2, labels)
+            by_bucket[b]["minutes"] += m
+            by_bucket[b]["net_pts"] += s["net_pts"]
+            by_bucket[b]["stints"] += 1
+        out = {}
+        for b in labels:
+            d = by_bucket[b]
+            out[b] = None if d["minutes"] < 1 else {"per5min": round(d["net_pts"] / d["minutes"] * 5, 2),
+                                                       "minutes": round(d["minutes"], 1), "stints": d["stints"]}
+        return out
+
+    pooled = bucketed(segments)
+
+    by_lineup = defaultdict(list)
+    for s in segments:
+        by_lineup[s["key"]].append(s)
+    top = sorted(by_lineup.items(), key=lambda kv: -sum(x["length_s"] for x in kv[1]))
+    per_lineup = []
+    for key, seglist in top:
+        if len(seglist) < min_lineup_segments:
+            continue
+        if len(per_lineup) >= top_n:
+            break
+        per_lineup.append({
+            "names": [names[p] for p in key],
+            "total_minutes": round(sum(x["length_s"] for x in seglist) / 60.0, 1),
+            "runs": len(seglist),
+            "buckets": bucketed(seglist),
+        })
+
+    return labels, pooled, per_lineup
 
 
 # ---- benchmark teams ------------------------------------------------------------
@@ -323,7 +386,7 @@ def build_benchmarks(season: str, schedule: dict, e1: float, e2: float, exclude_
 # ---- render ------------------------------------------------------------------
 
 def render(template_path: Path, out_path: Path, *, data, buckets, hist, edges, n_stints, max_stint,
-           tail_start, margin_split, benchmarks, lineups):
+           tail_start, margin_split, benchmarks, lineups, lineup_buckets, lineup_decay_pooled, lineup_decay_per_lineup):
     tpl = template_path.read_text()
     tpl = tpl.replace("__DATA_JSON__", json.dumps(data))
     tpl = tpl.replace("__BUCKETS_JSON__", json.dumps(buckets))
@@ -337,6 +400,9 @@ def render(template_path: Path, out_path: Path, *, data, buckets, hist, edges, n
     tpl = tpl.replace("__MARGIN_SPLIT_JSON__", json.dumps(margin_split))
     tpl = tpl.replace("__BENCHMARKS_JSON__", json.dumps(benchmarks))
     tpl = tpl.replace("__LINEUPS_JSON__", json.dumps(lineups))
+    tpl = tpl.replace("__LINEUP_BUCKETS_JSON__", json.dumps(lineup_buckets))
+    tpl = tpl.replace("__LINEUP_DECAY_POOLED_JSON__", json.dumps(lineup_decay_pooled))
+    tpl = tpl.replace("__LINEUP_DECAY_PER_LINEUP_JSON__", json.dumps(lineup_decay_per_lineup))
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(tpl)
 
@@ -378,8 +444,12 @@ def main() -> None:
     print(f"  close: {len(close)} stints, blowout: {len(blowout)} stints")
 
     print("Reconstructing 5-man lineups...")
-    lineups = build_lineups(args.season, stints)
-    print(f"  {len(lineups)} lineups with >=15 min")
+    lineup_segments, lineup_names = build_lineup_segments(args.season, stints)
+    lineups = build_lineups(lineup_segments, lineup_names)
+    print(f"  {len(lineups)} lineups with >=15 min, {len(lineup_segments)} continuous-run segments total")
+
+    lineup_buckets, lineup_decay_pooled, lineup_decay_per_lineup = build_lineup_decay(lineup_segments, lineup_names)
+    print(f"  lineup-continuity edges: {lineup_buckets}")
 
     print("Fetching benchmark teams...")
     benchmarks = build_benchmarks(args.season, schedule, e1, e2, exclude_team_id=args.team_id)
@@ -393,6 +463,8 @@ def main() -> None:
     (data_dir / "margin_split.json").write_text(json.dumps(margin_split, indent=2))
     (data_dir / "lineups.json").write_text(json.dumps(lineups, indent=2))
     (data_dir / "benchmarks.json").write_text(json.dumps(benchmarks, indent=2))
+    (data_dir / "lineup_decay.json").write_text(json.dumps(
+        {"bucket_order": lineup_buckets, "pooled": lineup_decay_pooled, "per_lineup": lineup_decay_per_lineup}, indent=2))
     print(f"Wrote data files to {data_dir}/")
 
     render(
@@ -400,6 +472,8 @@ def main() -> None:
         data=players, buckets=buckets, hist=hist, edges=(e1, e2),
         n_stints=len(stints), max_stint=max_stint, tail_start=20,
         margin_split=margin_split, benchmarks=benchmarks, lineups=lineups,
+        lineup_buckets=lineup_buckets, lineup_decay_pooled=lineup_decay_pooled,
+        lineup_decay_per_lineup=lineup_decay_per_lineup,
     )
     print(f"Rendered {args.out}")
 

@@ -171,6 +171,19 @@
       <tbody></tbody>
     </table>
   </div>
+
+  <h2 class="section-h">Do lineups decay too?</h2>
+  <p class="section-sub">Different question from stint length above: does a specific 5-man unit's performance change the longer <em>that exact group</em> has been on the floor together, continuously (any substitution among the 5 ends the run). Pooled across every lineup first, since per-lineup samples get thin fast.</p>
+  <div class="grid grid-3" id="lineupDecayPooledGrid"></div>
+  <p class="tbl-note" id="lineupDecayNote"></p>
+  <div class="tbl-wrap">
+    <table id="lineupDecayTbl">
+      <thead>
+        <tr><th>Lineup</th><th id="ldB0"></th><th id="ldB1"></th><th id="ldB2"></th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 </main>
 
 <script>
@@ -181,13 +194,17 @@ const EDGES = __EDGES_JSON__;
 const MARGIN_SPLIT = __MARGIN_SPLIT_JSON__;
 const BENCHMARKS = __BENCHMARKS_JSON__;
 const LINEUPS = __LINEUPS_JSON__;
+const LINEUP_BUCKETS = __LINEUP_BUCKETS_JSON__;
+const LINEUP_DECAY_POOLED = __LINEUP_DECAY_POOLED_JSON__;
+const LINEUP_DECAY_PER_LINEUP = __LINEUP_DECAY_PER_LINEUP_JSON__;
 const SCALE = 6; // symmetric axis: +/-6 net pts per 5 min
 
 const grid = document.getElementById('grid');
 const tbody = document.querySelector('#tbl tbody');
 
-function barsHtmlFor(buckets, label) {
-  return BUCKETS.map(b => {
+function barsHtmlFor(buckets, label, labels) {
+  labels = labels || BUCKETS;
+  return labels.map(b => {
     const v = buckets[b];
     if (!v) {
       return `<div class="bar-col"><div class="bar-val na" style="top:calc(50% - 14px)">n/a</div></div>`;
@@ -206,7 +223,8 @@ function barsHtmlFor(buckets, label) {
   }).join('');
 }
 
-function makeCard(title, subtitle, nTag, buckets) {
+function makeCard(title, subtitle, nTag, buckets, labels) {
+  labels = labels || BUCKETS;
   const card = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
@@ -215,9 +233,9 @@ function makeCard(title, subtitle, nTag, buckets) {
       <div class="card-n">${nTag}</div>
     </div>
     ${subtitle ? `<div class="card-sub">${subtitle}</div>` : ''}
-    <div class="chart"><div class="zero-line"></div>${barsHtmlFor(buckets, title)}</div>
-    <div class="bucket-labels">${BUCKETS.map(b=>`<span>${b}</span>`).join('')}</div>
-    <div class="bucket-mins">${BUCKETS.map(b=>{const v=buckets[b]; return `<span>${v?v.minutes+'m &middot; '+v.stints+'x':''}</span>`;}).join('')}</div>
+    <div class="chart"><div class="zero-line"></div>${barsHtmlFor(buckets, title, labels)}</div>
+    <div class="bucket-labels">${labels.map(b=>`<span>${b}</span>`).join('')}</div>
+    <div class="bucket-mins">${labels.map(b=>{const v=buckets[b]; return `<span>${v?v.minutes+'m &middot; '+v.stints+'x':''}</span>`;}).join('')}</div>
   `;
   return card;
 }
@@ -278,5 +296,30 @@ LINEUPS.forEach(l => {
   const thin = l.segments < 5 ? ' style="opacity:.55"' : '';
   tr.innerHTML = `<td${thin}>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td><td${thin}>${l.minutes}</td><td class="${cls}"${thin}>${l.per5min>=0?'+':''}${l.per5min.toFixed(2)}</td><td${thin}>${l.segments}</td>`;
   lineupTbody.appendChild(tr);
+});
+
+// lineup decay -- pooled
+const lineupDecayPooledGrid = document.getElementById('lineupDecayPooledGrid');
+const pooledNTag = Object.values(LINEUP_DECAY_POOLED).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' runs';
+lineupDecayPooledGrid.appendChild(makeCard('All lineups pooled', 'every continuous 5-man run this season', pooledNTag, LINEUP_DECAY_POOLED, LINEUP_BUCKETS));
+
+// lineup decay -- per lineup table (small samples, shown as a plain table not bars)
+document.getElementById('lineupDecayNote').textContent =
+  `Per-lineup breakdown below is small-sample by nature (a handful of runs per bucket) -- read as a hint, not a verdict. Lineups with at least 10 continuous runs this season.`;
+document.getElementById('ldB0').textContent = LINEUP_BUCKETS[0];
+document.getElementById('ldB1').textContent = LINEUP_BUCKETS[1];
+document.getElementById('ldB2').textContent = LINEUP_BUCKETS[2];
+const lineupDecayTbody = document.querySelector('#lineupDecayTbl tbody');
+LINEUP_DECAY_PER_LINEUP.forEach(l => {
+  const tr = document.createElement('tr');
+  const cellFor = b => {
+    const v = l.buckets[b];
+    if (!v) return `<td>—</td>`;
+    const cls = v.per5min >= 0 ? 'pos' : 'neg';
+    const thin = (v.minutes < 5 || v.stints < 3) ? ' style="opacity:.55"' : '';
+    return `<td class="${cls}"${thin}>${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span></td>`;
+  };
+  tr.innerHTML = `<td>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td>${LINEUP_BUCKETS.map(cellFor).join('')}`;
+  lineupDecayTbody.appendChild(tr);
 });
 </script>

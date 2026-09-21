@@ -1,0 +1,194 @@
+{
+  "bucket_order": [
+    "0-1.03 min",
+    "1.03-2 min",
+    "2+ min"
+  ],
+  "pooled": {
+    "0-1.03 min": {
+      "per5min": -4.33,
+      "minutes": 173.1,
+      "stints": 283
+    },
+    "1.03-2 min": {
+      "per5min": -2.19,
+      "minutes": 422.4,
+      "stints": 285
+    },
+    "2+ min": {
+      "per5min": 0.14,
+      "minutes": 964.4,
+      "stints": 296
+    }
+  },
+  "per_lineup": [
+    {
+      "names": [
+        "Isabelle Harrison",
+        "Julie Allemand",
+        "Marina Mabrey",
+        "Maria Conde",
+        "Laura Juskaite"
+      ],
+      "total_minutes": 68.2,
+      "runs": 27,
+      "buckets": {
+        "0-1.03 min": {
+          "per5min": 0.0,
+          "minutes": 4.7,
+          "stints": 6
+        },
+        "1.03-2 min": {
+          "per5min": -0.94,
+          "minutes": 10.7,
+          "stints": 7
+        },
+        "2+ min": {
+          "per5min": -0.19,
+          "minutes": 52.8,
+          "stints": 14
+        }
+      }
+    },
+    {
+      "names": [
+        "Julie Allemand",
+        "Marina Mabrey",
+        "Maria Conde",
+        "Nyara Sabally",
+        "Laura Juskaite"
+      ],
+      "total_minutes": 62.1,
+      "runs": 25,
+      "buckets": {
+        "0-1.03 min": {
+          "per5min": -0.93,
+          "minutes": 5.4,
+          "stints": 7
+        },
+        "1.03-2 min": {
+          "per5min": -7.63,
+          "minutes": 11.1,
+          "stints": 7
+        },
+        "2+ min": {
+          "per5min": -1.31,
+          "minutes": 45.6,
+          "stints": 11
+        }
+      }
+    },
+    {
+      "names": [
+        "Brittney Sykes",
+        "Marina Mabrey",
+        "Nyara Sabally",
+        "Laura Juskaite",
+        "Kiki Rice"
+      ],
+      "total_minutes": 60.8,
+      "runs": 23,
+      "buckets": {
+        "0-1.03 min": {
+          "per5min": -8.93,
+          "minutes": 1.1,
+          "stints": 3
+        },
+        "1.03-2 min": {
+          "per5min": 0.58,
+          "minutes": 8.7,
+          "stints": 6
+        },
+        "2+ min": {
+          "per5min": -0.29,
+          "minutes": 51.1,
+          "stints": 14
+        }
+      }
+    },
+    {
+      "names": [
+        "Julie Allemand",
+        "Temi Fagbenle",
+        "Marina Mabrey",
+        "Maria Conde",
+        "Laura Juskaite"
+      ],
+      "total_minutes": 43.6,
+      "runs": 17,
+      "buckets": {
+        "0-1.03 min": {
+          "per5min": 12.5,
+          "minutes": 2.8,
+          "stints": 3
+        },
+        "1.03-2 min": {
+          "per5min": -3.12,
+          "minutes": 8.0,
+          "stints": 5
+        },
+        "2+ min": {
+          "per5min": 3.66,
+          "minutes": 32.8,
+          "stints": 9
+        }
+      }
+    },
+    {
+      "names": [
+        "Isabelle Harrison",
+        "Julie Allemand",
+        "Marina Mabrey",
+        "Maria Conde",
+        "Nyara Sabally"
+      ],
+      "total_minutes": 41.4,
+      "runs": 17,
+      "buckets": {
+        "0-1.03 min": {
+          "per5min": -4.4,
+          "minutes": 2.3,
+          "stints": 5
+        },
+        "1.03-2 min": {
+          "per5min": -2.19,
+          "minutes": 2.3,
+          "stints": 2
+        },
+        "2+ min": {
+          "per5min": 0.14,
+          "minutes": 36.9,
+          "stints": 10
+        }
+      }
+    },
+    {
+      "names": [
+        "Brittney Sykes",
+        "Marina Mabrey",
+        "Maria Conde",
+        "Nyara Sabally",
+        "Kiki Rice"
+      ],
+      "total_minutes": 17.1,
+      "runs": 10,
+      "buckets": {
+        "0-1.03 min": {
+          "per5min": -14.33,
+          "minutes": 2.8,
+          "stints": 4
+        },
+        "1.03-2 min": {
+          "per5min": 0.0,
+          "minutes": 1.4,
+          "stints": 1
+        },
+        "2+ min": {
+          "per5min": 0.39,
+          "minutes": 12.9,
+          "stints": 5
+        }
+      }
+    }
+  ]
+}
