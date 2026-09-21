@@ -9,35 +9,24 @@ HTTPS from raw.githubusercontent.com -- not a full git clone (the repo is
 4+ GB) and not a live call to stats.wnba.com itself (that API blocks
 requests from cloud/datacenter IPs, which is what GitHub Actions runners are).
 
-Five things get built:
-  1. Per-player net rating by stint length, bucket edges set from the real
-     stint-length distribution (terciles) via the `gamerotation` endpoint
-     (which records every stint's check-in/check-out/point-diff directly --
-     no play-by-play reconstruction needed for this part).
-  2. The same buckets split by score margin at check-in (via `playbyplayv3`,
-     to separate "coach pulled them because it was already going wrong"
-     situations from a cleaner read).
-  3. Real 5-man lineup net ratings, reconstructed by sweeping each player's
-     on/off intervals and scoring each resulting lineup-segment off the same
-     play-by-play score timeline.
-  4. The same short-vs-long bucket pattern for two benchmark teams (best and
-     worst record in the league), to see whether Tempo's pattern is unusual
-     or just a league-wide coaching/substitution artifact.
-  5. Lineup decay: does a specific 5-man unit's performance change the
-     longer THAT exact lineup has been on the floor together, continuously
-     (as opposed to #1, which is about individual stint length). Each
-     lineup-sweep segment already is one continuous run bounded by real
-     substitutions, so no extra reconstruction is needed here either.
-  6. Shot-quality decay: unlike net rating (confounded by the other 9
+Three things ship on the dashboard (net-rating-by-stint-bucket, score-margin
+control, league benchmark, lineup-decay, and foul-trouble cost were all
+tried and cut -- they either repeated the same confounded story or didn't
+hold up; see git history if you want them back):
+  1. Shot-quality decay: unlike net rating (confounded by the other 9
      players on the floor), a player's OWN shot selection -- eFG%, shot
      distance -- as a function of elapsed time in their current stint is
      an individually attributable signal. Every shot's exact location and
      result comes straight from `playbyplayv3`.
-  7. Foul-trouble cost: for every instance of a player reaching 2 personal
-     fouls in the 1st period, check whether the coach pulled them within
-     90 seconds, and if so, what the team's actual net rating was during
-     that forced-bench window (parsed straight out of each foul action's
-     own description string, e.g. "(P2.T3)").
+  2. Within-stint "cliff finder": every stint sliced into 1-minute windows
+     (not classified by its final length), pooled across every stint that
+     reached that minute, then adjusted against the team's own rate at
+     that same minute (leave-one-out) -- so a player's own cliff point
+     survives the adjustment instead of getting smeared into one coarse
+     bucket number.
+  3. Real 5-man lineup net ratings, reconstructed by sweeping each player's
+     on/off intervals and scoring each resulting lineup-segment off the same
+     play-by-play score timeline.
 
 Usage:
     python3 build_tempo_analysis.py --team-id 1611661332 --season 2026 \
@@ -632,29 +621,13 @@ def build_benchmarks(season: str, schedule: dict, e1: float, e2: float, exclude_
 
 # ---- render ------------------------------------------------------------------
 
-def render(template_path: Path, out_path: Path, *, data, buckets, hist, edges, n_stints, max_stint,
-           tail_start, margin_split, benchmarks, lineups, lineup_buckets, lineup_decay_pooled, lineup_decay_per_lineup,
-           shot_buckets, shot_decay_pooled, shot_decay_players, foul_trouble, within_stint_team, within_stint_players):
+def render(template_path: Path, out_path: Path, *, lineups,
+           shot_buckets, shot_decay_pooled, shot_decay_players, within_stint_team, within_stint_players):
     tpl = template_path.read_text()
-    tpl = tpl.replace("__DATA_JSON__", json.dumps(data))
-    tpl = tpl.replace("__BUCKETS_JSON__", json.dumps(buckets))
-    tpl = tpl.replace("__HIST_JSON__", json.dumps(hist))
-    tpl = tpl.replace("__EDGES_JSON__", json.dumps(list(edges)))
-    tpl = tpl.replace("__B0__", buckets[0]).replace("__B1__", buckets[1]).replace("__B2__", buckets[2])
-    tpl = tpl.replace("__N_STINTS__", str(n_stints))
-    tpl = tpl.replace("__MAX_STINT__", str(max_stint))
-    tpl = tpl.replace("__TAIL_LABEL__", f"{tail_start}+")
-    tpl = tpl.replace("__EDGE0__", f"{edges[0]:g}").replace("__EDGE1__", f"{edges[1]:g}")
-    tpl = tpl.replace("__MARGIN_SPLIT_JSON__", json.dumps(margin_split))
-    tpl = tpl.replace("__BENCHMARKS_JSON__", json.dumps(benchmarks))
     tpl = tpl.replace("__LINEUPS_JSON__", json.dumps(lineups))
-    tpl = tpl.replace("__LINEUP_BUCKETS_JSON__", json.dumps(lineup_buckets))
-    tpl = tpl.replace("__LINEUP_DECAY_POOLED_JSON__", json.dumps(lineup_decay_pooled))
-    tpl = tpl.replace("__LINEUP_DECAY_PER_LINEUP_JSON__", json.dumps(lineup_decay_per_lineup))
     tpl = tpl.replace("__SHOT_BUCKETS_JSON__", json.dumps(shot_buckets))
     tpl = tpl.replace("__SHOT_DECAY_POOLED_JSON__", json.dumps(shot_decay_pooled))
     tpl = tpl.replace("__SHOT_DECAY_PLAYERS_JSON__", json.dumps(shot_decay_players))
-    tpl = tpl.replace("__FOUL_TROUBLE_JSON__", json.dumps(foul_trouble))
     tpl = tpl.replace("__WITHIN_STINT_TEAM_JSON__", json.dumps(within_stint_team))
     tpl = tpl.replace("__WITHIN_STINT_PLAYERS_JSON__", json.dumps(within_stint_players))
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -668,7 +641,6 @@ def main() -> None:
     ap.add_argument("--template", default="template.html")
     ap.add_argument("--out", default="docs/index.html")
     ap.add_argument("--data-dir", default="data")
-    ap.add_argument("--close-margin", type=float, default=10.0, help="abs score margin at check-in considered 'close'")
     args = ap.parse_args()
 
     print(f"Fetching schedule for season {args.season}...")
@@ -680,45 +652,16 @@ def main() -> None:
     stints = fetch_gamerotation_stints(args.season, args.team_id, games, with_raw_times=True)
     print(f"{len(stints)} stints extracted")
 
-    e1, e2 = tercile_edges(stints)
-    print(f"Bucket edges (terciles): {e1} min, {e2} min")
-
-    buckets, players = build_player_decay(stints, e1, e2)
-    hist, max_stint = build_histogram(stints)
-
-    print("Fetching play-by-play for score-margin-at-checkin + lineups...")
-    add_margin_at_checkin(args.season, args.team_id, stints)
-    close = [s for s in stints if s["margin_at_checkin"] is not None and abs(s["margin_at_checkin"]) <= args.close_margin]
-    blowout = [s for s in stints if s["margin_at_checkin"] is not None and abs(s["margin_at_checkin"]) > args.close_margin]
-    margin_split = {
-        "all": aggregate_buckets(stints, e1, e2),
-        "close": aggregate_buckets(close, e1, e2),
-        "blowout": aggregate_buckets(blowout, e1, e2),
-    }
-    print(f"  close: {len(close)} stints, blowout: {len(blowout)} stints")
-
     print("Reconstructing 5-man lineups...")
     lineup_segments, lineup_names = build_lineup_segments(args.season, stints)
     lineups = build_lineups(lineup_segments, lineup_names)
     print(f"  {len(lineups)} lineups with >=15 min, {len(lineup_segments)} continuous-run segments total")
 
-    lineup_buckets, lineup_decay_pooled, lineup_decay_per_lineup = build_lineup_decay(lineup_segments, lineup_names)
-    print(f"  lineup-continuity edges: {lineup_buckets}")
-
-    print("Fetching benchmark teams...")
-    benchmarks = build_benchmarks(args.season, schedule, e1, e2, exclude_team_id=args.team_id)
-    for b in benchmarks:
-        print(f"  {b['label']} ({b['record']})")
-
-    print("Fetching shot + foul events...")
-    shots, fouls = fetch_shots_and_fouls(args.season, args.team_id, games)
+    print("Fetching shot events...")
+    shots, _fouls = fetch_shots_and_fouls(args.season, args.team_id, games)
     match_shots_to_stints(shots, stints)
     shot_buckets, shot_decay_pooled, shot_decay_players = build_shot_quality_decay(shots)
     print(f"  {len(shots)} shot attempts, edges: {shot_buckets}")
-
-    home_by_game = {g["gameId"]: g["home"] for g in games}
-    foul_trouble = build_foul_trouble_cost(args.season, fouls, stints, home_by_game)
-    print(f"  {len(foul_trouble['instances'])} foul-trouble forced-bench instances, pooled {foul_trouble['pooled']}")
 
     print("Building within-stint (minute-by-minute) decay curves...")
     within_stint_team, within_stint_players = build_within_stint_decay(args.season, stints)
@@ -727,28 +670,17 @@ def main() -> None:
     data_dir = Path(args.data_dir)
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "stints.json").write_text(json.dumps(stints))
-    (data_dir / "player_decay.json").write_text(json.dumps({"bucket_order": buckets, "edges": [e1, e2], "players": players}, indent=2))
-    (data_dir / "margin_split.json").write_text(json.dumps(margin_split, indent=2))
     (data_dir / "lineups.json").write_text(json.dumps(lineups, indent=2))
-    (data_dir / "benchmarks.json").write_text(json.dumps(benchmarks, indent=2))
-    (data_dir / "lineup_decay.json").write_text(json.dumps(
-        {"bucket_order": lineup_buckets, "pooled": lineup_decay_pooled, "per_lineup": lineup_decay_per_lineup}, indent=2))
     (data_dir / "shot_quality_decay.json").write_text(json.dumps(
         {"bucket_order": shot_buckets, "pooled": shot_decay_pooled, "players": shot_decay_players}, indent=2))
-    (data_dir / "foul_trouble_cost.json").write_text(json.dumps(foul_trouble, indent=2))
     (data_dir / "within_stint_decay.json").write_text(json.dumps(
         {"team": within_stint_team, "players": within_stint_players}, indent=2))
     print(f"Wrote data files to {data_dir}/")
 
     render(
         Path(args.template), Path(args.out),
-        data=players, buckets=buckets, hist=hist, edges=(e1, e2),
-        n_stints=len(stints), max_stint=max_stint, tail_start=20,
-        margin_split=margin_split, benchmarks=benchmarks, lineups=lineups,
-        lineup_buckets=lineup_buckets, lineup_decay_pooled=lineup_decay_pooled,
-        lineup_decay_per_lineup=lineup_decay_per_lineup,
+        lineups=lineups,
         shot_buckets=shot_buckets, shot_decay_pooled=shot_decay_pooled, shot_decay_players=shot_decay_players,
-        foul_trouble=foul_trouble,
         within_stint_team=within_stint_team, within_stint_players=within_stint_players,
     )
     print(f"Rendered {args.out}")

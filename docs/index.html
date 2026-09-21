@@ -16,7 +16,6 @@
     --pos: #2a78d6;
     --neg: #e34948;
     --zero: #ccd1da;
-    --thin-bg: repeating-linear-gradient(135deg, currentColor 0 2px, transparent 2px 7px);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -44,56 +43,12 @@
 
   main { max-width: 1180px; margin: 0 auto; padding: 22px 20px 60px; }
 
-  .methodology {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 16px 18px; margin-bottom: 18px; font-size: 12.5px; color: var(--text-2);
-  }
-  .methodology strong { color: var(--text); }
+  @media print { header { break-inside: avoid; page-break-inside: avoid; } }
 
-  .hist-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 16px 18px; margin-bottom: 22px;
-  }
-  .hist-title { font-size: 12.5px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-  .hist-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 12px; }
-  .hist-chart { display: flex; align-items: flex-end; gap: 4px; height: 118px; }
-  .hist-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
-  .hist-count { font-size: 9px; font-weight: 700; color: var(--text-2); margin-bottom: 2px; }
-  .hist-bar { width: 100%; min-height: 3px; border-radius: 2px 2px 0 0; background: var(--muted); }
-  .hist-bar.in-edge { background: var(--tempo-blue); }
-  .hist-label { font-size: 9px; color: var(--muted); margin-top: 4px; }
-  .hist-edge-line { position: relative; }
-  .hist-edges { display: flex; justify-content: space-between; font-size: 10px; color: var(--brand); font-weight: 700; margin-top: 8px; }
+  .section-h { font-size: 15px; font-weight: 800; margin: 30px 0 4px; letter-spacing: -0.01em; }
+  .section-h:first-child { margin-top: 0; }
+  .section-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; max-width: 68ch; }
 
-  .legend { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--text-2); margin-bottom: 18px; }
-  .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-swatch { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
-  .legend-swatch.thin { background: var(--muted); opacity: .35; background-image: var(--thin-bg); color: var(--muted); }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 12px; break-inside: avoid; page-break-inside: avoid; }
-  @media print { .methodology, header { break-inside: avoid; page-break-inside: avoid; } }
-  .card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
-  .card-name { font-size: 14px; font-weight: 700; }
-  .card-n { font-size: 11px; color: var(--muted); font-weight: 600; }
-
-  .chart { position: relative; height: 118px; margin: 14px 4px 6px; display: flex; align-items: stretch; gap: 10px; }
-  .zero-line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--zero); }
-  .bar-col { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-  .bar { position: absolute; left: 8%; right: 8%; border-radius: 3px; top: 50%; }
-  .bar.thin { opacity: .38; }
-  .bar-val { position: absolute; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .bar-val.pos { color: var(--pos); }
-  .bar-val.neg { color: var(--neg); }
-  .bar-val.na { color: var(--muted); font-weight: 500; font-size: 10px; }
-
-  .bucket-labels { display: flex; gap: 10px; margin-top: 2px; }
-  .bucket-labels span { flex: 1; text-align: center; font-size: 10px; color: var(--muted); font-weight: 600; }
-  .bucket-mins { display: flex; gap: 10px; margin-top: 1px; }
-  .bucket-mins span { flex: 1; text-align: center; font-size: 9.5px; color: var(--muted); }
-
-  details { margin-top: 26px; }
-  summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--text-2); padding: 4px 0; }
   .tbl-note { margin: 4px 0 0; font-size: 12px; color: var(--muted); max-width: 68ch; }
   table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--border); }
@@ -104,12 +59,12 @@
   td.pos { color: var(--pos); font-weight: 600; }
   td.neg { color: var(--neg); font-weight: 600; }
 
-  .section-h { font-size: 15px; font-weight: 800; margin: 30px 0 4px; letter-spacing: -0.01em; }
-  .section-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; max-width: 68ch; }
-  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .card-sub { font-size: 10.5px; color: var(--muted); margin-top: -2px; margin-bottom: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
 
   .cliff-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 10px; break-inside: avoid; page-break-inside: avoid; }
+  .cliff-card .card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+  .cliff-card .card-name { font-size: 14px; font-weight: 700; }
+  .cliff-card .card-n { font-size: 11px; color: var(--muted); font-weight: 600; }
   .cliff-svg { width: 100%; height: 110px; display: block; overflow: visible; }
   .cliff-line { fill: none; stroke-width: 2px; }
   .cliff-line.thin-seg { opacity: .4; stroke-dasharray: 3 3; }
@@ -121,14 +76,14 @@
 <header>
   <div class="header-inner">
     <div class="eyebrow">Toronto Tempo · 2026 Season · Prototype</div>
-    <h1>Shot-Quality Decay</h1>
-    <p>Does a player's own shot selection change the longer they've been in the game? Plus the full rotation-decay breakdown by stint length, below.</p>
+    <h1>Shot-Quality &amp; Cliff-Point Decay</h1>
+    <p>Which players' performance actually changes the longer they've been in the game, and where -- plus which 5-man lineups have actually worked this season.</p>
   </div>
 </header>
 
 <main>
-  <h2 class="section-h" style="margin-top:0">Does shot quality decay? (the headline finding)</h2>
-  <p class="section-sub">Net rating is confounded by the other 9 players on the floor -- that's why every cut of it below kept reducing to "coaches sub players out when things go wrong." A player's own shot selection isn't confounded that way: eFG% and average shot distance, by how long the shooter had been in their current stint when they took it. Team-wide it's flat (no decay -- confirming the net-rating pattern really was mostly noise), but individually there's real signal.</p>
+  <h2 class="section-h">Does shot quality decay? (the headline finding)</h2>
+  <p class="section-sub">A player's own shot selection isn't confounded by the other 9 players on the floor the way net rating is: eFG% and average shot distance, by how long the shooter had been in their current stint when they took it. Team-wide it's flat (no decay), but individually there's real signal.</p>
   <div class="tbl-wrap">
     <table id="shotPooledTbl">
       <thead><tr><th>All Tempo shots</th><th id="sqB0h"></th><th id="sqB1h"></th><th id="sqB2h"></th></tr></thead>
@@ -144,53 +99,8 @@
   </div>
 
   <h2 class="section-h">Where exactly does each player's performance fall off?</h2>
-  <p class="section-sub">The 3-bucket view compares whole-stint averages -- it can't say <em>when</em> within a stint someone turns. This slices every stint minute-by-minute instead (minute 0-1 of the stint, 1-2, 2-3, ...), pooling across every stint that lasted that long, then subtracts the team's own rate at that same minute (leave-one-out) -- so a player's own cliff point survives the adjustment instead of getting smeared into one number. Line above zero = better than a teammate would be at that point in a stint; below zero = worse. Faded/dashed segments are under 10 stints reaching that minute -- read those as noise, not signal.</p>
+  <p class="section-sub">Every stint sliced minute-by-minute (minute 0-1, 1-2, 2-3, ...), pooling across every stint that lasted that long, then subtracting the team's own rate at that same minute (leave-one-out) -- so a player's own cliff point survives the adjustment instead of getting smeared into one number. Line above zero = better than a teammate would be at that point in a stint; below zero = worse. Faded/dashed segments are under 10 stints reaching that minute -- read those as noise, not signal.</p>
   <div class="grid" id="cliffGrid"></div>
-
-  <h2 class="section-h">The rest: rotation decay by stint length</h2>
-  <p class="section-sub">Supporting material below -- net rating (not shot quality) by stint length, sliced every way we could think of. Kept for reference since it's what led to the shot-quality question above, but read the caveats: it's confounded by teammates/opponent in a way shot quality isn't.</p>
-
-  <div class="methodology">
-    <strong>How this is built:</strong> the WNBA tracks every stint directly (check-in, check-out, point diff).
-    <br><br>
-    <strong>Bucket edges come from the real data:</strong> 4.1 min and 6.5 min are the terciles of actual stint lengths.
-  </div>
-
-  <div class="hist-card">
-    <div class="hist-title">Real stint-length distribution — all Tempo stints, 2026 season</div>
-    <div class="hist-sub">1320 stints, true 1-minute bins throughout (longest stint of the season: 31.4 min, folded into the 20+ bar). Highlighted bars mark where the two bucket edges (4.1 min, 6.5 min) fall.</div>
-    <div class="hist-chart" id="hist"></div>
-    <div class="hist-edges"><span>0 min</span><span>20+ min</span></div>
-  </div>
-
-  <div class="legend">
-    <div class="legend-item"><span class="legend-swatch" style="background:var(--pos)"></span>Net positive per 5 min</div>
-    <div class="legend-item"><span class="legend-swatch" style="background:var(--neg)"></span>Net negative per 5 min</div>
-    <div class="legend-item"><span class="legend-swatch thin"></span>Under 15 min or under 3 stints — read with caution</div>
-  </div>
-
-  <div class="grid" id="grid"></div>
-
-  <details open>
-    <summary>Full numbers (table view)</summary>
-    <p class="tbl-note">Each cell is net points per 5 minutes; in parentheses, the total minutes and stints behind it. "vs team" is that number minus the team's own rate in the same bucket (excluding this player's own minutes) -- positive means better than a teammate would be in that same bucket, not just better than zero.</p>
-    <div class="tbl-wrap">
-      <table id="tbl">
-        <thead>
-          <tr><th>Player</th><th>Stints</th><th>0-4.1 min</th><th>4.1-6.5 min</th><th>6.5+ min</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </details>
-
-  <h2 class="section-h">Does this hold in a competitive game?</h2>
-  <p class="section-sub">Same buckets, split by the score margin when the player checked in. If the short-stint pattern is mostly coaches reacting to blowouts, it should mostly disappear in the "close" column.</p>
-  <div class="grid grid-3" id="marginGrid"></div>
-
-  <h2 class="section-h">Is this just Tempo, or every team?</h2>
-  <p class="section-sub">Same buckets applied to the league's best and worst records this season, for context on whether Tempo's pattern is unusual.</p>
-  <div class="grid grid-3" id="benchGrid"></div>
 
   <h2 class="section-h">Which 5-man lineups actually work</h2>
   <p class="section-sub">Reconstructed from on/off overlap, scored against the same play-by-play. Lineups with at least 15 minutes together.</p>
@@ -202,52 +112,14 @@
       <tbody></tbody>
     </table>
   </div>
-
-  <h2 class="section-h">Do lineups decay too?</h2>
-  <p class="section-sub">Different question from stint length above: does a specific 5-man unit's performance change the longer <em>that exact group</em> has been on the floor together, continuously (any substitution among the 5 ends the run). Pooled across every lineup first, since per-lineup samples get thin fast.</p>
-  <div class="grid grid-3" id="lineupDecayPooledGrid"></div>
-  <p class="tbl-note" id="lineupDecayNote"></p>
-  <div class="tbl-wrap">
-    <table id="lineupDecayTbl">
-      <thead>
-        <tr><th>Lineup</th><th id="ldB0"></th><th id="ldB1"></th><th id="ldB2"></th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <h2 class="section-h">Up next: foul-trouble cost (early pass, more to do here)</h2>
-  <p class="section-sub">Every instance this season a Tempo player reached 2 personal fouls in the 1st period and was pulled within 90 seconds. Team net rating during the resulting forced-bench window, versus the team's own season baseline. First pass only -- flagged to dig into further, not a finished finding.</p>
-  <p class="tbl-note" id="foulSummary"></p>
-  <div class="tbl-wrap">
-    <table id="foulTbl">
-      <thead><tr><th>Player</th><th>Bench minutes</th><th>Net pts</th><th>Net / 5min</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
 </main>
 
 <script>
-const DATA = [{"pId": 1643420, "name": "Laura Juskaite", "stints": 157, "total_minutes": 960.7, "buckets": {"0-4.1 min": {"per5min": -1.85, "minutes": 97.4, "stints": 40, "vs_team": -0.03}, "4.1-6.5 min": {"per5min": -1.89, "minutes": 307.5, "stints": 59, "vs_team": -0.6}, "6.5+ min": {"per5min": -0.12, "minutes": 555.7, "stints": 58, "vs_team": 0.52}}}, {"pId": 1629576, "name": "Maria Conde", "stints": 124, "total_minutes": 873.5, "buckets": {"0-4.1 min": {"per5min": -1.98, "minutes": 63.2, "stints": 24, "vs_team": -0.17}, "4.1-6.5 min": {"per5min": -1.54, "minutes": 220.6, "stints": 42, "vs_team": -0.19}, "6.5+ min": {"per5min": -0.48, "minutes": 589.8, "stints": 58, "vs_team": 0.11}}}, {"pId": 204330, "name": "Isabelle Harrison", "stints": 121, "total_minutes": 643.2, "buckets": {"0-4.1 min": {"per5min": -1.35, "minutes": 122.2, "stints": 43, "vs_team": 0.52}, "4.1-6.5 min": {"per5min": -1.69, "minutes": 230.8, "stints": 46, "vs_team": -0.36}, "6.5+ min": {"per5min": -0.84, "minutes": 290.3, "stints": 32, "vs_team": -0.29}}}, {"pId": 1628915, "name": "Kia Nurse", "stints": 118, "total_minutes": 528.4, "buckets": {"0-4.1 min": {"per5min": -1.34, "minutes": 172.2, "stints": 64, "vs_team": 0.57}, "4.1-6.5 min": {"per5min": -1.81, "minutes": 179.7, "stints": 35, "vs_team": -0.48}, "6.5+ min": {"per5min": -1.53, "minutes": 176.6, "stints": 19, "vs_team": -0.99}}}, {"pId": 1629497, "name": "Marina Mabrey", "stints": 114, "total_minutes": 910.1, "buckets": {"0-4.1 min": {"per5min": -1.49, "minutes": 30.2, "stints": 11, "vs_team": 0.34}, "4.1-6.5 min": {"per5min": -1.12, "minutes": 147.9, "stints": 27, "vs_team": 0.27}, "6.5+ min": {"per5min": -0.97, "minutes": 732.0, "stints": 76, "vs_team": -0.47}}}, {"pId": 1627700, "name": "Julie Allemand", "stints": 101, "total_minutes": 794.3, "buckets": {"0-4.1 min": {"per5min": -3.0, "minutes": 31.7, "stints": 11, "vs_team": -1.21}, "4.1-6.5 min": {"per5min": -0.03, "minutes": 144.5, "stints": 27, "vs_team": 1.43}, "6.5+ min": {"per5min": -0.96, "minutes": 618.2, "stints": 63, "vs_team": -0.45}}}, {"pId": 1631055, "name": "Nyara Sabally", "stints": 100, "total_minutes": 543.6, "buckets": {"0-4.1 min": {"per5min": -2.7, "minutes": 74.2, "stints": 26, "vs_team": -0.94}, "4.1-6.5 min": {"per5min": 0.28, "minutes": 251.4, "stints": 48, "vs_team": 1.86}, "6.5+ min": {"per5min": -1.42, "minutes": 218.0, "stints": 26, "vs_team": -0.89}}}, {"pId": 1643445, "name": "Kiki Rice", "stints": 94, "total_minutes": 638.8, "buckets": {"0-4.1 min": {"per5min": 0.85, "minutes": 59.0, "stints": 19, "vs_team": 2.81}, "4.1-6.5 min": {"per5min": -2.89, "minutes": 159.1, "stints": 30, "vs_team": -1.64}, "6.5+ min": {"per5min": -0.01, "minutes": 420.7, "stints": 45, "vs_team": 0.62}}}, {"pId": 1643457, "name": "Teonni Key", "stints": 90, "total_minutes": 341.1, "buckets": {"0-4.1 min": {"per5min": -3.31, "minutes": 137.5, "stints": 55, "vs_team": -1.69}, "4.1-6.5 min": {"per5min": 0.94, "minutes": 133.1, "stints": 26, "vs_team": 2.46}, "6.5+ min": {"per5min": -0.71, "minutes": 70.5, "stints": 9, "vs_team": -0.14}}}, {"pId": 1627701, "name": "Temi Fagbenle", "stints": 87, "total_minutes": 398.5, "buckets": {"0-4.1 min": {"per5min": -1.8, "minutes": 111.2, "stints": 42, "vs_team": 0.02}, "4.1-6.5 min": {"per5min": -2.81, "minutes": 124.4, "stints": 25, "vs_team": -1.53}, "6.5+ min": {"per5min": -0.31, "minutes": 162.9, "stints": 20, "vs_team": 0.28}}}, {"pId": 1628279, "name": "Brittney Sykes", "stints": 47, "total_minutes": 458.6, "buckets": {"0-4.1 min": {"per5min": -2.63, "minutes": 13.3, "stints": 6, "vs_team": -0.82}, "4.1-6.5 min": {"per5min": 0.0, "minutes": 33.7, "stints": 6, "vs_team": 1.39}, "6.5+ min": {"per5min": -0.3, "minutes": 411.7, "stints": 35, "vs_team": 0.3}}}, {"pId": 1643647, "name": "Tima Pouye", "stints": 45, "total_minutes": 170.4, "buckets": {"0-4.1 min": {"per5min": -0.65, "minutes": 69.2, "stints": 28, "vs_team": 1.24}, "4.1-6.5 min": {"per5min": -2.0, "minutes": 72.5, "stints": 14, "vs_team": -0.65}, "6.5+ min": {"per5min": -1.05, "minutes": 28.7, "stints": 3, "vs_team": -0.47}}}, {"pId": 1643706, "name": "Ornella Bankole", "stints": 30, "total_minutes": 134.9, "buckets": {"0-4.1 min": {"per5min": -0.86, "minutes": 34.9, "stints": 14, "vs_team": 0.99}, "4.1-6.5 min": {"per5min": -4.25, "minutes": 51.8, "stints": 10, "vs_team": -2.95}, "6.5+ min": {"per5min": 0.41, "minutes": 48.2, "stints": 6, "vs_team": 1.0}}}, {"pId": 1642800, "name": "Aneesah Morrow", "stints": 22, "total_minutes": 136.0, "buckets": {"0-4.1 min": {"per5min": -6.49, "minutes": 21.6, "stints": 8, "vs_team": -4.76}, "4.1-6.5 min": {"per5min": -1.83, "minutes": 35.6, "stints": 7, "vs_team": -0.47}, "6.5+ min": {"per5min": 1.9, "minutes": 78.8, "stints": 7, "vs_team": 2.52}}}, {"pId": 1631263, "name": "Nikolina Milic", "stints": 20, "total_minutes": 63.1, "buckets": {"0-4.1 min": {"per5min": -1.1, "minutes": 41.1, "stints": 16, "vs_team": 0.75}, "4.1-6.5 min": {"per5min": -1.07, "minutes": 14.0, "stints": 3, "vs_team": 0.3}, "6.5+ min": {"per5min": -1.26, "minutes": 8.0, "stints": 1, "vs_team": -0.68}}}, {"pId": 1631118, "name": "Lexi Held", "stints": 15, "total_minutes": 60.0, "buckets": {"0-4.1 min": {"per5min": 0.68, "minutes": 29.4, "stints": 11, "vs_team": 2.56}, "4.1-6.5 min": {"per5min": 1.89, "minutes": 15.9, "stints": 3, "vs_team": 3.28}, "6.5+ min": {"per5min": -2.38, "minutes": 14.7, "stints": 1, "vs_team": -1.81}}}, {"pId": 203405, "name": "Kayla Alexander", "stints": 13, "total_minutes": 40.3, "buckets": {"0-4.1 min": {"per5min": -4.46, "minutes": 20.2, "stints": 9, "vs_team": -2.69}, "4.1-6.5 min": {"per5min": -3.72, "minutes": 20.1, "stints": 4, "vs_team": -2.38}, "6.5+ min": null}}, {"pId": 1630461, "name": "Kiana Williams", "stints": 12, "total_minutes": 58.8, "buckets": {"0-4.1 min": null, "4.1-6.5 min": {"per5min": -2.77, "minutes": 41.4, "stints": 8, "vs_team": -1.43}, "6.5+ min": {"per5min": 1.83, "minutes": 13.7, "stints": 2, "vs_team": 2.41}}}];
-const BUCKETS = ["0-4.1 min", "4.1-6.5 min", "6.5+ min"];
-const HIST = [{"bin": "0-1", "count": 41}, {"bin": "1-2", "count": 71}, {"bin": "2-3", "count": 126}, {"bin": "3-4", "count": 185}, {"bin": "4-5", "count": 190}, {"bin": "5-6", "count": 172}, {"bin": "6-7", "count": 145}, {"bin": "7-8", "count": 115}, {"bin": "8-9", "count": 97}, {"bin": "9-10", "count": 38}, {"bin": "10-11", "count": 43}, {"bin": "11-12", "count": 19}, {"bin": "12-13", "count": 9}, {"bin": "13-14", "count": 13}, {"bin": "14-15", "count": 10}, {"bin": "15-16", "count": 9}, {"bin": "16-17", "count": 19}, {"bin": "17-18", "count": 4}, {"bin": "18-19", "count": 4}, {"bin": "19-20", "count": 2}, {"bin": "20+", "count": 8}];
-const EDGES = [4.1, 6.5];
-const MARGIN_SPLIT = {"all": {"0-4.1 min": {"per5min": -1.82, "minutes": 1146.8, "stints": 435}, "4.1-6.5 min": {"per5min": -1.37, "minutes": 2193.8, "stints": 422}, "6.5+ min": {"per5min": -0.58, "minutes": 4459.5, "stints": 463}}, "close": {"0-4.1 min": {"per5min": -2.06, "minutes": 668.0, "stints": 245}, "4.1-6.5 min": {"per5min": -1.54, "minutes": 1564.4, "stints": 303}, "6.5+ min": {"per5min": -1.22, "minutes": 3216.6, "stints": 331}}, "blowout": {"0-4.1 min": {"per5min": -1.48, "minutes": 478.8, "stints": 190}, "4.1-6.5 min": {"per5min": -0.94, "minutes": 629.3, "stints": 119}, "6.5+ min": {"per5min": 1.08, "minutes": 1242.9, "stints": 132}}};
-const BENCHMARKS = [{"label": "Minnesota Lynx", "record": "31-9", "buckets": {"0-4.1 min": {"per5min": -0.4, "minutes": 754.2, "stints": 310}, "4.1-6.5 min": {"per5min": 0.99, "minutes": 1298.3, "stints": 245}, "6.5+ min": {"per5min": 1.21, "minutes": 5747.5, "stints": 532}}}, {"label": "Seattle Storm", "record": "8-31", "buckets": {"0-4.1 min": {"per5min": -2.2, "minutes": 1207.8, "stints": 472}, "4.1-6.5 min": {"per5min": -1.39, "minutes": 2054.0, "stints": 396}, "6.5+ min": {"per5min": 0.05, "minutes": 4538.2, "stints": 455}}}];
 const LINEUPS = [{"names": ["Isabelle Harrison", "Julie Allemand", "Marina Mabrey", "Maria Conde", "Laura Juskaite"], "minutes": 68.2, "per5min": -0.29, "segments": 27}, {"names": ["Julie Allemand", "Marina Mabrey", "Maria Conde", "Nyara Sabally", "Laura Juskaite"], "minutes": 62.1, "per5min": -2.41, "segments": 25}, {"names": ["Brittney Sykes", "Marina Mabrey", "Nyara Sabally", "Laura Juskaite", "Kiki Rice"], "minutes": 60.8, "per5min": -0.33, "segments": 23}, {"names": ["Julie Allemand", "Temi Fagbenle", "Marina Mabrey", "Maria Conde", "Laura Juskaite"], "minutes": 43.6, "per5min": 2.98, "segments": 17}, {"names": ["Isabelle Harrison", "Julie Allemand", "Marina Mabrey", "Maria Conde", "Nyara Sabally"], "minutes": 41.4, "per5min": -0.24, "segments": 17}, {"names": ["Brittney Sykes", "Marina Mabrey", "Maria Conde", "Laura Juskaite", "Kiki Rice"], "minutes": 31.3, "per5min": 0.16, "segments": 8}, {"names": ["Isabelle Harrison", "Julie Allemand", "Brittney Sykes", "Marina Mabrey", "Laura Juskaite"], "minutes": 28.7, "per5min": -1.4, "segments": 9}, {"names": ["Julie Allemand", "Maria Conde", "Nyara Sabally", "Laura Juskaite", "Kiki Rice"], "minutes": 24.8, "per5min": 5.45, "segments": 6}, {"names": ["Isabelle Harrison", "Temi Fagbenle", "Kia Nurse", "Laura Juskaite", "Kiki Rice"], "minutes": 23.3, "per5min": -4.29, "segments": 9}, {"names": ["Julie Allemand", "Brittney Sykes", "Marina Mabrey", "Nyara Sabally", "Laura Juskaite"], "minutes": 20.0, "per5min": 1.0, "segments": 8}, {"names": ["Brittney Sykes", "Marina Mabrey", "Maria Conde", "Kiki Rice", "Teonni Key"], "minutes": 19.6, "per5min": -0.51, "segments": 7}, {"names": ["Isabelle Harrison", "Julie Allemand", "Kia Nurse", "Maria Conde", "Nyara Sabally"], "minutes": 19.5, "per5min": -4.88, "segments": 9}, {"names": ["Isabelle Harrison", "Julie Allemand", "Temi Fagbenle", "Laura Juskaite", "Kiki Rice"], "minutes": 19.0, "per5min": -0.79, "segments": 6}, {"names": ["Isabelle Harrison", "Julie Allemand", "Temi Fagbenle", "Marina Mabrey", "Maria Conde"], "minutes": 18.4, "per5min": -0.54, "segments": 9}, {"names": ["Brittney Sykes", "Marina Mabrey", "Maria Conde", "Nyara Sabally", "Kiki Rice"], "minutes": 17.1, "per5min": -2.05, "segments": 10}, {"names": ["Isabelle Harrison", "Julie Allemand", "Kia Nurse", "Maria Conde", "Laura Juskaite"], "minutes": 16.7, "per5min": -4.5, "segments": 10}];
-const LINEUP_BUCKETS = ["0-1.03 min", "1.03-2 min", "2+ min"];
-const LINEUP_DECAY_POOLED = {"0-1.03 min": {"per5min": -4.33, "minutes": 173.1, "stints": 283}, "1.03-2 min": {"per5min": -2.19, "minutes": 422.4, "stints": 285}, "2+ min": {"per5min": 0.14, "minutes": 964.4, "stints": 296}};
-const LINEUP_DECAY_PER_LINEUP = [{"names": ["Isabelle Harrison", "Julie Allemand", "Marina Mabrey", "Maria Conde", "Laura Juskaite"], "total_minutes": 68.2, "runs": 27, "buckets": {"0-1.03 min": {"per5min": 0.0, "minutes": 4.7, "stints": 6}, "1.03-2 min": {"per5min": -0.94, "minutes": 10.7, "stints": 7}, "2+ min": {"per5min": -0.19, "minutes": 52.8, "stints": 14}}}, {"names": ["Julie Allemand", "Marina Mabrey", "Maria Conde", "Nyara Sabally", "Laura Juskaite"], "total_minutes": 62.1, "runs": 25, "buckets": {"0-1.03 min": {"per5min": -0.93, "minutes": 5.4, "stints": 7}, "1.03-2 min": {"per5min": -7.63, "minutes": 11.1, "stints": 7}, "2+ min": {"per5min": -1.31, "minutes": 45.6, "stints": 11}}}, {"names": ["Brittney Sykes", "Marina Mabrey", "Nyara Sabally", "Laura Juskaite", "Kiki Rice"], "total_minutes": 60.8, "runs": 23, "buckets": {"0-1.03 min": {"per5min": -8.93, "minutes": 1.1, "stints": 3}, "1.03-2 min": {"per5min": 0.58, "minutes": 8.7, "stints": 6}, "2+ min": {"per5min": -0.29, "minutes": 51.1, "stints": 14}}}, {"names": ["Julie Allemand", "Temi Fagbenle", "Marina Mabrey", "Maria Conde", "Laura Juskaite"], "total_minutes": 43.6, "runs": 17, "buckets": {"0-1.03 min": {"per5min": 12.5, "minutes": 2.8, "stints": 3}, "1.03-2 min": {"per5min": -3.12, "minutes": 8.0, "stints": 5}, "2+ min": {"per5min": 3.66, "minutes": 32.8, "stints": 9}}}, {"names": ["Isabelle Harrison", "Julie Allemand", "Marina Mabrey", "Maria Conde", "Nyara Sabally"], "total_minutes": 41.4, "runs": 17, "buckets": {"0-1.03 min": {"per5min": -4.4, "minutes": 2.3, "stints": 5}, "1.03-2 min": {"per5min": -2.19, "minutes": 2.3, "stints": 2}, "2+ min": {"per5min": 0.14, "minutes": 36.9, "stints": 10}}}, {"names": ["Brittney Sykes", "Marina Mabrey", "Maria Conde", "Nyara Sabally", "Kiki Rice"], "total_minutes": 17.1, "runs": 10, "buckets": {"0-1.03 min": {"per5min": -14.33, "minutes": 2.8, "stints": 4}, "1.03-2 min": {"per5min": 0.0, "minutes": 1.4, "stints": 1}, "2+ min": {"per5min": 0.39, "minutes": 12.9, "stints": 5}}}];
 const SHOT_BUCKETS = ["0-2.3 min", "2.3-4.9 min", "4.9+ min"];
 const SHOT_DECAY_POOLED = {"0-2.3 min": {"fga": 853, "fgm": 371, "efg": 0.503, "avg_dist": 11.6}, "2.3-4.9 min": {"fga": 890, "fgm": 391, "efg": 0.516, "avg_dist": 11.9}, "4.9+ min": {"fga": 900, "fgm": 401, "efg": 0.516, "avg_dist": 12.1}};
 const SHOT_DECAY_PLAYERS = [{"pId": 1629497, "name": "Mabrey", "fga": 474, "buckets": {"0-2.3 min": {"fga": 122, "fgm": 47, "efg": 0.471, "avg_dist": 15.8}, "2.3-4.9 min": {"fga": 133, "fgm": 66, "efg": 0.643, "avg_dist": 16.9}, "4.9+ min": {"fga": 219, "fgm": 97, "efg": 0.537, "avg_dist": 15.6}}}, {"pId": 1643420, "name": "Juskaite", "fga": 305, "buckets": {"0-2.3 min": {"fga": 79, "fgm": 39, "efg": 0.551, "avg_dist": 8.6}, "2.3-4.9 min": {"fga": 110, "fgm": 48, "efg": 0.505, "avg_dist": 9.1}, "4.9+ min": {"fga": 116, "fgm": 53, "efg": 0.517, "avg_dist": 11.2}}}, {"pId": 204330, "name": "Harrison", "fga": 284, "buckets": {"0-2.3 min": {"fga": 107, "fgm": 55, "efg": 0.57, "avg_dist": 9.1}, "2.3-4.9 min": {"fga": 118, "fgm": 48, "efg": 0.428, "avg_dist": 8.7}, "4.9+ min": {"fga": 59, "fgm": 24, "efg": 0.415, "avg_dist": 8.3}}}, {"pId": 1629576, "name": "Conde", "fga": 274, "buckets": {"0-2.3 min": {"fga": 75, "fgm": 29, "efg": 0.48, "avg_dist": 15.0}, "2.3-4.9 min": {"fga": 84, "fgm": 26, "efg": 0.399, "avg_dist": 15.6}, "4.9+ min": {"fga": 115, "fgm": 47, "efg": 0.513, "avg_dist": 11.5}}}, {"pId": 1628279, "name": "Sykes", "fga": 224, "buckets": {"0-2.3 min": {"fga": 48, "fgm": 23, "efg": 0.51, "avg_dist": 10.9}, "2.3-4.9 min": {"fga": 60, "fgm": 22, "efg": 0.375, "avg_dist": 10.5}, "4.9+ min": {"fga": 116, "fgm": 46, "efg": 0.435, "avg_dist": 10.5}}}, {"pId": 1643445, "name": "Rice", "fga": 206, "buckets": {"0-2.3 min": {"fga": 67, "fgm": 34, "efg": 0.597, "avg_dist": 12.3}, "2.3-4.9 min": {"fga": 59, "fgm": 25, "efg": 0.458, "avg_dist": 10.5}, "4.9+ min": {"fga": 80, "fgm": 40, "efg": 0.531, "avg_dist": 9.6}}}, {"pId": 1631055, "name": "Sabally", "fga": 200, "buckets": {"0-2.3 min": {"fga": 84, "fgm": 44, "efg": 0.565, "avg_dist": 6.8}, "2.3-4.9 min": {"fga": 86, "fgm": 47, "efg": 0.622, "avg_dist": 9.1}, "4.9+ min": {"fga": 30, "fgm": 14, "efg": 0.467, "avg_dist": 6.3}}}, {"pId": 1628915, "name": "Nurse", "fga": 178, "buckets": {"0-2.3 min": {"fga": 68, "fgm": 18, "efg": 0.375, "avg_dist": 15.9}, "2.3-4.9 min": {"fga": 69, "fgm": 28, "efg": 0.522, "avg_dist": 16.3}, "4.9+ min": {"fga": 41, "fgm": 17, "efg": 0.561, "avg_dist": 16.0}}}, {"pId": 1627700, "name": "Allemand", "fga": 122, "buckets": {"0-2.3 min": {"fga": 40, "fgm": 18, "efg": 0.575, "avg_dist": 20.6}, "2.3-4.9 min": {"fga": 32, "fgm": 21, "efg": 0.859, "avg_dist": 17.2}, "4.9+ min": {"fga": 50, "fgm": 27, "efg": 0.67, "avg_dist": 15.1}}}, {"pId": 1627701, "name": "Fagbenle", "fga": 99, "buckets": {"0-2.3 min": {"fga": 48, "fgm": 20, "efg": 0.448, "avg_dist": 7.5}, "2.3-4.9 min": {"fga": 33, "fgm": 18, "efg": 0.606, "avg_dist": 5.1}, "4.9+ min": {"fga": 18, "fgm": 13, "efg": 0.806, "avg_dist": 11.4}}}, {"pId": 1643457, "name": "Key", "fga": 71, "buckets": {"0-2.3 min": {"fga": 35, "fgm": 14, "efg": 0.414, "avg_dist": 4.4}, "2.3-4.9 min": {"fga": 27, "fgm": 12, "efg": 0.481, "avg_dist": 6.9}, "4.9+ min": {"fga": 9, "fgm": 2, "efg": 0.222, "avg_dist": 4.9}}}, {"pId": 1643647, "name": "Pouye", "fga": 55, "buckets": {"0-2.3 min": {"fga": 22, "fgm": 10, "efg": 0.545, "avg_dist": 10.3}, "2.3-4.9 min": {"fga": 27, "fgm": 7, "efg": 0.315, "avg_dist": 13.6}, "4.9+ min": {"fga": 6, "fgm": 2, "efg": 0.417, "avg_dist": 13.8}}}, {"pId": 1642800, "name": "Morrow", "fga": 54, "buckets": {"0-2.3 min": {"fga": 16, "fgm": 4, "efg": 0.281, "avg_dist": 11.7}, "2.3-4.9 min": {"fga": 20, "fgm": 9, "efg": 0.5, "avg_dist": 10.5}, "4.9+ min": {"fga": 18, "fgm": 10, "efg": 0.583, "avg_dist": 9.9}}}];
-const FOUL_TROUBLE = {"instances": [{"name": "Milic", "gameId": "1022600015", "bench_minutes": 9.3, "net_pts": 1, "per5min": 0.54}, {"name": "Juskaite", "gameId": "1022600028", "bench_minutes": 7.9, "net_pts": 5, "per5min": 3.15}, {"name": "Juskaite", "gameId": "1022600050", "bench_minutes": 8.8, "net_pts": 5, "per5min": 2.84}, {"name": "Key", "gameId": "1022600081", "bench_minutes": 8.5, "net_pts": 4, "per5min": 2.35}, {"name": "Sabally", "gameId": "1022600081", "bench_minutes": 3.9, "net_pts": 3, "per5min": 3.89}, {"name": "Juskaite", "gameId": "1022600106", "bench_minutes": 3.7, "net_pts": -4, "per5min": -5.36}, {"name": "Harrison", "gameId": "1022600106", "bench_minutes": 3.1, "net_pts": -1, "per5min": -1.6}, {"name": "Sabally", "gameId": "1022600124", "bench_minutes": 3.6, "net_pts": -7, "per5min": -9.68}, {"name": "Fagbenle", "gameId": "1022600124", "bench_minutes": 7.1, "net_pts": -6, "per5min": -4.21}, {"name": "Pouye", "gameId": "1022600166", "bench_minutes": 11.3, "net_pts": -3, "per5min": -1.32}, {"name": "Allemand", "gameId": "1022600171", "bench_minutes": 4.5, "net_pts": 2, "per5min": 2.25}, {"name": "Fagbenle", "gameId": "1022600185", "bench_minutes": 14.0, "net_pts": 5, "per5min": 1.78}, {"name": "Harrison", "gameId": "1022600243", "bench_minutes": 4.4, "net_pts": -1, "per5min": -1.15}, {"name": "Morrow", "gameId": "1022600267", "bench_minutes": 4.1, "net_pts": 3, "per5min": 3.69}, {"name": "Fagbenle", "gameId": "1022600267", "bench_minutes": 5.3, "net_pts": -12, "per5min": -11.39}, {"name": "Juskaite", "gameId": "1022600281", "bench_minutes": 6.9, "net_pts": -6, "per5min": -4.36}, {"name": "Rice", "gameId": "1022600288", "bench_minutes": 3.3, "net_pts": -4, "per5min": -6.12}, {"name": "Key", "gameId": "1022600296", "bench_minutes": 8.4, "net_pts": -6, "per5min": -3.58}], "pooled": {"minutes": 118.1, "net_pts": -22, "per5min": -0.93}};
-const WITHIN_STINT_TEAM = [{"minute": 0, "per5min": -0.76, "minutes": 1304.8, "stints": 1320}, {"minute": 1, "per5min": -1.17, "minutes": 1244.9, "stints": 1278}, {"minute": 2, "per5min": -1.34, "minutes": 1148.1, "stints": 1207}, {"minute": 3, "per5min": -0.4, "minutes": 988.4, "stints": 1080}, {"minute": 4, "per5min": -1.35, "minutes": 802.1, "stints": 895}, {"minute": 5, "per5min": -1.05, "minutes": 612.0, "stints": 702}, {"minute": 6, "per5min": -1.34, "minutes": 460.6, "stints": 533}, {"minute": 7, "per5min": -0.68, "minutes": 329.6, "stints": 389}, {"minute": 8, "per5min": -1.94, "minutes": 224.7, "stints": 273}, {"minute": 9, "per5min": 0.03, "minutes": 152.9, "stints": 176}];
 const WITHIN_STINT_PLAYERS = [{"pId": 1643420, "name": "Laura Juskaite", "points": [{"minute": 0, "raw": 0.36, "vs_team": 1.27, "minutes": 154.7, "stints": 157, "reliable": true}, {"minute": 1, "raw": -0.34, "vs_team": 0.95, "minutes": 148.7, "stints": 152, "reliable": true}, {"minute": 2, "raw": -1.71, "vs_team": -0.42, "minutes": 137.7, "stints": 146, "reliable": true}, {"minute": 3, "raw": -0.04, "vs_team": 0.42, "minutes": 124.3, "stints": 132, "reliable": true}, {"minute": 4, "raw": -2.22, "vs_team": -1.0, "minutes": 103.6, "stints": 117, "reliable": true}, {"minute": 5, "raw": -0.68, "vs_team": 0.42, "minutes": 81.1, "stints": 95, "reliable": true}, {"minute": 6, "raw": -1.66, "vs_team": -0.37, "minutes": 57.3, "stints": 71, "reliable": true}, {"minute": 7, "raw": 0.64, "vs_team": 1.5, "minutes": 38.9, "stints": 44, "reliable": true}, {"minute": 8, "raw": -5.07, "vs_team": -3.58, "minutes": 27.6, "stints": 35, "reliable": true}, {"minute": 9, "raw": -3.03, "vs_team": -3.48, "minutes": 18.1, "stints": 20, "reliable": true}]}, {"pId": 1629497, "name": "Marina Mabrey", "points": [{"minute": 0, "raw": -1.15, "vs_team": -0.43, "minutes": 112.6, "stints": 114, "reliable": true}, {"minute": 1, "raw": -2.46, "vs_team": -1.41, "minutes": 111.9, "stints": 112, "reliable": true}, {"minute": 2, "raw": -0.77, "vs_team": 0.63, "minutes": 110.0, "stints": 110, "reliable": true}, {"minute": 3, "raw": 0.0, "vs_team": 0.45, "minutes": 107.7, "stints": 110, "reliable": true}, {"minute": 4, "raw": 0.05, "vs_team": 1.6, "minutes": 99.9, "stints": 104, "reliable": true}, {"minute": 5, "raw": -0.39, "vs_team": 0.77, "minutes": 89.7, "stints": 97, "reliable": true}, {"minute": 6, "raw": -2.86, "vs_team": -1.82, "minutes": 75.3, "stints": 86, "reliable": true}, {"minute": 7, "raw": -0.08, "vs_team": 0.74, "minutes": 60.7, "stints": 66, "reliable": true}, {"minute": 8, "raw": -3.05, "vs_team": -1.39, "minutes": 44.3, "stints": 55, "reliable": true}, {"minute": 9, "raw": 1.66, "vs_team": 1.97, "minutes": 27.2, "stints": 32, "reliable": true}]}, {"pId": 1629576, "name": "Maria Conde", "points": [{"minute": 0, "raw": -1.38, "vs_team": -0.68, "minutes": 123.4, "stints": 124, "reliable": true}, {"minute": 1, "raw": -0.92, "vs_team": 0.28, "minutes": 120.1, "stints": 123, "reliable": true}, {"minute": 2, "raw": -1.89, "vs_team": -0.61, "minutes": 113.6, "stints": 117, "reliable": true}, {"minute": 3, "raw": 0.28, "vs_team": 0.77, "minutes": 106.1, "stints": 108, "reliable": true}, {"minute": 4, "raw": -1.95, "vs_team": -0.68, "minutes": 92.4, "stints": 100, "reliable": true}, {"minute": 5, "raw": -1.01, "vs_team": 0.04, "minutes": 74.2, "stints": 80, "reliable": true}, {"minute": 6, "raw": -1.47, "vs_team": -0.15, "minutes": 57.8, "stints": 65, "reliable": true}, {"minute": 7, "raw": -1.61, "vs_team": -1.07, "minutes": 43.5, "stints": 51, "reliable": true}, {"minute": 8, "raw": 0.0, "vs_team": 2.23, "minutes": 29.5, "stints": 36, "reliable": true}, {"minute": 9, "raw": -0.68, "vs_team": -0.84, "minutes": 21.9, "stints": 24, "reliable": true}]}, {"pId": 1627700, "name": "Julie Allemand", "points": [{"minute": 0, "raw": 0.45, "vs_team": 1.31, "minutes": 100.9, "stints": 101, "reliable": true}, {"minute": 1, "raw": -1.71, "vs_team": -0.59, "minutes": 99.3, "stints": 100, "reliable": true}, {"minute": 2, "raw": -1.84, "vs_team": -0.55, "minutes": 97.8, "stints": 98, "reliable": true}, {"minute": 3, "raw": 0.43, "vs_team": 0.92, "minutes": 93.7, "stints": 96, "reliable": true}, {"minute": 4, "raw": -0.99, "vs_team": 0.4, "minutes": 85.6, "stints": 90, "reliable": true}, {"minute": 5, "raw": -1.66, "vs_team": -0.7, "minutes": 75.2, "stints": 80, "reliable": true}, {"minute": 6, "raw": 0.32, "vs_team": 1.92, "minutes": 61.6, "stints": 68, "reliable": true}, {"minute": 7, "raw": -1.09, "vs_team": -0.47, "minutes": 41.2, "stints": 51, "reliable": true}, {"minute": 8, "raw": -2.13, "vs_team": -0.22, "minutes": 30.6, "stints": 35, "reliable": true}, {"minute": 9, "raw": 0.75, "vs_team": 0.83, "minutes": 20.0, "stints": 25, "reliable": true}]}, {"pId": 204330, "name": "Isabelle Harrison", "points": [{"minute": 0, "raw": 1.03, "vs_team": 1.98, "minutes": 120.8, "stints": 121, "reliable": true}, {"minute": 1, "raw": -3.03, "vs_team": -2.04, "minutes": 113.9, "stints": 119, "reliable": true}, {"minute": 2, "raw": -2.27, "vs_team": -1.02, "minutes": 105.9, "stints": 111, "reliable": true}, {"minute": 3, "raw": -0.05, "vs_team": 0.39, "minutes": 93.3, "stints": 103, "reliable": true}, {"minute": 4, "raw": -2.19, "vs_team": -0.92, "minutes": 66.2, "stints": 82, "reliable": true}, {"minute": 5, "raw": -3.75, "vs_team": -2.92, "minutes": 44.0, "stints": 55, "reliable": true}, {"minute": 6, "raw": 2.36, "vs_team": 3.97, "minutes": 31.7, "stints": 36, "reliable": true}, {"minute": 7, "raw": -1.56, "vs_team": -0.95, "minutes": 22.4, "stints": 29, "reliable": true}, {"minute": 8, "raw": 1.22, "vs_team": 3.34, "minutes": 12.3, "stints": 17, "reliable": true}, {"minute": 9, "raw": -7.27, "vs_team": -7.72, "minutes": 8.3, "stints": 10, "reliable": true}]}, {"pId": 1643445, "name": "Kiki Rice", "points": [{"minute": 0, "raw": -2.02, "vs_team": -1.36, "minutes": 94.0, "stints": 94, "reliable": true}, {"minute": 1, "raw": -0.33, "vs_team": 0.92, "minutes": 92.2, "stints": 93, "reliable": true}, {"minute": 2, "raw": -0.61, "vs_team": 0.8, "minutes": 90.6, "stints": 92, "reliable": true}, {"minute": 3, "raw": -0.49, "vs_team": -0.09, "minutes": 82.1, "stints": 89, "reliable": true}, {"minute": 4, "raw": -1.04, "vs_team": 0.34, "minutes": 72.4, "stints": 76, "reliable": true}, {"minute": 5, "raw": -1.78, "vs_team": -0.8, "minutes": 56.3, "stints": 66, "reliable": true}, {"minute": 6, "raw": -1.27, "vs_team": 0.07, "minutes": 43.2, "stints": 47, "reliable": true}, {"minute": 7, "raw": 0.99, "vs_team": 1.84, "minutes": 30.4, "stints": 38, "reliable": true}, {"minute": 8, "raw": -3.79, "vs_team": -2.02, "minutes": 18.5, "stints": 22, "reliable": true}, {"minute": 9, "raw": 2.19, "vs_team": 2.37, "minutes": 13.7, "stints": 15, "reliable": true}]}, {"pId": 1631055, "name": "Nyara Sabally", "points": [{"minute": 0, "raw": -2.0, "vs_team": -1.34, "minutes": 100.0, "stints": 100, "reliable": true}, {"minute": 1, "raw": -0.81, "vs_team": 0.39, "minutes": 98.4, "stints": 100, "reliable": true}, {"minute": 2, "raw": 0.05, "vs_team": 1.52, "minutes": 91.5, "stints": 95, "reliable": true}, {"minute": 3, "raw": 1.62, "vs_team": 2.2, "minutes": 80.3, "stints": 87, "reliable": true}, {"minute": 4, "raw": -0.15, "vs_team": 1.3, "minutes": 65.7, "stints": 75, "reliable": true}, {"minute": 5, "raw": -2.43, "vs_team": -1.49, "minutes": 43.3, "stints": 55, "reliable": true}, {"minute": 6, "raw": -3.05, "vs_team": -1.82, "minutes": 26.2, "stints": 34, "reliable": true}, {"minute": 7, "raw": 0.89, "vs_team": 1.66, "minutes": 16.8, "stints": 19, "reliable": true}, {"minute": 8, "raw": -7.12, "vs_team": -5.4, "minutes": 9.1, "stints": 12, "reliable": true}, {"minute": 9, "raw": -4.71, "vs_team": -4.95, "minutes": 6.4, "stints": 7, "reliable": false}]}, {"pId": 1628915, "name": "Kia Nurse", "points": [{"minute": 0, "raw": -1.26, "vs_team": -0.55, "minutes": 114.9, "stints": 118, "reliable": true}, {"minute": 1, "raw": 0.84, "vs_team": 2.2, "minutes": 107.4, "stints": 110, "reliable": true}, {"minute": 2, "raw": -3.07, "vs_team": -1.88, "minutes": 94.5, "stints": 105, "reliable": true}, {"minute": 3, "raw": -4.56, "vs_team": -4.47, "minutes": 71.3, "stints": 84, "reliable": true}, {"minute": 4, "raw": -0.64, "vs_team": 0.75, "minutes": 47.2, "stints": 55, "reliable": true}, {"minute": 5, "raw": -2.59, "vs_team": -1.62, "minutes": 29.0, "stints": 39, "reliable": true}, {"minute": 6, "raw": -3.46, "vs_team": -2.22, "minutes": 20.2, "stints": 24, "reliable": true}, {"minute": 7, "raw": 6.26, "vs_team": 7.22, "minutes": 12.8, "stints": 15, "reliable": true}, {"minute": 8, "raw": -3.54, "vs_team": -1.68, "minutes": 9.9, "stints": 11, "reliable": true}, {"minute": 9, "raw": 2.14, "vs_team": 2.21, "minutes": 7.0, "stints": 8, "reliable": false}]}, {"pId": 1628279, "name": "Brittney Sykes", "points": [{"minute": 0, "raw": 0.76, "vs_team": 1.58, "minutes": 46.2, "stints": 47, "reliable": true}, {"minute": 1, "raw": -0.66, "vs_team": 0.53, "minutes": 45.5, "stints": 46, "reliable": true}, {"minute": 2, "raw": 0.23, "vs_team": 1.63, "minutes": 44.1, "stints": 45, "reliable": true}, {"minute": 3, "raw": 1.57, "vs_team": 2.06, "minutes": 41.5, "stints": 42, "reliable": true}, {"minute": 4, "raw": 0.74, "vs_team": 2.2, "minutes": 40.6, "stints": 41, "reliable": true}, {"minute": 5, "raw": 1.69, "vs_team": 2.92, "minutes": 38.5, "stints": 40, "reliable": true}, {"minute": 6, "raw": -3.32, "vs_team": -2.15, "minutes": 34.6, "stints": 38, "reliable": true}, {"minute": 7, "raw": -3.1, "vs_team": -2.65, "minutes": 29.1, "stints": 32, "reliable": true}, {"minute": 8, "raw": 0.69, "vs_team": 2.91, "minutes": 21.8, "stints": 23, "reliable": true}, {"minute": 9, "raw": 0.28, "vs_team": 0.28, "minutes": 17.6, "stints": 19, "reliable": true}]}, {"pId": 1627701, "name": "Temi Fagbenle", "points": [{"minute": 0, "raw": -1.42, "vs_team": -0.71, "minutes": 84.4, "stints": 87, "reliable": true}, {"minute": 1, "raw": -3.09, "vs_team": -2.05, "minutes": 80.9, "stints": 84, "reliable": true}, {"minute": 2, "raw": -1.18, "vs_team": 0.17, "minutes": 71.8, "stints": 78, "reliable": true}, {"minute": 3, "raw": 0.09, "vs_team": 0.53, "minutes": 54.1, "stints": 65, "reliable": true}, {"minute": 4, "raw": -0.67, "vs_team": 0.71, "minutes": 37.6, "stints": 45, "reliable": true}, {"minute": 5, "raw": -3.23, "vs_team": -2.28, "minutes": 26.3, "stints": 30, "reliable": true}, {"minute": 6, "raw": -1.01, "vs_team": 0.34, "minutes": 19.8, "stints": 22, "reliable": true}, {"minute": 7, "raw": -4.11, "vs_team": -3.56, "minutes": 12.2, "stints": 17, "reliable": true}, {"minute": 8, "raw": 7.18, "vs_team": 9.4, "minutes": 7.0, "stints": 9, "reliable": false}, {"minute": 9, "raw": -3.92, "vs_team": -4.02, "minutes": 2.5, "stints": 5, "reliable": false}]}, {"pId": 1643457, "name": "Teonni Key", "points": [{"minute": 0, "raw": -0.85, "vs_team": -0.09, "minutes": 88.1, "stints": 90, "reliable": true}, {"minute": 1, "raw": -1.35, "vs_team": -0.18, "minutes": 78.0, "stints": 83, "reliable": true}, {"minute": 2, "raw": -1.98, "vs_team": -0.68, "minutes": 65.5, "stints": 74, "reliable": true}, {"minute": 3, "raw": -0.65, "vs_team": -0.26, "minutes": 45.9, "stints": 56, "reliable": true}, {"minute": 4, "raw": -0.34, "vs_team": 1.05, "minutes": 29.5, "stints": 36, "reliable": true}, {"minute": 5, "raw": 1.19, "vs_team": 2.3, "minutes": 16.8, "stints": 20, "reliable": true}, {"minute": 6, "raw": 1.09, "vs_team": 2.48, "minutes": 9.2, "stints": 12, "reliable": true}, {"minute": 7, "raw": -14.34, "vs_team": -13.85, "minutes": 4.5, "stints": 6, "reliable": false}, {"minute": 8, "raw": 5.62, "vs_team": 7.65, "minutes": 2.7, "stints": 3, "reliable": false}, {"minute": 9, "raw": -5.0, "vs_team": -5.07, "minutes": 1.0, "stints": 1, "reliable": false}]}, {"pId": 1643647, "name": "Tima Pouye", "points": [{"minute": 0, "raw": -0.68, "vs_team": 0.08, "minutes": 43.9, "stints": 45, "reliable": true}, {"minute": 1, "raw": 1.95, "vs_team": 3.23, "minutes": 38.4, "stints": 41, "reliable": true}, {"minute": 2, "raw": -0.3, "vs_team": 1.07, "minutes": 32.9, "stints": 35, "reliable": true}, {"minute": 3, "raw": -5.0, "vs_team": -4.7, "minutes": 22.0, "stints": 30, "reliable": true}, {"minute": 4, "raw": -6.39, "vs_team": -5.13, "minutes": 14.1, "stints": 17, "reliable": true}, {"minute": 5, "raw": 2.1, "vs_team": 3.18, "minutes": 7.2, "stints": 9, "reliable": false}, {"minute": 6, "raw": -14.06, "vs_team": -12.85, "minutes": 4.3, "stints": 6, "reliable": false}, {"minute": 7, "raw": -6.67, "vs_team": -6.04, "minutes": 3.0, "stints": 3, "reliable": false}, {"minute": 8, "raw": 2.4, "vs_team": 4.38, "minutes": 2.1, "stints": 3, "reliable": false}, {"minute": 9, "raw": 0.0, "vs_team": -0.03, "minutes": 2.0, "stints": 2, "reliable": false}]}, {"pId": 1642800, "name": "Aneesah Morrow", "points": [{"minute": 0, "raw": -4.83, "vs_team": -4.13, "minutes": 21.8, "stints": 22, "reliable": true}, {"minute": 1, "raw": -1.75, "vs_team": -0.59, "minutes": 20.0, "stints": 20, "reliable": true}, {"minute": 2, "raw": 3.4, "vs_team": 4.82, "minutes": 19.1, "stints": 20, "reliable": true}, {"minute": 3, "raw": -4.2, "vs_team": -3.86, "minutes": 16.7, "stints": 18, "reliable": true}, {"minute": 4, "raw": -0.37, "vs_team": 0.99, "minutes": 13.4, "stints": 14, "reliable": true}, {"minute": 5, "raw": 2.43, "vs_team": 3.52, "minutes": 8.2, "stints": 9, "reliable": false}, {"minute": 6, "raw": 2.86, "vs_team": 4.26, "minutes": 7.0, "stints": 7, "reliable": false}, {"minute": 7, "raw": 5.45, "vs_team": 6.24, "minutes": 5.5, "stints": 7, "reliable": false}, {"minute": 8, "raw": -7.0, "vs_team": -5.18, "minutes": 5.0, "stints": 5, "reliable": false}, {"minute": 9, "raw": 10.71, "vs_team": 10.98, "minutes": 4.2, "stints": 5, "reliable": false}]}, {"pId": 1643706, "name": "Ornella Bankole", "points": [{"minute": 0, "raw": -2.0, "vs_team": -1.27, "minutes": 29.9, "stints": 30, "reliable": true}, {"minute": 1, "raw": -0.91, "vs_team": 0.27, "minutes": 27.5, "stints": 29, "reliable": true}, {"minute": 2, "raw": -3.3, "vs_team": -1.99, "minutes": 22.8, "stints": 25, "reliable": true}, {"minute": 3, "raw": -0.54, "vs_team": -0.14, "minutes": 18.6, "stints": 21, "reliable": true}, {"minute": 4, "raw": -8.85, "vs_team": -7.63, "minutes": 13.6, "stints": 17, "reliable": true}, {"minute": 5, "raw": 3.02, "vs_team": 4.14, "minutes": 9.9, "stints": 12, "reliable": true}, {"minute": 6, "raw": 4.7, "vs_team": 6.12, "minutes": 6.4, "stints": 8, "reliable": false}, {"minute": 7, "raw": -4.33, "vs_team": -3.7, "minutes": 4.6, "stints": 6, "reliable": false}, {"minute": 8, "raw": 12.5, "vs_team": 14.54, "minutes": 1.6, "stints": 4, "reliable": false}]}, {"pId": 1631263, "name": "Nikolina Milic", "points": [{"minute": 0, "raw": 0.5, "vs_team": 1.28, "minutes": 20.0, "stints": 20, "reliable": true}, {"minute": 1, "raw": 0.27, "vs_team": 1.46, "minutes": 18.7, "stints": 20, "reliable": true}, {"minute": 2, "raw": -4.26, "vs_team": -2.95, "minutes": 12.9, "stints": 17, "reliable": true}, {"minute": 3, "raw": 1.85, "vs_team": 2.26, "minutes": 5.4, "stints": 8, "reliable": false}, {"minute": 4, "raw": -9.26, "vs_team": -7.94, "minutes": 2.7, "stints": 4, "reliable": false}, {"minute": 5, "raw": -3.75, "vs_team": -2.71, "minutes": 1.3, "stints": 2, "reliable": false}, {"minute": 6, "raw": 0.0, "vs_team": 1.34, "minutes": 1.0, "stints": 1, "reliable": false}, {"minute": 7, "raw": -10.34, "vs_team": -9.69, "minutes": 1.0, "stints": 1, "reliable": false}]}, {"pId": 1631118, "name": "Lexi Held", "points": [{"minute": 0, "raw": -0.67, "vs_team": 0.1, "minutes": 15.0, "stints": 15, "reliable": true}, {"minute": 1, "raw": 1.73, "vs_team": 2.94, "minutes": 14.4, "stints": 15, "reliable": true}, {"minute": 2, "raw": 0.46, "vs_team": 1.82, "minutes": 10.8, "stints": 12, "reliable": true}, {"minute": 3, "raw": -1.95, "vs_team": -1.55, "minutes": 5.1, "stints": 7, "reliable": false}, {"minute": 4, "raw": 1.46, "vs_team": 2.81, "minutes": 3.4, "stints": 4, "reliable": false}, {"minute": 5, "raw": 4.11, "vs_team": 5.18, "minutes": 2.4, "stints": 3, "reliable": false}, {"minute": 6, "raw": 15.0, "vs_team": 16.37, "minutes": 1.0, "stints": 1, "reliable": false}, {"minute": 7, "raw": 0.0, "vs_team": 0.68, "minutes": 1.0, "stints": 1, "reliable": false}, {"minute": 8, "raw": -15.0, "vs_team": -13.12, "minutes": 1.0, "stints": 1, "reliable": false}, {"minute": 9, "raw": 10.0, "vs_team": 10.03, "minutes": 1.0, "stints": 1, "reliable": false}]}, {"pId": 1630461, "name": "Kiana Williams", "points": [{"minute": 0, "raw": 0.43, "vs_team": 1.21, "minutes": 11.5, "stints": 12, "reliable": true}, {"minute": 1, "raw": -5.91, "vs_team": -4.78, "minutes": 11.0, "stints": 11, "reliable": true}, {"minute": 2, "raw": 0.45, "vs_team": 1.81, "minutes": 11.0, "stints": 11, "reliable": true}, {"minute": 3, "raw": 0.5, "vs_team": 0.91, "minutes": 10.1, "stints": 11, "reliable": true}, {"minute": 4, "raw": -9.05, "vs_team": -7.78, "minutes": 7.7, "stints": 10, "reliable": true}, {"minute": 5, "raw": 0.0, "vs_team": 1.05, "minutes": 5.3, "stints": 6, "reliable": false}, {"minute": 6, "raw": 7.96, "vs_team": 9.34, "minutes": 1.9, "stints": 4, "reliable": false}]}, {"pId": 203405, "name": "Kayla Alexander", "points": [{"minute": 0, "raw": -3.16, "vs_team": -2.42, "minutes": 12.7, "stints": 13, "reliable": true}, {"minute": 1, "raw": -4.07, "vs_team": -2.92, "minutes": 9.8, "stints": 10, "reliable": true}, {"minute": 2, "raw": -2.27, "vs_team": -0.94, "minutes": 8.8, "stints": 9, "reliable": false}, {"minute": 3, "raw": -10.2, "vs_team": -9.85, "minutes": 4.9, "stints": 7, "reliable": false}, {"minute": 4, "raw": -6.53, "vs_team": -5.2, "minutes": 3.1, "stints": 4, "reliable": false}, {"minute": 5, "raw": 15.0, "vs_team": 16.07, "minutes": 1.0, "stints": 1, "reliable": false}]}];
-const SCALE = 6; // symmetric axis: +/-6 net pts per 5 min
-
-const grid = document.getElementById('grid');
-const tbody = document.querySelector('#tbl tbody');
 
 function renderCliffCard(p) {
   const MAX_MIN = 10, Y_SCALE = 8, W = 220, H = 78, PAD_L = 4, PAD_R = 4, PAD_T = 6, PAD_B = 16;
@@ -266,7 +138,6 @@ function renderCliffCard(p) {
     dots += `<circle class="cliff-dot${cls}" cx="${xFor(i)}" cy="${yFor(pt.vs_team)}" style="fill:${color}"><title>${p.name} — minute ${pt.minute}-${pt.minute+1}: ${pt.vs_team>=0?'+':''}${pt.vs_team.toFixed(1)} vs team (raw ${pt.raw>=0?'+':''}${pt.raw.toFixed(1)}), ${pt.minutes}m across ${pt.stints} stints${pt.reliable?'':' — small sample'}</title></circle>`;
     if (i > 0) {
       const prev = p.points[i - 1];
-      const prevCls = prev.reliable ? '' : ' thin-seg';
       const segColor = prev.vs_team >= 0 ? 'var(--pos)' : 'var(--neg)';
       const segCls = (pt.reliable && prev.reliable) ? '' : ' thin-seg';
       segs += `<line class="cliff-line${segCls}" x1="${xFor(i-1)}" y1="${yFor(prev.vs_team)}" x2="${xFor(i)}" y2="${yFor(pt.vs_team)}" style="stroke:${segColor}"></line>`;
@@ -296,132 +167,6 @@ function renderCliffCard(p) {
   `;
   return card;
 }
-
-function barsHtmlFor(buckets, label, labels) {
-  labels = labels || BUCKETS;
-  return labels.map(b => {
-    const v = buckets[b];
-    if (!v) {
-      return `<div class="bar-col"><div class="bar-val na" style="top:calc(50% - 14px)">n/a</div></div>`;
-    }
-    const pct = Math.min(Math.abs(v.per5min) / SCALE, 1) * 50;
-    const isPos = v.per5min >= 0;
-    const thin = (v.minutes < 15 || v.stints < 3) ? ' thin' : '';
-    const barStyle = isPos
-      ? `height:${pct}%; top:${50 - pct}%; background:var(--pos)`
-      : `height:${pct}%; top:50%; background:var(--neg)`;
-    const labelTop = isPos ? `calc(${50 - pct}% - 15px)` : `calc(${50 + pct}% + 3px)`;
-    return `<div class="bar-col" title="${label} — ${b}: ${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} net pts / 5 min over ${v.minutes} min across ${v.stints} stint${v.stints===1?'':'s'}">
-      <div class="bar${thin}" style="${barStyle}"></div>
-      <div class="bar-val ${isPos?'pos':'neg'}" style="top:${labelTop}">${v.per5min>=0?'+':''}${v.per5min.toFixed(1)}</div>
-    </div>`;
-  }).join('');
-}
-
-function makeCard(title, subtitle, nTag, buckets, labels) {
-  labels = labels || BUCKETS;
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <div class="card-head">
-      <div class="card-name">${title}</div>
-      <div class="card-n">${nTag}</div>
-    </div>
-    ${subtitle ? `<div class="card-sub">${subtitle}</div>` : ''}
-    <div class="chart"><div class="zero-line"></div>${barsHtmlFor(buckets, title, labels)}</div>
-    <div class="bucket-labels">${labels.map(b=>`<span>${b}</span>`).join('')}</div>
-    <div class="bucket-mins">${labels.map(b=>{const v=buckets[b]; return `<span>${v?v.minutes+'m &middot; '+v.stints+'x':''}</span>`;}).join('')}</div>
-  `;
-  return card;
-}
-
-// histogram
-const histEl = document.getElementById('hist');
-const maxCount = Math.max(...HIST.map(h => h.count));
-HIST.forEach((h, i) => {
-  const pct = (h.count / maxCount) * 100;
-  const binStart = i; // bin i = "i-(i+1)" minutes, last is 12+
-  const inEdgeBand = binStart < Math.ceil(EDGES[1]);
-  const col = document.createElement('div');
-  col.className = 'hist-bar-col';
-  const showCount = pct < 25; // small bars need a real number, the shape alone won't show it
-  col.innerHTML = `${showCount ? `<div class="hist-count">${h.count}</div>` : ''}<div class="hist-bar${inEdgeBand ? ' in-edge' : ''}" style="height:${pct}%" title="${h.bin} min: ${h.count} stints"></div><div class="hist-label">${h.bin}</div>`;
-  histEl.appendChild(col);
-});
-
-DATA.forEach(p => {
-  grid.appendChild(makeCard(p.name, null, `${p.stints} stints`, p.buckets));
-
-  const tr = document.createElement('tr');
-  const cellFor = b => {
-    const v = p.buckets[b];
-    if (!v) return `<td>—</td>`;
-    const cls = v.per5min >= 0 ? 'pos' : 'neg';
-    const vsTeam = v.vs_team != null ? ` <span style="color:var(--muted);font-weight:400">| vs team ${v.vs_team>=0?'+':''}${v.vs_team.toFixed(2)}</span>` : '';
-    return `<td class="${cls}">${v.per5min>=0?'+':''}${v.per5min.toFixed(2)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span>${vsTeam}</td>`;
-  };
-  tr.innerHTML = `<td>${p.name}</td><td>${p.stints}</td>${BUCKETS.map(cellFor).join('')}`;
-  tbody.appendChild(tr);
-});
-
-// minute-by-minute "cliff finder" curves
-const cliffGrid = document.getElementById('cliffGrid');
-WITHIN_STINT_PLAYERS.forEach(p => cliffGrid.appendChild(renderCliffCard(p)));
-
-// score-margin-at-checkin split
-const marginGrid = document.getElementById('marginGrid');
-const marginRows = [
-  ['All stints', MARGIN_SPLIT.all, ''],
-  ['Close at check-in', MARGIN_SPLIT.close, '&le;10 pt margin'],
-  ['Blowout at check-in', MARGIN_SPLIT.blowout, '&gt;10 pt margin'],
-];
-marginRows.forEach(([title, buckets, sub]) => {
-  const nTag = Object.values(buckets).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' stints';
-  marginGrid.appendChild(makeCard(title, sub, nTag, buckets));
-});
-
-// league benchmark
-const benchGrid = document.getElementById('benchGrid');
-benchGrid.appendChild(makeCard('Toronto Tempo', 'this team', `${DATA.reduce((s,p)=>s+p.stints,0)} stints`, MARGIN_SPLIT.all));
-BENCHMARKS.forEach(b => {
-  const nTag = Object.values(b.buckets).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' stints';
-  benchGrid.appendChild(makeCard(b.label, b.record, nTag, b.buckets));
-});
-
-// lineups
-const lineupTbody = document.querySelector('#lineupTbl tbody');
-LINEUPS.forEach(l => {
-  const tr = document.createElement('tr');
-  const cls = l.per5min >= 0 ? 'pos' : 'neg';
-  const thin = l.segments < 5 ? ' style="opacity:.55"' : '';
-  tr.innerHTML = `<td${thin}>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td><td${thin}>${l.minutes}</td><td class="${cls}"${thin}>${l.per5min>=0?'+':''}${l.per5min.toFixed(2)}</td><td${thin}>${l.segments}</td>`;
-  lineupTbody.appendChild(tr);
-});
-
-// lineup decay -- pooled
-const lineupDecayPooledGrid = document.getElementById('lineupDecayPooledGrid');
-const pooledNTag = Object.values(LINEUP_DECAY_POOLED).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' runs';
-lineupDecayPooledGrid.appendChild(makeCard('All lineups pooled', 'every continuous 5-man run this season', pooledNTag, LINEUP_DECAY_POOLED, LINEUP_BUCKETS));
-
-// lineup decay -- per lineup table (small samples, shown as a plain table not bars)
-document.getElementById('lineupDecayNote').textContent =
-  `Per-lineup breakdown below is small-sample by nature (a handful of runs per bucket) -- read as a hint, not a verdict. Lineups with at least 10 continuous runs this season.`;
-document.getElementById('ldB0').textContent = LINEUP_BUCKETS[0];
-document.getElementById('ldB1').textContent = LINEUP_BUCKETS[1];
-document.getElementById('ldB2').textContent = LINEUP_BUCKETS[2];
-const lineupDecayTbody = document.querySelector('#lineupDecayTbl tbody');
-LINEUP_DECAY_PER_LINEUP.forEach(l => {
-  const tr = document.createElement('tr');
-  const cellFor = b => {
-    const v = l.buckets[b];
-    if (!v) return `<td>—</td>`;
-    const cls = v.per5min >= 0 ? 'pos' : 'neg';
-    const thin = (v.minutes < 5 || v.stints < 3) ? ' style="opacity:.55"' : '';
-    return `<td class="${cls}"${thin}>${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span></td>`;
-  };
-  tr.innerHTML = `<td>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td>${LINEUP_BUCKETS.map(cellFor).join('')}`;
-  lineupDecayTbody.appendChild(tr);
-});
 
 // shot quality decay -- pooled
 ['sqB0h','sqB1h','sqB2h','sqB0','sqB1','sqB2'].forEach((id,i) => {
@@ -454,19 +199,17 @@ SHOT_DECAY_PLAYERS.forEach(p => {
   shotPlayerTbody.appendChild(tr);
 });
 
-// foul trouble cost
-const ft = FOUL_TROUBLE;
-// season baseline net/5min, recomputed from MARGIN_SPLIT.all bucket minutes+rate
-let baseMin = 0, baseNet = 0;
-Object.values(MARGIN_SPLIT.all).forEach(v => { if (v) { baseMin += v.minutes; baseNet += v.per5min/5*v.minutes; } });
-const baseline = baseMin > 0 ? (baseNet/baseMin*5) : null;
-document.getElementById('foulSummary').textContent =
-  `${ft.instances.length} instances, ${ft.pooled.minutes} total forced-bench minutes. Team net rating in those windows: ${ft.pooled.per5min>=0?'+':''}${ft.pooled.per5min.toFixed(2)} pts/5min, vs the team's own season baseline of ${baseline!=null?(baseline>=0?'+':'')+baseline.toFixed(2):'n/a'} pts/5min. Sample is small (18 instances) -- read as a hint, not a verdict.`;
-const foulTbody = document.querySelector('#foulTbl tbody');
-ft.instances.forEach(i => {
+// minute-by-minute "cliff finder" curves
+const cliffGrid = document.getElementById('cliffGrid');
+WITHIN_STINT_PLAYERS.forEach(p => cliffGrid.appendChild(renderCliffCard(p)));
+
+// lineups
+const lineupTbody = document.querySelector('#lineupTbl tbody');
+LINEUPS.forEach(l => {
   const tr = document.createElement('tr');
-  const cls = i.per5min >= 0 ? 'pos' : 'neg';
-  tr.innerHTML = `<td>${i.name}</td><td>${i.bench_minutes}</td><td class="${cls}">${i.net_pts>=0?'+':''}${i.net_pts}</td><td class="${cls}">${i.per5min>=0?'+':''}${i.per5min.toFixed(2)}</td>`;
-  foulTbody.appendChild(tr);
+  const cls = l.per5min >= 0 ? 'pos' : 'neg';
+  const thin = l.segments < 5 ? ' style="opacity:.55"' : '';
+  tr.innerHTML = `<td${thin}>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td><td${thin}>${l.minutes}</td><td class="${cls}"${thin}>${l.per5min>=0?'+':''}${l.per5min.toFixed(2)}</td><td${thin}>${l.segments}</td>`;
+  lineupTbody.appendChild(tr);
 });
 </script>

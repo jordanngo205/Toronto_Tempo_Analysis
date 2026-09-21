@@ -16,7 +16,6 @@
     --pos: #2a78d6;
     --neg: #e34948;
     --zero: #ccd1da;
-    --thin-bg: repeating-linear-gradient(135deg, currentColor 0 2px, transparent 2px 7px);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -44,56 +43,12 @@
 
   main { max-width: 1180px; margin: 0 auto; padding: 22px 20px 60px; }
 
-  .methodology {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 16px 18px; margin-bottom: 18px; font-size: 12.5px; color: var(--text-2);
-  }
-  .methodology strong { color: var(--text); }
+  @media print { header { break-inside: avoid; page-break-inside: avoid; } }
 
-  .hist-card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-    padding: 16px 18px; margin-bottom: 22px;
-  }
-  .hist-title { font-size: 12.5px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-  .hist-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 12px; }
-  .hist-chart { display: flex; align-items: flex-end; gap: 4px; height: 118px; }
-  .hist-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
-  .hist-count { font-size: 9px; font-weight: 700; color: var(--text-2); margin-bottom: 2px; }
-  .hist-bar { width: 100%; min-height: 3px; border-radius: 2px 2px 0 0; background: var(--muted); }
-  .hist-bar.in-edge { background: var(--tempo-blue); }
-  .hist-label { font-size: 9px; color: var(--muted); margin-top: 4px; }
-  .hist-edge-line { position: relative; }
-  .hist-edges { display: flex; justify-content: space-between; font-size: 10px; color: var(--brand); font-weight: 700; margin-top: 8px; }
+  .section-h { font-size: 15px; font-weight: 800; margin: 30px 0 4px; letter-spacing: -0.01em; }
+  .section-h:first-child { margin-top: 0; }
+  .section-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; max-width: 68ch; }
 
-  .legend { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--text-2); margin-bottom: 18px; }
-  .legend-item { display: flex; align-items: center; gap: 6px; }
-  .legend-swatch { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
-  .legend-swatch.thin { background: var(--muted); opacity: .35; background-image: var(--thin-bg); color: var(--muted); }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 12px; break-inside: avoid; page-break-inside: avoid; }
-  @media print { .methodology, header { break-inside: avoid; page-break-inside: avoid; } }
-  .card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
-  .card-name { font-size: 14px; font-weight: 700; }
-  .card-n { font-size: 11px; color: var(--muted); font-weight: 600; }
-
-  .chart { position: relative; height: 118px; margin: 14px 4px 6px; display: flex; align-items: stretch; gap: 10px; }
-  .zero-line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--zero); }
-  .bar-col { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-  .bar { position: absolute; left: 8%; right: 8%; border-radius: 3px; top: 50%; }
-  .bar.thin { opacity: .38; }
-  .bar-val { position: absolute; left: 0; right: 0; text-align: center; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .bar-val.pos { color: var(--pos); }
-  .bar-val.neg { color: var(--neg); }
-  .bar-val.na { color: var(--muted); font-weight: 500; font-size: 10px; }
-
-  .bucket-labels { display: flex; gap: 10px; margin-top: 2px; }
-  .bucket-labels span { flex: 1; text-align: center; font-size: 10px; color: var(--muted); font-weight: 600; }
-  .bucket-mins { display: flex; gap: 10px; margin-top: 1px; }
-  .bucket-mins span { flex: 1; text-align: center; font-size: 9.5px; color: var(--muted); }
-
-  details { margin-top: 26px; }
-  summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--text-2); padding: 4px 0; }
   .tbl-note { margin: 4px 0 0; font-size: 12px; color: var(--muted); max-width: 68ch; }
   table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--border); }
@@ -104,12 +59,12 @@
   td.pos { color: var(--pos); font-weight: 600; }
   td.neg { color: var(--neg); font-weight: 600; }
 
-  .section-h { font-size: 15px; font-weight: 800; margin: 30px 0 4px; letter-spacing: -0.01em; }
-  .section-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; max-width: 68ch; }
-  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .card-sub { font-size: 10.5px; color: var(--muted); margin-top: -2px; margin-bottom: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
 
   .cliff-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 10px; break-inside: avoid; page-break-inside: avoid; }
+  .cliff-card .card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px; }
+  .cliff-card .card-name { font-size: 14px; font-weight: 700; }
+  .cliff-card .card-n { font-size: 11px; color: var(--muted); font-weight: 600; }
   .cliff-svg { width: 100%; height: 110px; display: block; overflow: visible; }
   .cliff-line { fill: none; stroke-width: 2px; }
   .cliff-line.thin-seg { opacity: .4; stroke-dasharray: 3 3; }
@@ -121,14 +76,14 @@
 <header>
   <div class="header-inner">
     <div class="eyebrow">Toronto Tempo · 2026 Season · Prototype</div>
-    <h1>Shot-Quality Decay</h1>
-    <p>Does a player's own shot selection change the longer they've been in the game? Plus the full rotation-decay breakdown by stint length, below.</p>
+    <h1>Shot-Quality &amp; Cliff-Point Decay</h1>
+    <p>Which players' performance actually changes the longer they've been in the game, and where -- plus which 5-man lineups have actually worked this season.</p>
   </div>
 </header>
 
 <main>
-  <h2 class="section-h" style="margin-top:0">Does shot quality decay? (the headline finding)</h2>
-  <p class="section-sub">Net rating is confounded by the other 9 players on the floor -- that's why every cut of it below kept reducing to "coaches sub players out when things go wrong." A player's own shot selection isn't confounded that way: eFG% and average shot distance, by how long the shooter had been in their current stint when they took it. Team-wide it's flat (no decay -- confirming the net-rating pattern really was mostly noise), but individually there's real signal.</p>
+  <h2 class="section-h">Does shot quality decay? (the headline finding)</h2>
+  <p class="section-sub">A player's own shot selection isn't confounded by the other 9 players on the floor the way net rating is: eFG% and average shot distance, by how long the shooter had been in their current stint when they took it. Team-wide it's flat (no decay), but individually there's real signal.</p>
   <div class="tbl-wrap">
     <table id="shotPooledTbl">
       <thead><tr><th>All Tempo shots</th><th id="sqB0h"></th><th id="sqB1h"></th><th id="sqB2h"></th></tr></thead>
@@ -144,53 +99,8 @@
   </div>
 
   <h2 class="section-h">Where exactly does each player's performance fall off?</h2>
-  <p class="section-sub">The 3-bucket view compares whole-stint averages -- it can't say <em>when</em> within a stint someone turns. This slices every stint minute-by-minute instead (minute 0-1 of the stint, 1-2, 2-3, ...), pooling across every stint that lasted that long, then subtracts the team's own rate at that same minute (leave-one-out) -- so a player's own cliff point survives the adjustment instead of getting smeared into one number. Line above zero = better than a teammate would be at that point in a stint; below zero = worse. Faded/dashed segments are under 10 stints reaching that minute -- read those as noise, not signal.</p>
+  <p class="section-sub">Every stint sliced minute-by-minute (minute 0-1, 1-2, 2-3, ...), pooling across every stint that lasted that long, then subtracting the team's own rate at that same minute (leave-one-out) -- so a player's own cliff point survives the adjustment instead of getting smeared into one number. Line above zero = better than a teammate would be at that point in a stint; below zero = worse. Faded/dashed segments are under 10 stints reaching that minute -- read those as noise, not signal.</p>
   <div class="grid" id="cliffGrid"></div>
-
-  <h2 class="section-h">The rest: rotation decay by stint length</h2>
-  <p class="section-sub">Supporting material below -- net rating (not shot quality) by stint length, sliced every way we could think of. Kept for reference since it's what led to the shot-quality question above, but read the caveats: it's confounded by teammates/opponent in a way shot quality isn't.</p>
-
-  <div class="methodology">
-    <strong>How this is built:</strong> the WNBA tracks every stint directly (check-in, check-out, point diff).
-    <br><br>
-    <strong>Bucket edges come from the real data:</strong> __EDGE0__ min and __EDGE1__ min are the terciles of actual stint lengths.
-  </div>
-
-  <div class="hist-card">
-    <div class="hist-title">Real stint-length distribution — all Tempo stints, 2026 season</div>
-    <div class="hist-sub">__N_STINTS__ stints, true 1-minute bins throughout (longest stint of the season: __MAX_STINT__ min, folded into the __TAIL_LABEL__ bar). Highlighted bars mark where the two bucket edges (__EDGE0__ min, __EDGE1__ min) fall.</div>
-    <div class="hist-chart" id="hist"></div>
-    <div class="hist-edges"><span>0 min</span><span>20+ min</span></div>
-  </div>
-
-  <div class="legend">
-    <div class="legend-item"><span class="legend-swatch" style="background:var(--pos)"></span>Net positive per 5 min</div>
-    <div class="legend-item"><span class="legend-swatch" style="background:var(--neg)"></span>Net negative per 5 min</div>
-    <div class="legend-item"><span class="legend-swatch thin"></span>Under 15 min or under 3 stints — read with caution</div>
-  </div>
-
-  <div class="grid" id="grid"></div>
-
-  <details open>
-    <summary>Full numbers (table view)</summary>
-    <p class="tbl-note">Each cell is net points per 5 minutes; in parentheses, the total minutes and stints behind it. "vs team" is that number minus the team's own rate in the same bucket (excluding this player's own minutes) -- positive means better than a teammate would be in that same bucket, not just better than zero.</p>
-    <div class="tbl-wrap">
-      <table id="tbl">
-        <thead>
-          <tr><th>Player</th><th>Stints</th><th>__B0__</th><th>__B1__</th><th>__B2__</th></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </details>
-
-  <h2 class="section-h">Does this hold in a competitive game?</h2>
-  <p class="section-sub">Same buckets, split by the score margin when the player checked in. If the short-stint pattern is mostly coaches reacting to blowouts, it should mostly disappear in the "close" column.</p>
-  <div class="grid grid-3" id="marginGrid"></div>
-
-  <h2 class="section-h">Is this just Tempo, or every team?</h2>
-  <p class="section-sub">Same buckets applied to the league's best and worst records this season, for context on whether Tempo's pattern is unusual.</p>
-  <div class="grid grid-3" id="benchGrid"></div>
 
   <h2 class="section-h">Which 5-man lineups actually work</h2>
   <p class="section-sub">Reconstructed from on/off overlap, scored against the same play-by-play. Lineups with at least 15 minutes together.</p>
@@ -202,52 +112,14 @@
       <tbody></tbody>
     </table>
   </div>
-
-  <h2 class="section-h">Do lineups decay too?</h2>
-  <p class="section-sub">Different question from stint length above: does a specific 5-man unit's performance change the longer <em>that exact group</em> has been on the floor together, continuously (any substitution among the 5 ends the run). Pooled across every lineup first, since per-lineup samples get thin fast.</p>
-  <div class="grid grid-3" id="lineupDecayPooledGrid"></div>
-  <p class="tbl-note" id="lineupDecayNote"></p>
-  <div class="tbl-wrap">
-    <table id="lineupDecayTbl">
-      <thead>
-        <tr><th>Lineup</th><th id="ldB0"></th><th id="ldB1"></th><th id="ldB2"></th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <h2 class="section-h">Up next: foul-trouble cost (early pass, more to do here)</h2>
-  <p class="section-sub">Every instance this season a Tempo player reached 2 personal fouls in the 1st period and was pulled within 90 seconds. Team net rating during the resulting forced-bench window, versus the team's own season baseline. First pass only -- flagged to dig into further, not a finished finding.</p>
-  <p class="tbl-note" id="foulSummary"></p>
-  <div class="tbl-wrap">
-    <table id="foulTbl">
-      <thead><tr><th>Player</th><th>Bench minutes</th><th>Net pts</th><th>Net / 5min</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
 </main>
 
 <script>
-const DATA = __DATA_JSON__;
-const BUCKETS = __BUCKETS_JSON__;
-const HIST = __HIST_JSON__;
-const EDGES = __EDGES_JSON__;
-const MARGIN_SPLIT = __MARGIN_SPLIT_JSON__;
-const BENCHMARKS = __BENCHMARKS_JSON__;
 const LINEUPS = __LINEUPS_JSON__;
-const LINEUP_BUCKETS = __LINEUP_BUCKETS_JSON__;
-const LINEUP_DECAY_POOLED = __LINEUP_DECAY_POOLED_JSON__;
-const LINEUP_DECAY_PER_LINEUP = __LINEUP_DECAY_PER_LINEUP_JSON__;
 const SHOT_BUCKETS = __SHOT_BUCKETS_JSON__;
 const SHOT_DECAY_POOLED = __SHOT_DECAY_POOLED_JSON__;
 const SHOT_DECAY_PLAYERS = __SHOT_DECAY_PLAYERS_JSON__;
-const FOUL_TROUBLE = __FOUL_TROUBLE_JSON__;
-const WITHIN_STINT_TEAM = __WITHIN_STINT_TEAM_JSON__;
 const WITHIN_STINT_PLAYERS = __WITHIN_STINT_PLAYERS_JSON__;
-const SCALE = 6; // symmetric axis: +/-6 net pts per 5 min
-
-const grid = document.getElementById('grid');
-const tbody = document.querySelector('#tbl tbody');
 
 function renderCliffCard(p) {
   const MAX_MIN = 10, Y_SCALE = 8, W = 220, H = 78, PAD_L = 4, PAD_R = 4, PAD_T = 6, PAD_B = 16;
@@ -266,7 +138,6 @@ function renderCliffCard(p) {
     dots += `<circle class="cliff-dot${cls}" cx="${xFor(i)}" cy="${yFor(pt.vs_team)}" style="fill:${color}"><title>${p.name} — minute ${pt.minute}-${pt.minute+1}: ${pt.vs_team>=0?'+':''}${pt.vs_team.toFixed(1)} vs team (raw ${pt.raw>=0?'+':''}${pt.raw.toFixed(1)}), ${pt.minutes}m across ${pt.stints} stints${pt.reliable?'':' — small sample'}</title></circle>`;
     if (i > 0) {
       const prev = p.points[i - 1];
-      const prevCls = prev.reliable ? '' : ' thin-seg';
       const segColor = prev.vs_team >= 0 ? 'var(--pos)' : 'var(--neg)';
       const segCls = (pt.reliable && prev.reliable) ? '' : ' thin-seg';
       segs += `<line class="cliff-line${segCls}" x1="${xFor(i-1)}" y1="${yFor(prev.vs_team)}" x2="${xFor(i)}" y2="${yFor(pt.vs_team)}" style="stroke:${segColor}"></line>`;
@@ -296,132 +167,6 @@ function renderCliffCard(p) {
   `;
   return card;
 }
-
-function barsHtmlFor(buckets, label, labels) {
-  labels = labels || BUCKETS;
-  return labels.map(b => {
-    const v = buckets[b];
-    if (!v) {
-      return `<div class="bar-col"><div class="bar-val na" style="top:calc(50% - 14px)">n/a</div></div>`;
-    }
-    const pct = Math.min(Math.abs(v.per5min) / SCALE, 1) * 50;
-    const isPos = v.per5min >= 0;
-    const thin = (v.minutes < 15 || v.stints < 3) ? ' thin' : '';
-    const barStyle = isPos
-      ? `height:${pct}%; top:${50 - pct}%; background:var(--pos)`
-      : `height:${pct}%; top:50%; background:var(--neg)`;
-    const labelTop = isPos ? `calc(${50 - pct}% - 15px)` : `calc(${50 + pct}% + 3px)`;
-    return `<div class="bar-col" title="${label} — ${b}: ${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} net pts / 5 min over ${v.minutes} min across ${v.stints} stint${v.stints===1?'':'s'}">
-      <div class="bar${thin}" style="${barStyle}"></div>
-      <div class="bar-val ${isPos?'pos':'neg'}" style="top:${labelTop}">${v.per5min>=0?'+':''}${v.per5min.toFixed(1)}</div>
-    </div>`;
-  }).join('');
-}
-
-function makeCard(title, subtitle, nTag, buckets, labels) {
-  labels = labels || BUCKETS;
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <div class="card-head">
-      <div class="card-name">${title}</div>
-      <div class="card-n">${nTag}</div>
-    </div>
-    ${subtitle ? `<div class="card-sub">${subtitle}</div>` : ''}
-    <div class="chart"><div class="zero-line"></div>${barsHtmlFor(buckets, title, labels)}</div>
-    <div class="bucket-labels">${labels.map(b=>`<span>${b}</span>`).join('')}</div>
-    <div class="bucket-mins">${labels.map(b=>{const v=buckets[b]; return `<span>${v?v.minutes+'m &middot; '+v.stints+'x':''}</span>`;}).join('')}</div>
-  `;
-  return card;
-}
-
-// histogram
-const histEl = document.getElementById('hist');
-const maxCount = Math.max(...HIST.map(h => h.count));
-HIST.forEach((h, i) => {
-  const pct = (h.count / maxCount) * 100;
-  const binStart = i; // bin i = "i-(i+1)" minutes, last is 12+
-  const inEdgeBand = binStart < Math.ceil(EDGES[1]);
-  const col = document.createElement('div');
-  col.className = 'hist-bar-col';
-  const showCount = pct < 25; // small bars need a real number, the shape alone won't show it
-  col.innerHTML = `${showCount ? `<div class="hist-count">${h.count}</div>` : ''}<div class="hist-bar${inEdgeBand ? ' in-edge' : ''}" style="height:${pct}%" title="${h.bin} min: ${h.count} stints"></div><div class="hist-label">${h.bin}</div>`;
-  histEl.appendChild(col);
-});
-
-DATA.forEach(p => {
-  grid.appendChild(makeCard(p.name, null, `${p.stints} stints`, p.buckets));
-
-  const tr = document.createElement('tr');
-  const cellFor = b => {
-    const v = p.buckets[b];
-    if (!v) return `<td>—</td>`;
-    const cls = v.per5min >= 0 ? 'pos' : 'neg';
-    const vsTeam = v.vs_team != null ? ` <span style="color:var(--muted);font-weight:400">| vs team ${v.vs_team>=0?'+':''}${v.vs_team.toFixed(2)}</span>` : '';
-    return `<td class="${cls}">${v.per5min>=0?'+':''}${v.per5min.toFixed(2)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span>${vsTeam}</td>`;
-  };
-  tr.innerHTML = `<td>${p.name}</td><td>${p.stints}</td>${BUCKETS.map(cellFor).join('')}`;
-  tbody.appendChild(tr);
-});
-
-// minute-by-minute "cliff finder" curves
-const cliffGrid = document.getElementById('cliffGrid');
-WITHIN_STINT_PLAYERS.forEach(p => cliffGrid.appendChild(renderCliffCard(p)));
-
-// score-margin-at-checkin split
-const marginGrid = document.getElementById('marginGrid');
-const marginRows = [
-  ['All stints', MARGIN_SPLIT.all, ''],
-  ['Close at check-in', MARGIN_SPLIT.close, '&le;10 pt margin'],
-  ['Blowout at check-in', MARGIN_SPLIT.blowout, '&gt;10 pt margin'],
-];
-marginRows.forEach(([title, buckets, sub]) => {
-  const nTag = Object.values(buckets).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' stints';
-  marginGrid.appendChild(makeCard(title, sub, nTag, buckets));
-});
-
-// league benchmark
-const benchGrid = document.getElementById('benchGrid');
-benchGrid.appendChild(makeCard('Toronto Tempo', 'this team', `${DATA.reduce((s,p)=>s+p.stints,0)} stints`, MARGIN_SPLIT.all));
-BENCHMARKS.forEach(b => {
-  const nTag = Object.values(b.buckets).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' stints';
-  benchGrid.appendChild(makeCard(b.label, b.record, nTag, b.buckets));
-});
-
-// lineups
-const lineupTbody = document.querySelector('#lineupTbl tbody');
-LINEUPS.forEach(l => {
-  const tr = document.createElement('tr');
-  const cls = l.per5min >= 0 ? 'pos' : 'neg';
-  const thin = l.segments < 5 ? ' style="opacity:.55"' : '';
-  tr.innerHTML = `<td${thin}>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td><td${thin}>${l.minutes}</td><td class="${cls}"${thin}>${l.per5min>=0?'+':''}${l.per5min.toFixed(2)}</td><td${thin}>${l.segments}</td>`;
-  lineupTbody.appendChild(tr);
-});
-
-// lineup decay -- pooled
-const lineupDecayPooledGrid = document.getElementById('lineupDecayPooledGrid');
-const pooledNTag = Object.values(LINEUP_DECAY_POOLED).reduce((s, v) => s + (v ? v.stints : 0), 0) + ' runs';
-lineupDecayPooledGrid.appendChild(makeCard('All lineups pooled', 'every continuous 5-man run this season', pooledNTag, LINEUP_DECAY_POOLED, LINEUP_BUCKETS));
-
-// lineup decay -- per lineup table (small samples, shown as a plain table not bars)
-document.getElementById('lineupDecayNote').textContent =
-  `Per-lineup breakdown below is small-sample by nature (a handful of runs per bucket) -- read as a hint, not a verdict. Lineups with at least 10 continuous runs this season.`;
-document.getElementById('ldB0').textContent = LINEUP_BUCKETS[0];
-document.getElementById('ldB1').textContent = LINEUP_BUCKETS[1];
-document.getElementById('ldB2').textContent = LINEUP_BUCKETS[2];
-const lineupDecayTbody = document.querySelector('#lineupDecayTbl tbody');
-LINEUP_DECAY_PER_LINEUP.forEach(l => {
-  const tr = document.createElement('tr');
-  const cellFor = b => {
-    const v = l.buckets[b];
-    if (!v) return `<td>—</td>`;
-    const cls = v.per5min >= 0 ? 'pos' : 'neg';
-    const thin = (v.minutes < 5 || v.stints < 3) ? ' style="opacity:.55"' : '';
-    return `<td class="${cls}"${thin}>${v.per5min>=0?'+':''}${v.per5min.toFixed(1)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span></td>`;
-  };
-  tr.innerHTML = `<td>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td>${LINEUP_BUCKETS.map(cellFor).join('')}`;
-  lineupDecayTbody.appendChild(tr);
-});
 
 // shot quality decay -- pooled
 ['sqB0h','sqB1h','sqB2h','sqB0','sqB1','sqB2'].forEach((id,i) => {
@@ -454,19 +199,17 @@ SHOT_DECAY_PLAYERS.forEach(p => {
   shotPlayerTbody.appendChild(tr);
 });
 
-// foul trouble cost
-const ft = FOUL_TROUBLE;
-// season baseline net/5min, recomputed from MARGIN_SPLIT.all bucket minutes+rate
-let baseMin = 0, baseNet = 0;
-Object.values(MARGIN_SPLIT.all).forEach(v => { if (v) { baseMin += v.minutes; baseNet += v.per5min/5*v.minutes; } });
-const baseline = baseMin > 0 ? (baseNet/baseMin*5) : null;
-document.getElementById('foulSummary').textContent =
-  `${ft.instances.length} instances, ${ft.pooled.minutes} total forced-bench minutes. Team net rating in those windows: ${ft.pooled.per5min>=0?'+':''}${ft.pooled.per5min.toFixed(2)} pts/5min, vs the team's own season baseline of ${baseline!=null?(baseline>=0?'+':'')+baseline.toFixed(2):'n/a'} pts/5min. Sample is small (18 instances) -- read as a hint, not a verdict.`;
-const foulTbody = document.querySelector('#foulTbl tbody');
-ft.instances.forEach(i => {
+// minute-by-minute "cliff finder" curves
+const cliffGrid = document.getElementById('cliffGrid');
+WITHIN_STINT_PLAYERS.forEach(p => cliffGrid.appendChild(renderCliffCard(p)));
+
+// lineups
+const lineupTbody = document.querySelector('#lineupTbl tbody');
+LINEUPS.forEach(l => {
   const tr = document.createElement('tr');
-  const cls = i.per5min >= 0 ? 'pos' : 'neg';
-  tr.innerHTML = `<td>${i.name}</td><td>${i.bench_minutes}</td><td class="${cls}">${i.net_pts>=0?'+':''}${i.net_pts}</td><td class="${cls}">${i.per5min>=0?'+':''}${i.per5min.toFixed(2)}</td>`;
-  foulTbody.appendChild(tr);
+  const cls = l.per5min >= 0 ? 'pos' : 'neg';
+  const thin = l.segments < 5 ? ' style="opacity:.55"' : '';
+  tr.innerHTML = `<td${thin}>${l.names.map(n=>n.split(' ').slice(-1)[0]).join(', ')}</td><td${thin}>${l.minutes}</td><td class="${cls}"${thin}>${l.per5min>=0?'+':''}${l.per5min.toFixed(2)}</td><td${thin}>${l.segments}</td>`;
+  lineupTbody.appendChild(tr);
 });
 </script>
