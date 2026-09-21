@@ -23,7 +23,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install pandas requests
+        run: pip install pandas curl_cffi
 
       - name: Scrape Toronto Tempo 2026 season
         run: |

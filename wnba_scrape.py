@@ -20,22 +20,22 @@ import time
 from pathlib import Path
 
 import pandas as pd
-import requests
+from curl_cffi import requests as cffi_requests
 
 BASE = "https://stats.wnba.com/stats"
 HEADERS = {
-    "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-                    "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"),
-    "Referer": "https://www.wnba.com/",
-    "Origin": "https://www.wnba.com",
+    "Referer": "https://stats.wnba.com/",
+    "Origin": "https://stats.wnba.com",
     "Accept": "application/json, text/plain, */*",
     "Accept-Language": "en-US,en;q=0.9",
     "x-nba-stats-origin": "stats",
     "x-nba-stats-token": "true",
     "Connection": "keep-alive",
 }
-SESSION = requests.Session()
-SESSION.headers.update(HEADERS)
+# stats.wnba.com/stats.nba.com block on TLS fingerprint (Akamai), not just
+# headers -- plain `requests` gets silently black-holed from cloud/datacenter
+# IPs. curl_cffi impersonates a real Chrome TLS handshake to get through.
+SESSION = cffi_requests.Session(impersonate="chrome", headers=HEADERS)
 
 # WNBA quarters are 10 minutes (600s), OT is 5 minutes (300s) -- same as FIBA.
 PERIOD_LEN = {1: 600, 2: 600, 3: 600, 4: 600}
@@ -47,7 +47,7 @@ def fetch_json(endpoint: str, params: dict, tries: int = 5, pause: float = 3.0) 
     last = None
     for attempt in range(1, tries + 1):
         try:
-            r = SESSION.get(url, params=params, timeout=60)
+            r = SESSION.get(url, params=params, timeout=20)
             r.raise_for_status()
             return r.json()
         except Exception as exc:  # noqa: BLE001
