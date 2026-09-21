@@ -1,4 +1,4 @@
-<title>Rotation Decay — Toronto Tempo</title>
+<title>Shot-Quality Decay — Toronto Tempo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -113,12 +113,31 @@
 <header>
   <div class="header-inner">
     <div class="eyebrow">Toronto Tempo · 2026 Season · Prototype</div>
-    <h1>Rotation Decay</h1>
-    <p>Net rating by stint length, Toronto Tempo's inaugural WNBA season.</p>
+    <h1>Shot-Quality Decay</h1>
+    <p>Does a player's own shot selection change the longer they've been in the game? Plus the full rotation-decay breakdown by stint length, below.</p>
   </div>
 </header>
 
 <main>
+  <h2 class="section-h" style="margin-top:0">Does shot quality decay? (the headline finding)</h2>
+  <p class="section-sub">Net rating is confounded by the other 9 players on the floor -- that's why every cut of it below kept reducing to "coaches sub players out when things go wrong." A player's own shot selection isn't confounded that way: eFG% and average shot distance, by how long the shooter had been in their current stint when they took it. Team-wide it's flat (no decay -- confirming the net-rating pattern really was mostly noise), but individually there's real signal.</p>
+  <div class="tbl-wrap">
+    <table id="shotPooledTbl">
+      <thead><tr><th>All Tempo shots</th><th id="sqB0h"></th><th id="sqB1h"></th><th id="sqB2h"></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="tbl-note">Per player (at least 30 shots this season). Green/red shows whether that bucket's eFG% is above or below the team average for that same bucket.</p>
+  <div class="tbl-wrap">
+    <table id="shotPlayerTbl">
+      <thead><tr><th>Player</th><th>FGA</th><th id="sqB0"></th><th id="sqB1"></th><th id="sqB2"></th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <h2 class="section-h">The rest: rotation decay by stint length</h2>
+  <p class="section-sub">Supporting material below -- net rating (not shot quality) by stint length, sliced every way we could think of. Kept for reference since it's what led to the shot-quality question above, but read the caveats: it's confounded by teammates/opponent in a way shot quality isn't.</p>
+
   <div class="methodology">
     <strong>How this is built:</strong> the WNBA tracks every stint directly (check-in, check-out, point diff).
     <br><br>
@@ -185,24 +204,8 @@
     </table>
   </div>
 
-  <h2 class="section-h">Does shot quality decay? (a cleaner signal than net rating)</h2>
-  <p class="section-sub">Net rating above is confounded by the other 9 players on the floor -- that's why it kept reducing to "coaches sub players out when things go wrong." A player's own shot selection isn't confounded that way. eFG% and average shot distance, by how long the shooter had been in their current stint when they took it.</p>
-  <div class="tbl-wrap">
-    <table id="shotPooledTbl">
-      <thead><tr><th>All Tempo shots</th><th id="sqB0h"></th><th id="sqB1h"></th><th id="sqB2h"></th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <p class="tbl-note">Per player (at least 30 shots this season). Green/red shows whether that bucket's eFG% is above or below the team average for that same bucket.</p>
-  <div class="tbl-wrap">
-    <table id="shotPlayerTbl">
-      <thead><tr><th>Player</th><th>FGA</th><th id="sqB0"></th><th id="sqB1"></th><th id="sqB2"></th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-
-  <h2 class="section-h">What does early foul trouble actually cost?</h2>
-  <p class="section-sub">Every instance this season a Tempo player reached 2 personal fouls in the 1st period and was pulled within 90 seconds. Team net rating during the resulting forced-bench window, versus the team's own season baseline.</p>
+  <h2 class="section-h">Up next: foul-trouble cost (early pass, more to do here)</h2>
+  <p class="section-sub">Every instance this season a Tempo player reached 2 personal fouls in the 1st period and was pulled within 90 seconds. Team net rating during the resulting forced-bench window, versus the team's own season baseline. First pass only -- flagged to dig into further, not a finished finding.</p>
   <p class="tbl-note" id="foulSummary"></p>
   <div class="tbl-wrap">
     <table id="foulTbl">
