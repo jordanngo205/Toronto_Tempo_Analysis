@@ -403,6 +403,12 @@ def build_player_decay(stints: list[dict], e1: float, e2: float, min_total_minut
         stint_counts[s["pId"]] += 1
         total_minutes[s["pId"]] += m
 
+    # team totals per bucket, for the leave-one-out baseline below
+    team_bucket = defaultdict(lambda: {"minutes": 0.0, "net_pts": 0.0})
+    for (pid, b), d in by_pb.items():
+        team_bucket[b]["minutes"] += d["minutes"]
+        team_bucket[b]["net_pts"] += d["net_pts"]
+
     qualified = [pid for pid, m in total_minutes.items() if m >= min_total_minutes]
     result = []
     for pid in qualified:
@@ -412,7 +418,14 @@ def build_player_decay(stints: list[dict], e1: float, e2: float, min_total_minut
             d = by_pb.get((pid, b))
             if d and d["minutes"] >= 5:
                 per5 = d["net_pts"] / d["minutes"] * 5
-                row["buckets"][b] = {"per5min": round(per5, 2), "minutes": round(d["minutes"], 1), "stints": d["stints"]}
+                # leave-one-out: team's own rate in this bucket, excluding this player's minutes
+                tb = team_bucket[b]
+                loo_min = tb["minutes"] - d["minutes"]
+                loo_net = tb["net_pts"] - d["net_pts"]
+                team_baseline = loo_net / loo_min * 5 if loo_min > 0 else None
+                vs_team = round(per5 - team_baseline, 2) if team_baseline is not None else None
+                row["buckets"][b] = {"per5min": round(per5, 2), "minutes": round(d["minutes"], 1), "stints": d["stints"],
+                                      "vs_team": vs_team}
             else:
                 row["buckets"][b] = None
         result.append(row)

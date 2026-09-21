@@ -161,7 +161,7 @@
 
   <details open>
     <summary>Full numbers (table view)</summary>
-    <p class="tbl-note">Each cell is net points per 5 minutes; in parentheses, the total minutes and the number of separate stints behind it.</p>
+    <p class="tbl-note">Each cell is net points per 5 minutes; in parentheses, the total minutes and stints behind it. "vs team" is that number minus the team's own rate in the same bucket (excluding this player's own minutes) -- positive means better than a teammate would be in that same bucket, not just better than zero.</p>
     <div class="tbl-wrap">
       <table id="tbl">
         <thead>
@@ -295,7 +295,8 @@ DATA.forEach(p => {
     const v = p.buckets[b];
     if (!v) return `<td>—</td>`;
     const cls = v.per5min >= 0 ? 'pos' : 'neg';
-    return `<td class="${cls}">${v.per5min>=0?'+':''}${v.per5min.toFixed(2)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span></td>`;
+    const vsTeam = v.vs_team != null ? ` <span style="color:var(--muted);font-weight:400">| vs team ${v.vs_team>=0?'+':''}${v.vs_team.toFixed(2)}</span>` : '';
+    return `<td class="${cls}">${v.per5min>=0?'+':''}${v.per5min.toFixed(2)} <span style="color:var(--muted);font-weight:400">(${v.minutes}m, ${v.stints}x)</span>${vsTeam}</td>`;
   };
   tr.innerHTML = `<td>${p.name}</td><td>${p.stints}</td>${BUCKETS.map(cellFor).join('')}`;
   tbody.appendChild(tr);
