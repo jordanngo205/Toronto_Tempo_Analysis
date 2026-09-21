@@ -108,6 +108,14 @@
   .section-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; max-width: 68ch; }
   .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
   .card-sub { font-size: 10.5px; color: var(--muted); margin-top: -2px; margin-bottom: 4px; }
+
+  .cliff-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 10px; break-inside: avoid; page-break-inside: avoid; }
+  .cliff-svg { width: 100%; height: 110px; display: block; overflow: visible; }
+  .cliff-line { fill: none; stroke-width: 2px; }
+  .cliff-line.thin-seg { opacity: .4; stroke-dasharray: 3 3; }
+  .cliff-dot { r: 3; }
+  .cliff-dot.thin-seg { opacity: .4; }
+  .cliff-axis-label { font-size: 8.5px; fill: var(--muted); }
 </style>
 
 <header>
@@ -134,6 +142,10 @@
       <tbody></tbody>
     </table>
   </div>
+
+  <h2 class="section-h">Where exactly does each player's performance fall off?</h2>
+  <p class="section-sub">The 3-bucket view compares whole-stint averages -- it can't say <em>when</em> within a stint someone turns. This slices every stint minute-by-minute instead (minute 0-1 of the stint, 1-2, 2-3, ...), pooling across every stint that lasted that long, then subtracts the team's own rate at that same minute (leave-one-out) -- so a player's own cliff point survives the adjustment instead of getting smeared into one number. Line above zero = better than a teammate would be at that point in a stint; below zero = worse. Faded/dashed segments are under 10 stints reaching that minute -- read those as noise, not signal.</p>
+  <div class="grid" id="cliffGrid"></div>
 
   <h2 class="section-h">The rest: rotation decay by stint length</h2>
   <p class="section-sub">Supporting material below -- net rating (not shot quality) by stint length, sliced every way we could think of. Kept for reference since it's what led to the shot-quality question above, but read the caveats: it's confounded by teammates/opponent in a way shot quality isn't.</p>
@@ -230,10 +242,60 @@ const SHOT_BUCKETS = __SHOT_BUCKETS_JSON__;
 const SHOT_DECAY_POOLED = __SHOT_DECAY_POOLED_JSON__;
 const SHOT_DECAY_PLAYERS = __SHOT_DECAY_PLAYERS_JSON__;
 const FOUL_TROUBLE = __FOUL_TROUBLE_JSON__;
+const WITHIN_STINT_TEAM = __WITHIN_STINT_TEAM_JSON__;
+const WITHIN_STINT_PLAYERS = __WITHIN_STINT_PLAYERS_JSON__;
 const SCALE = 6; // symmetric axis: +/-6 net pts per 5 min
 
 const grid = document.getElementById('grid');
 const tbody = document.querySelector('#tbl tbody');
+
+function renderCliffCard(p) {
+  const MAX_MIN = 10, Y_SCALE = 8, W = 220, H = 78, PAD_L = 4, PAD_R = 4, PAD_T = 6, PAD_B = 16;
+  const plotW = W - PAD_L - PAD_R, plotH = H - PAD_T - PAD_B;
+  const xFor = i => PAD_L + (i / (MAX_MIN - 1)) * plotW;
+  const yFor = v => {
+    const clipped = Math.max(-Y_SCALE, Math.min(Y_SCALE, v));
+    return PAD_T + (1 - (clipped + Y_SCALE) / (2 * Y_SCALE)) * plotH;
+  };
+  const zeroY = yFor(0);
+
+  let segs = '', dots = '';
+  p.points.forEach((pt, i) => {
+    const cls = pt.reliable ? '' : ' thin-seg';
+    const color = pt.vs_team >= 0 ? 'var(--pos)' : 'var(--neg)';
+    dots += `<circle class="cliff-dot${cls}" cx="${xFor(i)}" cy="${yFor(pt.vs_team)}" style="fill:${color}"><title>${p.name} — minute ${pt.minute}-${pt.minute+1}: ${pt.vs_team>=0?'+':''}${pt.vs_team.toFixed(1)} vs team (raw ${pt.raw>=0?'+':''}${pt.raw.toFixed(1)}), ${pt.minutes}m across ${pt.stints} stints${pt.reliable?'':' — small sample'}</title></circle>`;
+    if (i > 0) {
+      const prev = p.points[i - 1];
+      const prevCls = prev.reliable ? '' : ' thin-seg';
+      const segColor = prev.vs_team >= 0 ? 'var(--pos)' : 'var(--neg)';
+      const segCls = (pt.reliable && prev.reliable) ? '' : ' thin-seg';
+      segs += `<line class="cliff-line${segCls}" x1="${xFor(i-1)}" y1="${yFor(prev.vs_team)}" x2="${xFor(i)}" y2="${yFor(pt.vs_team)}" style="stroke:${segColor}"></line>`;
+    }
+  });
+
+  const ticks = [0, 2, 4, 6, 8].filter(m => m < MAX_MIN)
+    .map(m => `<text class="cliff-axis-label" x="${xFor(m)}" y="${H}" text-anchor="middle">${m}m</text>`).join('');
+
+  const svg = `<svg class="cliff-svg" viewBox="0 0 ${W} ${H}">
+    <line x1="${PAD_L}" y1="${zeroY}" x2="${W-PAD_R}" y2="${zeroY}" stroke="var(--zero)" stroke-width="1"></line>
+    ${segs}${dots}${ticks}
+  </svg>`;
+
+  const card = document.createElement('div');
+  card.className = 'cliff-card';
+  const lastReliableIdx = p.points.reduce((acc, pt, i) => pt.reliable ? i : acc, -1);
+  const cliffNote = lastReliableIdx >= 0
+    ? `reliable through minute ${p.points[lastReliableIdx].minute + 1}`
+    : 'small sample throughout';
+  card.innerHTML = `
+    <div class="card-head">
+      <div class="card-name">${p.name}</div>
+      <div class="card-n">${cliffNote}</div>
+    </div>
+    ${svg}
+  `;
+  return card;
+}
 
 function barsHtmlFor(buckets, label, labels) {
   labels = labels || BUCKETS;
@@ -301,6 +363,10 @@ DATA.forEach(p => {
   tr.innerHTML = `<td>${p.name}</td><td>${p.stints}</td>${BUCKETS.map(cellFor).join('')}`;
   tbody.appendChild(tr);
 });
+
+// minute-by-minute "cliff finder" curves
+const cliffGrid = document.getElementById('cliffGrid');
+WITHIN_STINT_PLAYERS.forEach(p => cliffGrid.appendChild(renderCliffCard(p)));
 
 // score-margin-at-checkin split
 const marginGrid = document.getElementById('marginGrid');

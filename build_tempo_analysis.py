@@ -433,6 +433,74 @@ def build_player_decay(stints: list[dict], e1: float, e2: float, min_total_minut
     return labels, result
 
 
+def build_within_stint_decay(season: str, stints_with_times: list[dict], min_total_minutes: float = 40.0,
+                              min_window_stints: int = 10, max_minute: int = 10, bin_s: float = 60.0):
+    """The 3-bucket view above compares whole-stint averages -- it can't say
+    WHEN within a stint a player's performance turns. This slices every
+    stint into 1-minute windows (minute 0-1, 1-2, ...), scores each window
+    against the play-by-play, and pools across every stint that lasted that
+    long. Team-adjusted the same way as build_player_decay (leave-one-out),
+    but now the adjustment is applied minute-by-minute instead of per bucket,
+    so a player's own cliff point survives the adjustment instead of being
+    smeared into one coarse number."""
+    by_player_bin = defaultdict(lambda: {"net_pts": 0.0, "seconds": 0.0, "stints": 0})
+    team_bin = defaultdict(lambda: {"net_pts": 0.0, "seconds": 0.0, "stints": 0})
+    names, total_minutes = {}, defaultdict(float)
+
+    for s in stints_with_times:
+        tl = build_score_timeline(season, s["gameId"])
+        if tl is None:
+            continue
+        home = s["home"]
+        names[s["pId"]] = s["name"]
+        total_minutes[s["pId"]] += s["elapsed_s"] / 60.0
+        dur = s["out_s"] - s["in_s"]
+        nbins = int(dur // bin_s) + (1 if dur % bin_s > 0 else 0)
+        for i in range(min(nbins, max_minute)):
+            w0 = s["in_s"] + i * bin_s
+            w1 = min(s["in_s"] + (i + 1) * bin_s, s["out_s"])
+            if w1 <= w0:
+                continue
+            h0, a0 = score_at(tl, w0)
+            h1, a1 = score_at(tl, w1)
+            t0, o0 = (h0, a0) if home else (a0, h0)
+            t1, o1 = (h1, a1) if home else (a1, h1)
+            net = (t1 - o1) - (t0 - o0)
+            d = by_player_bin[(s["pId"], i)]
+            d["net_pts"] += net; d["seconds"] += (w1 - w0); d["stints"] += 1
+            td = team_bin[i]
+            td["net_pts"] += net; td["seconds"] += (w1 - w0); td["stints"] += 1
+
+    team_curve = []
+    for i in range(max_minute):
+        td = team_bin[i]
+        rate = round(td["net_pts"] / td["seconds"] * 300, 2) if td["seconds"] > 0 else None
+        team_curve.append({"minute": i, "per5min": rate, "minutes": round(td["seconds"] / 60.0, 1), "stints": td["stints"]})
+
+    qualified = [pid for pid, m in total_minutes.items() if m >= min_total_minutes]
+    players = []
+    for pid in qualified:
+        points = []
+        for i in range(max_minute):
+            d = by_player_bin.get((pid, i))
+            td = team_bin[i]
+            if not d or d["seconds"] < 15:
+                break  # this player never reliably reaches this minute of a stint
+            rate = d["net_pts"] / d["seconds"] * 300
+            loo_sec = td["seconds"] - d["seconds"]
+            loo_net = td["net_pts"] - d["net_pts"]
+            loo_rate = loo_net / loo_sec * 300 if loo_sec > 0 else 0.0
+            points.append({
+                "minute": i, "raw": round(rate, 2), "vs_team": round(rate - loo_rate, 2),
+                "minutes": round(d["seconds"] / 60.0, 1), "stints": d["stints"],
+                "reliable": d["stints"] >= min_window_stints,
+            })
+        if points:
+            players.append({"pId": pid, "name": names[pid], "points": points})
+    players.sort(key=lambda p: -total_minutes[p["pId"]])
+    return team_curve, players
+
+
 def build_histogram(stints: list[dict], tail_start: int = 20):
     lens_min = [s["elapsed_s"] / 60.0 for s in stints]
     bins = Counter()
@@ -566,7 +634,7 @@ def build_benchmarks(season: str, schedule: dict, e1: float, e2: float, exclude_
 
 def render(template_path: Path, out_path: Path, *, data, buckets, hist, edges, n_stints, max_stint,
            tail_start, margin_split, benchmarks, lineups, lineup_buckets, lineup_decay_pooled, lineup_decay_per_lineup,
-           shot_buckets, shot_decay_pooled, shot_decay_players, foul_trouble):
+           shot_buckets, shot_decay_pooled, shot_decay_players, foul_trouble, within_stint_team, within_stint_players):
     tpl = template_path.read_text()
     tpl = tpl.replace("__DATA_JSON__", json.dumps(data))
     tpl = tpl.replace("__BUCKETS_JSON__", json.dumps(buckets))
@@ -587,6 +655,8 @@ def render(template_path: Path, out_path: Path, *, data, buckets, hist, edges, n
     tpl = tpl.replace("__SHOT_DECAY_POOLED_JSON__", json.dumps(shot_decay_pooled))
     tpl = tpl.replace("__SHOT_DECAY_PLAYERS_JSON__", json.dumps(shot_decay_players))
     tpl = tpl.replace("__FOUL_TROUBLE_JSON__", json.dumps(foul_trouble))
+    tpl = tpl.replace("__WITHIN_STINT_TEAM_JSON__", json.dumps(within_stint_team))
+    tpl = tpl.replace("__WITHIN_STINT_PLAYERS_JSON__", json.dumps(within_stint_players))
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(tpl)
 
@@ -650,6 +720,10 @@ def main() -> None:
     foul_trouble = build_foul_trouble_cost(args.season, fouls, stints, home_by_game)
     print(f"  {len(foul_trouble['instances'])} foul-trouble forced-bench instances, pooled {foul_trouble['pooled']}")
 
+    print("Building within-stint (minute-by-minute) decay curves...")
+    within_stint_team, within_stint_players = build_within_stint_decay(args.season, stints)
+    print(f"  {len(within_stint_players)} players with a curve")
+
     data_dir = Path(args.data_dir)
     data_dir.mkdir(parents=True, exist_ok=True)
     (data_dir / "stints.json").write_text(json.dumps(stints))
@@ -662,6 +736,8 @@ def main() -> None:
     (data_dir / "shot_quality_decay.json").write_text(json.dumps(
         {"bucket_order": shot_buckets, "pooled": shot_decay_pooled, "players": shot_decay_players}, indent=2))
     (data_dir / "foul_trouble_cost.json").write_text(json.dumps(foul_trouble, indent=2))
+    (data_dir / "within_stint_decay.json").write_text(json.dumps(
+        {"team": within_stint_team, "players": within_stint_players}, indent=2))
     print(f"Wrote data files to {data_dir}/")
 
     render(
@@ -673,6 +749,7 @@ def main() -> None:
         lineup_decay_per_lineup=lineup_decay_per_lineup,
         shot_buckets=shot_buckets, shot_decay_pooled=shot_decay_pooled, shot_decay_players=shot_decay_players,
         foul_trouble=foul_trouble,
+        within_stint_team=within_stint_team, within_stint_players=within_stint_players,
     )
     print(f"Rendered {args.out}")
 
