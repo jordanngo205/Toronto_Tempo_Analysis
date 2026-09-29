@@ -51,6 +51,18 @@
     "names": [
       "Isabelle Harrison",
       "Julie Allemand",
+      "Temi Fagbenle",
+      "Laura Juskaite",
+      "Kiki Rice"
+    ],
+    "minutes": 42.2,
+    "per5min": -1.78,
+    "segments": 12
+  },
+  {
+    "names": [
+      "Isabelle Harrison",
+      "Julie Allemand",
       "Marina Mabrey",
       "Maria Conde",
       "Nyara Sabally"
@@ -103,9 +115,9 @@
       "Laura Juskaite",
       "Kiki Rice"
     ],
-    "minutes": 23.3,
-    "per5min": -4.29,
-    "segments": 9
+    "minutes": 24.4,
+    "per5min": -3.27,
+    "segments": 10
   },
   {
     "names": [
@@ -148,23 +160,23 @@
       "Isabelle Harrison",
       "Julie Allemand",
       "Temi Fagbenle",
-      "Laura Juskaite",
-      "Kiki Rice"
-    ],
-    "minutes": 19.0,
-    "per5min": -0.79,
-    "segments": 6
-  },
-  {
-    "names": [
-      "Isabelle Harrison",
-      "Julie Allemand",
-      "Temi Fagbenle",
       "Marina Mabrey",
       "Maria Conde"
     ],
     "minutes": 18.4,
     "per5min": -0.54,
+    "segments": 9
+  },
+  {
+    "names": [
+      "Isabelle Harrison",
+      "Kia Nurse",
+      "Kiki Rice",
+      "Teonni Key",
+      "Ornella Bankole"
+    ],
+    "minutes": 17.4,
+    "per5min": 0.29,
     "segments": 9
   },
   {

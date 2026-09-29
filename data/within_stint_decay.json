@@ -2,63 +2,63 @@
   "team": [
     {
       "minute": 0,
-      "per5min": -0.76,
-      "minutes": 1304.8,
-      "stints": 1320
+      "per5min": -0.71,
+      "minutes": 1410.8,
+      "stints": 1426
     },
     {
       "minute": 1,
-      "per5min": -1.17,
-      "minutes": 1244.9,
-      "stints": 1278
+      "per5min": -1.3,
+      "minutes": 1347.1,
+      "stints": 1384
     },
     {
       "minute": 2,
-      "per5min": -1.34,
-      "minutes": 1148.1,
-      "stints": 1207
+      "per5min": -1.48,
+      "minutes": 1242.4,
+      "stints": 1304
     },
     {
       "minute": 3,
-      "per5min": -0.4,
-      "minutes": 988.4,
-      "stints": 1080
+      "per5min": -0.59,
+      "minutes": 1073.4,
+      "stints": 1169
     },
     {
       "minute": 4,
-      "per5min": -1.35,
-      "minutes": 802.1,
-      "stints": 895
+      "per5min": -1.48,
+      "minutes": 869.6,
+      "stints": 972
     },
     {
       "minute": 5,
-      "per5min": -1.05,
-      "minutes": 612.0,
-      "stints": 702
+      "per5min": -1.06,
+      "minutes": 662.4,
+      "stints": 761
     },
     {
       "minute": 6,
-      "per5min": -1.34,
-      "minutes": 460.6,
-      "stints": 533
+      "per5min": -1.55,
+      "minutes": 494.2,
+      "stints": 571
     },
     {
       "minute": 7,
-      "per5min": -0.68,
-      "minutes": 329.6,
-      "stints": 389
+      "per5min": -1.21,
+      "minutes": 355.1,
+      "stints": 418
     },
     {
       "minute": 8,
-      "per5min": -1.94,
-      "minutes": 224.7,
-      "stints": 273
+      "per5min": -2.11,
+      "minutes": 239.2,
+      "stints": 294
     },
     {
       "minute": 9,
-      "per5min": 0.03,
-      "minutes": 152.9,
-      "stints": 176
+      "per5min": -0.28,
+      "minutes": 161.0,
+      "stints": 187
     }
   ],
   "players": [
@@ -68,82 +68,82 @@
       "points": [
         {
           "minute": 0,
-          "raw": 0.36,
-          "vs_team": 1.27,
-          "minutes": 154.7,
-          "stints": 157,
+          "raw": 0.48,
+          "vs_team": 1.34,
+          "minutes": 167.7,
+          "stints": 170,
           "reliable": true
         },
         {
           "minute": 1,
-          "raw": -0.34,
-          "vs_team": 0.95,
-          "minutes": 148.7,
-          "stints": 152,
+          "raw": -0.37,
+          "vs_team": 1.06,
+          "minutes": 161.3,
+          "stints": 165,
           "reliable": true
         },
         {
           "minute": 2,
-          "raw": -1.71,
-          "vs_team": -0.42,
-          "minutes": 137.7,
-          "stints": 146,
+          "raw": -1.87,
+          "vs_team": -0.44,
+          "minutes": 149.7,
+          "stints": 158,
           "reliable": true
         },
         {
           "minute": 3,
-          "raw": -0.04,
-          "vs_team": 0.42,
-          "minutes": 124.3,
-          "stints": 132,
+          "raw": -0.37,
+          "vs_team": 0.26,
+          "minutes": 136.3,
+          "stints": 144,
           "reliable": true
         },
         {
           "minute": 4,
-          "raw": -2.22,
-          "vs_team": -1.0,
-          "minutes": 103.6,
-          "stints": 117,
+          "raw": -2.87,
+          "vs_team": -1.59,
+          "minutes": 115.2,
+          "stints": 129,
           "reliable": true
         },
         {
           "minute": 5,
-          "raw": -0.68,
-          "vs_team": 0.42,
-          "minutes": 81.1,
-          "stints": 95,
+          "raw": -0.66,
+          "vs_team": 0.47,
+          "minutes": 90.6,
+          "stints": 106,
           "reliable": true
         },
         {
           "minute": 6,
-          "raw": -1.66,
-          "vs_team": -0.37,
-          "minutes": 57.3,
-          "stints": 71,
+          "raw": -1.94,
+          "vs_team": -0.46,
+          "minutes": 64.3,
+          "stints": 80,
           "reliable": true
         },
         {
           "minute": 7,
-          "raw": 0.64,
-          "vs_team": 1.5,
-          "minutes": 38.9,
-          "stints": 44,
+          "raw": -0.46,
+          "vs_team": 0.86,
+          "minutes": 43.5,
+          "stints": 49,
           "reliable": true
         },
         {
           "minute": 8,
-          "raw": -5.07,
-          "vs_team": -3.58,
-          "minutes": 27.6,
-          "stints": 35,
+          "raw": -4.21,
+          "vs_team": -2.41,
+          "minutes": 30.9,
+          "stints": 39,
           "reliable": true
         },
         {
           "minute": 9,
-          "raw": -3.03,
-          "vs_team": -3.48,
-          "minutes": 18.1,
-          "stints": 20,
+          "raw": -3.56,
+          "vs_team": -3.74,
+          "minutes": 19.6,
+          "stints": 23,
           "reliable": true
         }
       ]
@@ -155,7 +155,7 @@
         {
           "minute": 0,
           "raw": -1.15,
-          "vs_team": -0.43,
+          "vs_team": -0.49,
           "minutes": 112.6,
           "stints": 114,
           "reliable": true
@@ -163,7 +163,7 @@
         {
           "minute": 1,
           "raw": -2.46,
-          "vs_team": -1.41,
+          "vs_team": -1.26,
           "minutes": 111.9,
           "stints": 112,
           "reliable": true
@@ -171,7 +171,7 @@
         {
           "minute": 2,
           "raw": -0.77,
-          "vs_team": 0.63,
+          "vs_team": 0.78,
           "minutes": 110.0,
           "stints": 110,
           "reliable": true
@@ -179,7 +179,7 @@
         {
           "minute": 3,
           "raw": 0.0,
-          "vs_team": 0.45,
+          "vs_team": 0.66,
           "minutes": 107.7,
           "stints": 110,
           "reliable": true
@@ -187,7 +187,7 @@
         {
           "minute": 4,
           "raw": 0.05,
-          "vs_team": 1.6,
+          "vs_team": 1.73,
           "minutes": 99.9,
           "stints": 104,
           "reliable": true
@@ -195,7 +195,7 @@
         {
           "minute": 5,
           "raw": -0.39,
-          "vs_team": 0.77,
+          "vs_team": 0.78,
           "minutes": 89.7,
           "stints": 97,
           "reliable": true
@@ -203,7 +203,7 @@
         {
           "minute": 6,
           "raw": -2.86,
-          "vs_team": -1.82,
+          "vs_team": -1.54,
           "minutes": 75.3,
           "stints": 86,
           "reliable": true
@@ -211,7 +211,7 @@
         {
           "minute": 7,
           "raw": -0.08,
-          "vs_team": 0.74,
+          "vs_team": 1.36,
           "minutes": 60.7,
           "stints": 66,
           "reliable": true
@@ -219,7 +219,7 @@
         {
           "minute": 8,
           "raw": -3.05,
-          "vs_team": -1.39,
+          "vs_team": -1.15,
           "minutes": 44.3,
           "stints": 55,
           "reliable": true
@@ -227,7 +227,7 @@
         {
           "minute": 9,
           "raw": 1.66,
-          "vs_team": 1.97,
+          "vs_team": 2.33,
           "minutes": 27.2,
           "stints": 32,
           "reliable": true
@@ -240,80 +240,80 @@
       "points": [
         {
           "minute": 0,
-          "raw": -1.38,
-          "vs_team": -0.68,
-          "minutes": 123.4,
-          "stints": 124,
+          "raw": -1.19,
+          "vs_team": -0.53,
+          "minutes": 130.4,
+          "stints": 131,
           "reliable": true
         },
         {
           "minute": 1,
-          "raw": -0.92,
-          "vs_team": 0.28,
-          "minutes": 120.1,
-          "stints": 123,
+          "raw": -1.5,
+          "vs_team": -0.21,
+          "minutes": 127.1,
+          "stints": 130,
           "reliable": true
         },
         {
           "minute": 2,
-          "raw": -1.89,
-          "vs_team": -0.61,
-          "minutes": 113.6,
-          "stints": 117,
+          "raw": -2.36,
+          "vs_team": -0.98,
+          "minutes": 120.6,
+          "stints": 124,
           "reliable": true
         },
         {
           "minute": 3,
-          "raw": 0.28,
-          "vs_team": 0.77,
-          "minutes": 106.1,
-          "stints": 108,
+          "raw": 0.18,
+          "vs_team": 0.86,
+          "minutes": 113.0,
+          "stints": 115,
           "reliable": true
         },
         {
           "minute": 4,
-          "raw": -1.95,
-          "vs_team": -0.68,
-          "minutes": 92.4,
-          "stints": 100,
+          "raw": -2.02,
+          "vs_team": -0.6,
+          "minutes": 96.7,
+          "stints": 106,
           "reliable": true
         },
         {
           "minute": 5,
-          "raw": -1.01,
-          "vs_team": 0.04,
-          "minutes": 74.2,
-          "stints": 80,
+          "raw": -0.73,
+          "vs_team": 0.38,
+          "minutes": 75.8,
+          "stints": 82,
           "reliable": true
         },
         {
           "minute": 6,
-          "raw": -1.47,
-          "vs_team": -0.15,
-          "minutes": 57.8,
-          "stints": 65,
+          "raw": -1.45,
+          "vs_team": 0.12,
+          "minutes": 58.8,
+          "stints": 66,
           "reliable": true
         },
         {
           "minute": 7,
-          "raw": -1.61,
-          "vs_team": -1.07,
-          "minutes": 43.5,
-          "stints": 51,
+          "raw": -1.8,
+          "vs_team": -0.67,
+          "minutes": 44.5,
+          "stints": 52,
           "reliable": true
         },
         {
           "minute": 8,
-          "raw": 0.0,
-          "vs_team": 2.23,
-          "minutes": 29.5,
-          "stints": 36,
+          "raw": -0.33,
+          "vs_team": 2.03,
+          "minutes": 29.9,
+          "stints": 37,
           "reliable": true
         },
         {
           "minute": 9,
           "raw": -0.68,
-          "vs_team": -0.84,
+          "vs_team": -0.47,
           "minutes": 21.9,
           "stints": 24,
           "reliable": true
@@ -326,168 +326,82 @@
       "points": [
         {
           "minute": 0,
-          "raw": 0.45,
-          "vs_team": 1.31,
-          "minutes": 100.9,
-          "stints": 101,
-          "reliable": true
-        },
-        {
-          "minute": 1,
-          "raw": -1.71,
-          "vs_team": -0.59,
-          "minutes": 99.3,
-          "stints": 100,
-          "reliable": true
-        },
-        {
-          "minute": 2,
-          "raw": -1.84,
-          "vs_team": -0.55,
-          "minutes": 97.8,
-          "stints": 98,
-          "reliable": true
-        },
-        {
-          "minute": 3,
-          "raw": 0.43,
-          "vs_team": 0.92,
-          "minutes": 93.7,
-          "stints": 96,
-          "reliable": true
-        },
-        {
-          "minute": 4,
-          "raw": -0.99,
-          "vs_team": 0.4,
-          "minutes": 85.6,
-          "stints": 90,
-          "reliable": true
-        },
-        {
-          "minute": 5,
-          "raw": -1.66,
-          "vs_team": -0.7,
-          "minutes": 75.2,
-          "stints": 80,
-          "reliable": true
-        },
-        {
-          "minute": 6,
-          "raw": 0.32,
-          "vs_team": 1.92,
-          "minutes": 61.6,
-          "stints": 68,
-          "reliable": true
-        },
-        {
-          "minute": 7,
-          "raw": -1.09,
-          "vs_team": -0.47,
-          "minutes": 41.2,
-          "stints": 51,
-          "reliable": true
-        },
-        {
-          "minute": 8,
-          "raw": -2.13,
-          "vs_team": -0.22,
-          "minutes": 30.6,
-          "stints": 35,
-          "reliable": true
-        },
-        {
-          "minute": 9,
-          "raw": 0.75,
-          "vs_team": 0.83,
-          "minutes": 20.0,
-          "stints": 25,
-          "reliable": true
-        }
-      ]
-    },
-    {
-      "pId": 204330,
-      "name": "Isabelle Harrison",
-      "points": [
-        {
-          "minute": 0,
-          "raw": 1.03,
-          "vs_team": 1.98,
-          "minutes": 120.8,
-          "stints": 121,
-          "reliable": true
-        },
-        {
-          "minute": 1,
-          "raw": -3.03,
-          "vs_team": -2.04,
+          "raw": 0.92,
+          "vs_team": 1.77,
           "minutes": 113.9,
-          "stints": 119,
+          "stints": 114,
+          "reliable": true
+        },
+        {
+          "minute": 1,
+          "raw": -1.51,
+          "vs_team": -0.23,
+          "minutes": 112.3,
+          "stints": 113,
           "reliable": true
         },
         {
           "minute": 2,
-          "raw": -2.27,
-          "vs_team": -1.02,
-          "minutes": 105.9,
+          "raw": -2.35,
+          "vs_team": -0.95,
+          "minutes": 110.7,
           "stints": 111,
           "reliable": true
         },
         {
           "minute": 3,
-          "raw": -0.05,
-          "vs_team": 0.39,
-          "minutes": 93.3,
-          "stints": 103,
+          "raw": -0.33,
+          "vs_team": 0.29,
+          "minutes": 105.7,
+          "stints": 108,
           "reliable": true
         },
         {
           "minute": 4,
-          "raw": -2.19,
-          "vs_team": -0.92,
-          "minutes": 66.2,
-          "stints": 82,
+          "raw": -0.94,
+          "vs_team": 0.61,
+          "minutes": 95.8,
+          "stints": 101,
           "reliable": true
         },
         {
           "minute": 5,
-          "raw": -3.75,
-          "vs_team": -2.92,
-          "minutes": 44.0,
-          "stints": 55,
+          "raw": -1.75,
+          "vs_team": -0.78,
+          "minutes": 82.8,
+          "stints": 89,
           "reliable": true
         },
         {
           "minute": 6,
-          "raw": 2.36,
-          "vs_team": 3.97,
-          "minutes": 31.7,
-          "stints": 36,
+          "raw": 0.53,
+          "vs_team": 2.4,
+          "minutes": 66.4,
+          "stints": 73,
           "reliable": true
         },
         {
           "minute": 7,
-          "raw": -1.56,
-          "vs_team": -0.95,
-          "minutes": 22.4,
-          "stints": 29,
+          "raw": -2.24,
+          "vs_team": -1.17,
+          "minutes": 44.7,
+          "stints": 55,
           "reliable": true
         },
         {
           "minute": 8,
-          "raw": 1.22,
-          "vs_team": 3.34,
-          "minutes": 12.3,
-          "stints": 17,
+          "raw": -2.68,
+          "vs_team": -0.65,
+          "minutes": 31.8,
+          "stints": 38,
           "reliable": true
         },
         {
           "minute": 9,
-          "raw": -7.27,
-          "vs_team": -7.72,
-          "minutes": 8.3,
-          "stints": 10,
+          "raw": 0.75,
+          "vs_team": 1.18,
+          "minutes": 20.0,
+          "stints": 25,
           "reliable": true
         }
       ]
@@ -498,83 +412,255 @@
       "points": [
         {
           "minute": 0,
-          "raw": -2.02,
-          "vs_team": -1.36,
-          "minutes": 94.0,
-          "stints": 94,
+          "raw": -1.89,
+          "vs_team": -1.28,
+          "minutes": 106.0,
+          "stints": 106,
           "reliable": true
         },
         {
           "minute": 1,
-          "raw": -0.33,
-          "vs_team": 0.92,
-          "minutes": 92.2,
-          "stints": 93,
+          "raw": -0.82,
+          "vs_team": 0.52,
+          "minutes": 103.7,
+          "stints": 105,
           "reliable": true
         },
         {
           "minute": 2,
-          "raw": -0.61,
-          "vs_team": 0.8,
-          "minutes": 90.6,
-          "stints": 92,
+          "raw": -0.49,
+          "vs_team": 1.08,
+          "minutes": 101.6,
+          "stints": 103,
           "reliable": true
         },
         {
           "minute": 3,
-          "raw": -0.49,
-          "vs_team": -0.09,
-          "minutes": 82.1,
-          "stints": 89,
+          "raw": -0.75,
+          "vs_team": -0.18,
+          "minutes": 93.1,
+          "stints": 100,
           "reliable": true
         },
         {
           "minute": 4,
-          "raw": -1.04,
-          "vs_team": 0.34,
-          "minutes": 72.4,
-          "stints": 76,
+          "raw": -1.62,
+          "vs_team": -0.15,
+          "minutes": 83.4,
+          "stints": 87,
           "reliable": true
         },
         {
           "minute": 5,
-          "raw": -1.78,
-          "vs_team": -0.8,
-          "minutes": 56.3,
-          "stints": 66,
+          "raw": -1.75,
+          "vs_team": -0.77,
+          "minutes": 65.5,
+          "stints": 77,
           "reliable": true
         },
         {
           "minute": 6,
-          "raw": -1.27,
-          "vs_team": 0.07,
-          "minutes": 43.2,
-          "stints": 47,
+          "raw": -2.38,
+          "vs_team": -0.93,
+          "minutes": 50.3,
+          "stints": 55,
           "reliable": true
         },
         {
           "minute": 7,
-          "raw": 0.99,
-          "vs_team": 1.84,
-          "minutes": 30.4,
-          "stints": 38,
+          "raw": 0.83,
+          "vs_team": 2.27,
+          "minutes": 36.3,
+          "stints": 44,
           "reliable": true
         },
         {
           "minute": 8,
-          "raw": -3.79,
-          "vs_team": -2.02,
-          "minutes": 18.5,
+          "raw": -4.35,
+          "vs_team": -2.47,
+          "minutes": 21.8,
+          "stints": 27,
+          "reliable": true
+        },
+        {
+          "minute": 9,
+          "raw": 1.93,
+          "vs_team": 2.44,
+          "minutes": 15.6,
+          "stints": 18,
+          "reliable": true
+        }
+      ]
+    },
+    {
+      "pId": 204330,
+      "name": "Isabelle Harrison",
+      "points": [
+        {
+          "minute": 0,
+          "raw": 1.12,
+          "vs_team": 2.02,
+          "minutes": 133.8,
+          "stints": 134,
+          "reliable": true
+        },
+        {
+          "minute": 1,
+          "raw": -2.49,
+          "vs_team": -1.31,
+          "minutes": 126.6,
+          "stints": 132,
+          "reliable": true
+        },
+        {
+          "minute": 2,
+          "raw": -1.48,
+          "vs_team": -0.0,
+          "minutes": 117.9,
+          "stints": 123,
+          "reliable": true
+        },
+        {
+          "minute": 3,
+          "raw": 0.0,
+          "vs_team": 0.65,
+          "minutes": 102.6,
+          "stints": 114,
+          "reliable": true
+        },
+        {
+          "minute": 4,
+          "raw": -2.18,
+          "vs_team": -0.76,
+          "minutes": 73.5,
+          "stints": 90,
+          "reliable": true
+        },
+        {
+          "minute": 5,
+          "raw": -3.24,
+          "vs_team": -2.36,
+          "minutes": 50.9,
+          "stints": 62,
+          "reliable": true
+        },
+        {
+          "minute": 6,
+          "raw": 0.66,
+          "vs_team": 2.39,
+          "minutes": 37.7,
+          "stints": 42,
+          "reliable": true
+        },
+        {
+          "minute": 7,
+          "raw": -2.01,
+          "vs_team": -0.86,
+          "minutes": 27.4,
+          "stints": 35,
+          "reliable": true
+        },
+        {
+          "minute": 8,
+          "raw": -1.24,
+          "vs_team": 0.93,
+          "minutes": 16.1,
           "stints": 22,
           "reliable": true
         },
         {
           "minute": 9,
-          "raw": 2.19,
-          "vs_team": 2.37,
-          "minutes": 13.7,
-          "stints": 15,
+          "raw": -6.83,
+          "vs_team": -7.03,
+          "minutes": 11.0,
+          "stints": 13,
           "reliable": true
+        }
+      ]
+    },
+    {
+      "pId": 1628915,
+      "name": "Kia Nurse",
+      "points": [
+        {
+          "minute": 0,
+          "raw": -1.18,
+          "vs_team": -0.52,
+          "minutes": 126.9,
+          "stints": 130,
+          "reliable": true
+        },
+        {
+          "minute": 1,
+          "raw": -0.04,
+          "vs_team": 1.38,
+          "minutes": 119.1,
+          "stints": 122,
+          "reliable": true
+        },
+        {
+          "minute": 2,
+          "raw": -3.16,
+          "vs_team": -1.84,
+          "minutes": 104.3,
+          "stints": 116,
+          "reliable": true
+        },
+        {
+          "minute": 3,
+          "raw": -4.45,
+          "vs_team": -4.17,
+          "minutes": 79.7,
+          "stints": 93,
+          "reliable": true
+        },
+        {
+          "minute": 4,
+          "raw": -0.58,
+          "vs_team": 0.96,
+          "minutes": 51.8,
+          "stints": 62,
+          "reliable": true
+        },
+        {
+          "minute": 5,
+          "raw": -2.26,
+          "vs_team": -1.26,
+          "minutes": 31.0,
+          "stints": 41,
+          "reliable": true
+        },
+        {
+          "minute": 6,
+          "raw": -2.47,
+          "vs_team": -0.97,
+          "minutes": 22.2,
+          "stints": 26,
+          "reliable": true
+        },
+        {
+          "minute": 7,
+          "raw": 3.81,
+          "vs_team": 5.23,
+          "minutes": 14.4,
+          "stints": 17,
+          "reliable": true
+        },
+        {
+          "minute": 8,
+          "raw": -1.94,
+          "vs_team": 0.18,
+          "minutes": 10.3,
+          "stints": 12,
+          "reliable": true
+        },
+        {
+          "minute": 9,
+          "raw": 2.14,
+          "vs_team": 2.53,
+          "minutes": 7.0,
+          "stints": 8,
+          "reliable": false
         }
       ]
     },
@@ -585,7 +671,7 @@
         {
           "minute": 0,
           "raw": -2.0,
-          "vs_team": -1.34,
+          "vs_team": -1.39,
           "minutes": 100.0,
           "stints": 100,
           "reliable": true
@@ -593,7 +679,7 @@
         {
           "minute": 1,
           "raw": -0.81,
-          "vs_team": 0.39,
+          "vs_team": 0.53,
           "minutes": 98.4,
           "stints": 100,
           "reliable": true
@@ -601,7 +687,7 @@
         {
           "minute": 2,
           "raw": 0.05,
-          "vs_team": 1.52,
+          "vs_team": 1.66,
           "minutes": 91.5,
           "stints": 95,
           "reliable": true
@@ -609,7 +695,7 @@
         {
           "minute": 3,
           "raw": 1.62,
-          "vs_team": 2.2,
+          "vs_team": 2.39,
           "minutes": 80.3,
           "stints": 87,
           "reliable": true
@@ -617,7 +703,7 @@
         {
           "minute": 4,
           "raw": -0.15,
-          "vs_team": 1.3,
+          "vs_team": 1.44,
           "minutes": 65.7,
           "stints": 75,
           "reliable": true
@@ -625,7 +711,7 @@
         {
           "minute": 5,
           "raw": -2.43,
-          "vs_team": -1.49,
+          "vs_team": -1.46,
           "minutes": 43.3,
           "stints": 55,
           "reliable": true
@@ -633,7 +719,7 @@
         {
           "minute": 6,
           "raw": -3.05,
-          "vs_team": -1.82,
+          "vs_team": -1.59,
           "minutes": 26.2,
           "stints": 34,
           "reliable": true
@@ -641,7 +727,7 @@
         {
           "minute": 7,
           "raw": 0.89,
-          "vs_team": 1.66,
+          "vs_team": 2.21,
           "minutes": 16.8,
           "stints": 19,
           "reliable": true
@@ -649,7 +735,7 @@
         {
           "minute": 8,
           "raw": -7.12,
-          "vs_team": -5.4,
+          "vs_team": -5.2,
           "minutes": 9.1,
           "stints": 12,
           "reliable": true
@@ -657,95 +743,9 @@
         {
           "minute": 9,
           "raw": -4.71,
-          "vs_team": -4.95,
+          "vs_team": -4.61,
           "minutes": 6.4,
           "stints": 7,
-          "reliable": false
-        }
-      ]
-    },
-    {
-      "pId": 1628915,
-      "name": "Kia Nurse",
-      "points": [
-        {
-          "minute": 0,
-          "raw": -1.26,
-          "vs_team": -0.55,
-          "minutes": 114.9,
-          "stints": 118,
-          "reliable": true
-        },
-        {
-          "minute": 1,
-          "raw": 0.84,
-          "vs_team": 2.2,
-          "minutes": 107.4,
-          "stints": 110,
-          "reliable": true
-        },
-        {
-          "minute": 2,
-          "raw": -3.07,
-          "vs_team": -1.88,
-          "minutes": 94.5,
-          "stints": 105,
-          "reliable": true
-        },
-        {
-          "minute": 3,
-          "raw": -4.56,
-          "vs_team": -4.47,
-          "minutes": 71.3,
-          "stints": 84,
-          "reliable": true
-        },
-        {
-          "minute": 4,
-          "raw": -0.64,
-          "vs_team": 0.75,
-          "minutes": 47.2,
-          "stints": 55,
-          "reliable": true
-        },
-        {
-          "minute": 5,
-          "raw": -2.59,
-          "vs_team": -1.62,
-          "minutes": 29.0,
-          "stints": 39,
-          "reliable": true
-        },
-        {
-          "minute": 6,
-          "raw": -3.46,
-          "vs_team": -2.22,
-          "minutes": 20.2,
-          "stints": 24,
-          "reliable": true
-        },
-        {
-          "minute": 7,
-          "raw": 6.26,
-          "vs_team": 7.22,
-          "minutes": 12.8,
-          "stints": 15,
-          "reliable": true
-        },
-        {
-          "minute": 8,
-          "raw": -3.54,
-          "vs_team": -1.68,
-          "minutes": 9.9,
-          "stints": 11,
-          "reliable": true
-        },
-        {
-          "minute": 9,
-          "raw": 2.14,
-          "vs_team": 2.21,
-          "minutes": 7.0,
-          "stints": 8,
           "reliable": false
         }
       ]
@@ -757,7 +757,7 @@
         {
           "minute": 0,
           "raw": 0.76,
-          "vs_team": 1.58,
+          "vs_team": 1.51,
           "minutes": 46.2,
           "stints": 47,
           "reliable": true
@@ -765,7 +765,7 @@
         {
           "minute": 1,
           "raw": -0.66,
-          "vs_team": 0.53,
+          "vs_team": 0.67,
           "minutes": 45.5,
           "stints": 46,
           "reliable": true
@@ -773,7 +773,7 @@
         {
           "minute": 2,
           "raw": 0.23,
-          "vs_team": 1.63,
+          "vs_team": 1.77,
           "minutes": 44.1,
           "stints": 45,
           "reliable": true
@@ -781,7 +781,7 @@
         {
           "minute": 3,
           "raw": 1.57,
-          "vs_team": 2.06,
+          "vs_team": 2.24,
           "minutes": 41.5,
           "stints": 42,
           "reliable": true
@@ -789,7 +789,7 @@
         {
           "minute": 4,
           "raw": 0.74,
-          "vs_team": 2.2,
+          "vs_team": 2.33,
           "minutes": 40.6,
           "stints": 41,
           "reliable": true
@@ -805,7 +805,7 @@
         {
           "minute": 6,
           "raw": -3.32,
-          "vs_team": -2.15,
+          "vs_team": -1.91,
           "minutes": 34.6,
           "stints": 38,
           "reliable": true
@@ -813,7 +813,7 @@
         {
           "minute": 7,
           "raw": -3.1,
-          "vs_team": -2.65,
+          "vs_team": -2.06,
           "minutes": 29.1,
           "stints": 32,
           "reliable": true
@@ -821,7 +821,7 @@
         {
           "minute": 8,
           "raw": 0.69,
-          "vs_team": 2.91,
+          "vs_team": 3.08,
           "minutes": 21.8,
           "stints": 23,
           "reliable": true
@@ -829,7 +829,7 @@
         {
           "minute": 9,
           "raw": 0.28,
-          "vs_team": 0.28,
+          "vs_team": 0.63,
           "minutes": 17.6,
           "stints": 19,
           "reliable": true
@@ -842,72 +842,72 @@
       "points": [
         {
           "minute": 0,
-          "raw": -1.42,
-          "vs_team": -0.71,
-          "minutes": 84.4,
-          "stints": 87,
+          "raw": -1.39,
+          "vs_team": -0.74,
+          "minutes": 93.4,
+          "stints": 96,
           "reliable": true
         },
         {
           "minute": 1,
-          "raw": -3.09,
-          "vs_team": -2.05,
-          "minutes": 80.9,
-          "stints": 84,
+          "raw": -2.34,
+          "vs_team": -1.12,
+          "minutes": 89.6,
+          "stints": 93,
           "reliable": true
         },
         {
           "minute": 2,
-          "raw": -1.18,
-          "vs_team": 0.17,
-          "minutes": 71.8,
-          "stints": 78,
+          "raw": -2.07,
+          "vs_team": -0.63,
+          "minutes": 79.7,
+          "stints": 86,
           "reliable": true
         },
         {
           "minute": 3,
-          "raw": 0.09,
-          "vs_team": 0.53,
-          "minutes": 54.1,
-          "stints": 65,
+          "raw": -1.08,
+          "vs_team": -0.51,
+          "minutes": 60.4,
+          "stints": 72,
           "reliable": true
         },
         {
           "minute": 4,
-          "raw": -0.67,
-          "vs_team": 0.71,
-          "minutes": 37.6,
-          "stints": 45,
+          "raw": -1.64,
+          "vs_team": -0.16,
+          "minutes": 42.7,
+          "stints": 51,
           "reliable": true
         },
         {
           "minute": 5,
-          "raw": -3.23,
-          "vs_team": -2.28,
-          "minutes": 26.3,
-          "stints": 30,
+          "raw": -2.6,
+          "vs_team": -1.61,
+          "minutes": 30.8,
+          "stints": 35,
           "reliable": true
         },
         {
           "minute": 6,
-          "raw": -1.01,
-          "vs_team": 0.34,
-          "minutes": 19.8,
-          "stints": 22,
+          "raw": -1.82,
+          "vs_team": -0.28,
+          "minutes": 22.0,
+          "stints": 25,
           "reliable": true
         },
         {
           "minute": 7,
-          "raw": -4.11,
-          "vs_team": -3.56,
-          "minutes": 12.2,
-          "stints": 17,
+          "raw": -5.8,
+          "vs_team": -4.78,
+          "minutes": 13.8,
+          "stints": 19,
           "reliable": true
         },
         {
           "minute": 8,
           "raw": 7.18,
-          "vs_team": 9.4,
+          "vs_team": 9.57,
           "minutes": 7.0,
           "stints": 9,
           "reliable": false
@@ -915,7 +915,7 @@
         {
           "minute": 9,
           "raw": -3.92,
-          "vs_team": -4.02,
+          "vs_team": -3.7,
           "minutes": 2.5,
           "stints": 5,
           "reliable": false
@@ -928,80 +928,166 @@
       "points": [
         {
           "minute": 0,
-          "raw": -0.85,
-          "vs_team": -0.09,
-          "minutes": 88.1,
-          "stints": 90,
+          "raw": -0.9,
+          "vs_team": -0.21,
+          "minutes": 100.1,
+          "stints": 102,
           "reliable": true
         },
         {
           "minute": 1,
-          "raw": -1.35,
-          "vs_team": -0.18,
-          "minutes": 78.0,
-          "stints": 83,
+          "raw": -2.25,
+          "vs_team": -1.01,
+          "minutes": 88.9,
+          "stints": 95,
           "reliable": true
         },
         {
           "minute": 2,
-          "raw": -1.98,
-          "vs_team": -0.68,
-          "minutes": 65.5,
-          "stints": 74,
+          "raw": -2.74,
+          "vs_team": -1.34,
+          "minutes": 74.7,
+          "stints": 84,
           "reliable": true
         },
         {
           "minute": 3,
-          "raw": -0.65,
-          "vs_team": -0.26,
-          "minutes": 45.9,
-          "stints": 56,
+          "raw": -0.55,
+          "vs_team": 0.05,
+          "minutes": 54.8,
+          "stints": 65,
           "reliable": true
         },
         {
           "minute": 4,
-          "raw": -0.34,
-          "vs_team": 1.05,
-          "minutes": 29.5,
-          "stints": 36,
+          "raw": 0.14,
+          "vs_team": 1.69,
+          "minutes": 36.3,
+          "stints": 44,
           "reliable": true
         },
         {
           "minute": 5,
-          "raw": 1.19,
-          "vs_team": 2.3,
-          "minutes": 16.8,
-          "stints": 20,
+          "raw": 0.7,
+          "vs_team": 1.83,
+          "minutes": 21.4,
+          "stints": 26,
           "reliable": true
         },
         {
           "minute": 6,
-          "raw": 1.09,
-          "vs_team": 2.48,
-          "minutes": 9.2,
-          "stints": 12,
+          "raw": 1.86,
+          "vs_team": 3.48,
+          "minutes": 10.8,
+          "stints": 14,
           "reliable": true
         },
         {
           "minute": 7,
-          "raw": -14.34,
-          "vs_team": -13.85,
-          "minutes": 4.5,
-          "stints": 6,
+          "raw": -9.94,
+          "vs_team": -8.87,
+          "minutes": 5.5,
+          "stints": 7,
           "reliable": false
         },
         {
           "minute": 8,
-          "raw": 5.62,
-          "vs_team": 7.65,
-          "minutes": 2.7,
-          "stints": 3,
+          "raw": 6.82,
+          "vs_team": 9.07,
+          "minutes": 3.7,
+          "stints": 4,
           "reliable": false
         },
         {
           "minute": 9,
-          "raw": -5.0,
-          "vs_team": -5.07,
+          "raw": -2.5,
+          "vs_team": -2.25,
+          "minutes": 2.0,
+          "stints": 2,
+          "reliable": false
+        }
+      ]
+    },
+    {
+      "pId": 1643706,
+      "name": "Ornella Bankole",
+      "points": [
+        {
+          "minute": 0,
+          "raw": -4.13,
+          "vs_team": -3.52,
+          "minutes": 40.0,
+          "stints": 40,
+          "reliable": true
+        },
+        {
+          "minute": 1,
+          "raw": -0.67,
+          "vs_team": 0.65,
+          "minutes": 37.5,
+          "stints": 39,
+          "reliable": true
+        },
+        {
+          "minute": 2,
+          "raw": -0.46,
+          "vs_team": 1.05,
+          "minutes": 32.5,
+          "stints": 35,
+          "reliable": true
+        },
+        {
+          "minute": 3,
+          "raw": 0.0,
+          "vs_team": 0.61,
+          "minutes": 27.0,
+          "stints": 30,
+          "reliable": true
+        },
+        {
+          "minute": 4,
+          "raw": -5.46,
+          "vs_team": -4.07,
+          "minutes": 19.2,
+          "stints": 24,
+          "reliable": true
+        },
+        {
+          "minute": 5,
+          "raw": 0.73,
+          "vs_team": 1.84,
+          "minutes": 13.6,
+          "stints": 17,
+          "reliable": true
+        },
+        {
+          "minute": 6,
+          "raw": 0.6,
+          "vs_team": 2.18,
+          "minutes": 8.4,
+          "stints": 10,
+          "reliable": true
+        },
+        {
+          "minute": 7,
+          "raw": -8.77,
+          "vs_team": -7.68,
+          "minutes": 5.7,
+          "stints": 8,
+          "reliable": false
+        },
+        {
+          "minute": 8,
+          "raw": 1.92,
+          "vs_team": 4.08,
+          "minutes": 2.6,
+          "stints": 5,
+          "reliable": false
+        },
+        {
+          "minute": 9,
+          "raw": -20.0,
+          "vs_team": -19.84,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
@@ -1015,7 +1101,7 @@
         {
           "minute": 0,
           "raw": -0.68,
-          "vs_team": 0.08,
+          "vs_team": 0.02,
           "minutes": 43.9,
           "stints": 45,
           "reliable": true
@@ -1023,7 +1109,7 @@
         {
           "minute": 1,
           "raw": 1.95,
-          "vs_team": 3.23,
+          "vs_team": 3.35,
           "minutes": 38.4,
           "stints": 41,
           "reliable": true
@@ -1031,7 +1117,7 @@
         {
           "minute": 2,
           "raw": -0.3,
-          "vs_team": 1.07,
+          "vs_team": 1.21,
           "minutes": 32.9,
           "stints": 35,
           "reliable": true
@@ -1039,7 +1125,7 @@
         {
           "minute": 3,
           "raw": -5.0,
-          "vs_team": -4.7,
+          "vs_team": -4.5,
           "minutes": 22.0,
           "stints": 30,
           "reliable": true
@@ -1047,7 +1133,7 @@
         {
           "minute": 4,
           "raw": -6.39,
-          "vs_team": -5.13,
+          "vs_team": -4.98,
           "minutes": 14.1,
           "stints": 17,
           "reliable": true
@@ -1055,7 +1141,7 @@
         {
           "minute": 5,
           "raw": 2.1,
-          "vs_team": 3.18,
+          "vs_team": 3.2,
           "minutes": 7.2,
           "stints": 9,
           "reliable": false
@@ -1063,7 +1149,7 @@
         {
           "minute": 6,
           "raw": -14.06,
-          "vs_team": -12.85,
+          "vs_team": -12.62,
           "minutes": 4.3,
           "stints": 6,
           "reliable": false
@@ -1071,7 +1157,7 @@
         {
           "minute": 7,
           "raw": -6.67,
-          "vs_team": -6.04,
+          "vs_team": -5.5,
           "minutes": 3.0,
           "stints": 3,
           "reliable": false
@@ -1079,7 +1165,7 @@
         {
           "minute": 8,
           "raw": 2.4,
-          "vs_team": 4.38,
+          "vs_team": 4.55,
           "minutes": 2.1,
           "stints": 3,
           "reliable": false
@@ -1087,7 +1173,7 @@
         {
           "minute": 9,
           "raw": 0.0,
-          "vs_team": -0.03,
+          "vs_team": 0.28,
           "minutes": 2.0,
           "stints": 2,
           "reliable": false
@@ -1101,7 +1187,7 @@
         {
           "minute": 0,
           "raw": -4.83,
-          "vs_team": -4.13,
+          "vs_team": -4.19,
           "minutes": 21.8,
           "stints": 22,
           "reliable": true
@@ -1109,7 +1195,7 @@
         {
           "minute": 1,
           "raw": -1.75,
-          "vs_team": -0.59,
+          "vs_team": -0.45,
           "minutes": 20.0,
           "stints": 20,
           "reliable": true
@@ -1117,7 +1203,7 @@
         {
           "minute": 2,
           "raw": 3.4,
-          "vs_team": 4.82,
+          "vs_team": 4.95,
           "minutes": 19.1,
           "stints": 20,
           "reliable": true
@@ -1125,7 +1211,7 @@
         {
           "minute": 3,
           "raw": -4.2,
-          "vs_team": -3.86,
+          "vs_team": -3.66,
           "minutes": 16.7,
           "stints": 18,
           "reliable": true
@@ -1133,7 +1219,7 @@
         {
           "minute": 4,
           "raw": -0.37,
-          "vs_team": 0.99,
+          "vs_team": 1.13,
           "minutes": 13.4,
           "stints": 14,
           "reliable": true
@@ -1141,7 +1227,7 @@
         {
           "minute": 5,
           "raw": 2.43,
-          "vs_team": 3.52,
+          "vs_team": 3.54,
           "minutes": 8.2,
           "stints": 9,
           "reliable": false
@@ -1149,7 +1235,7 @@
         {
           "minute": 6,
           "raw": 2.86,
-          "vs_team": 4.26,
+          "vs_team": 4.47,
           "minutes": 7.0,
           "stints": 7,
           "reliable": false
@@ -1157,7 +1243,7 @@
         {
           "minute": 7,
           "raw": 5.45,
-          "vs_team": 6.24,
+          "vs_team": 6.77,
           "minutes": 5.5,
           "stints": 7,
           "reliable": false
@@ -1165,7 +1251,7 @@
         {
           "minute": 8,
           "raw": -7.0,
-          "vs_team": -5.18,
+          "vs_team": -4.99,
           "minutes": 5.0,
           "stints": 5,
           "reliable": false
@@ -1173,87 +1259,9 @@
         {
           "minute": 9,
           "raw": 10.71,
-          "vs_team": 10.98,
+          "vs_team": 11.29,
           "minutes": 4.2,
           "stints": 5,
-          "reliable": false
-        }
-      ]
-    },
-    {
-      "pId": 1643706,
-      "name": "Ornella Bankole",
-      "points": [
-        {
-          "minute": 0,
-          "raw": -2.0,
-          "vs_team": -1.27,
-          "minutes": 29.9,
-          "stints": 30,
-          "reliable": true
-        },
-        {
-          "minute": 1,
-          "raw": -0.91,
-          "vs_team": 0.27,
-          "minutes": 27.5,
-          "stints": 29,
-          "reliable": true
-        },
-        {
-          "minute": 2,
-          "raw": -3.3,
-          "vs_team": -1.99,
-          "minutes": 22.8,
-          "stints": 25,
-          "reliable": true
-        },
-        {
-          "minute": 3,
-          "raw": -0.54,
-          "vs_team": -0.14,
-          "minutes": 18.6,
-          "stints": 21,
-          "reliable": true
-        },
-        {
-          "minute": 4,
-          "raw": -8.85,
-          "vs_team": -7.63,
-          "minutes": 13.6,
-          "stints": 17,
-          "reliable": true
-        },
-        {
-          "minute": 5,
-          "raw": 3.02,
-          "vs_team": 4.14,
-          "minutes": 9.9,
-          "stints": 12,
-          "reliable": true
-        },
-        {
-          "minute": 6,
-          "raw": 4.7,
-          "vs_team": 6.12,
-          "minutes": 6.4,
-          "stints": 8,
-          "reliable": false
-        },
-        {
-          "minute": 7,
-          "raw": -4.33,
-          "vs_team": -3.7,
-          "minutes": 4.6,
-          "stints": 6,
-          "reliable": false
-        },
-        {
-          "minute": 8,
-          "raw": 12.5,
-          "vs_team": 14.54,
-          "minutes": 1.6,
-          "stints": 4,
           "reliable": false
         }
       ]
@@ -1265,7 +1273,7 @@
         {
           "minute": 0,
           "raw": 0.5,
-          "vs_team": 1.28,
+          "vs_team": 1.22,
           "minutes": 20.0,
           "stints": 20,
           "reliable": true
@@ -1273,7 +1281,7 @@
         {
           "minute": 1,
           "raw": 0.27,
-          "vs_team": 1.46,
+          "vs_team": 1.59,
           "minutes": 18.7,
           "stints": 20,
           "reliable": true
@@ -1281,7 +1289,7 @@
         {
           "minute": 2,
           "raw": -4.26,
-          "vs_team": -2.95,
+          "vs_team": -2.81,
           "minutes": 12.9,
           "stints": 17,
           "reliable": true
@@ -1289,7 +1297,7 @@
         {
           "minute": 3,
           "raw": 1.85,
-          "vs_team": 2.26,
+          "vs_team": 2.45,
           "minutes": 5.4,
           "stints": 8,
           "reliable": false
@@ -1297,7 +1305,7 @@
         {
           "minute": 4,
           "raw": -9.26,
-          "vs_team": -7.94,
+          "vs_team": -7.8,
           "minutes": 2.7,
           "stints": 4,
           "reliable": false
@@ -1305,7 +1313,7 @@
         {
           "minute": 5,
           "raw": -3.75,
-          "vs_team": -2.71,
+          "vs_team": -2.69,
           "minutes": 1.3,
           "stints": 2,
           "reliable": false
@@ -1313,7 +1321,7 @@
         {
           "minute": 6,
           "raw": 0.0,
-          "vs_team": 1.34,
+          "vs_team": 1.55,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
@@ -1321,7 +1329,7 @@
         {
           "minute": 7,
           "raw": -10.34,
-          "vs_team": -9.69,
+          "vs_team": -9.16,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
@@ -1335,7 +1343,7 @@
         {
           "minute": 0,
           "raw": -0.67,
-          "vs_team": 0.1,
+          "vs_team": 0.04,
           "minutes": 15.0,
           "stints": 15,
           "reliable": true
@@ -1343,7 +1351,7 @@
         {
           "minute": 1,
           "raw": 1.73,
-          "vs_team": 2.94,
+          "vs_team": 3.07,
           "minutes": 14.4,
           "stints": 15,
           "reliable": true
@@ -1351,7 +1359,7 @@
         {
           "minute": 2,
           "raw": 0.46,
-          "vs_team": 1.82,
+          "vs_team": 1.96,
           "minutes": 10.8,
           "stints": 12,
           "reliable": true
@@ -1359,7 +1367,7 @@
         {
           "minute": 3,
           "raw": -1.95,
-          "vs_team": -1.55,
+          "vs_team": -1.36,
           "minutes": 5.1,
           "stints": 7,
           "reliable": false
@@ -1367,7 +1375,7 @@
         {
           "minute": 4,
           "raw": 1.46,
-          "vs_team": 2.81,
+          "vs_team": 2.95,
           "minutes": 3.4,
           "stints": 4,
           "reliable": false
@@ -1375,7 +1383,7 @@
         {
           "minute": 5,
           "raw": 4.11,
-          "vs_team": 5.18,
+          "vs_team": 5.19,
           "minutes": 2.4,
           "stints": 3,
           "reliable": false
@@ -1383,7 +1391,7 @@
         {
           "minute": 6,
           "raw": 15.0,
-          "vs_team": 16.37,
+          "vs_team": 16.58,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
@@ -1391,7 +1399,7 @@
         {
           "minute": 7,
           "raw": 0.0,
-          "vs_team": 0.68,
+          "vs_team": 1.21,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
@@ -1399,7 +1407,7 @@
         {
           "minute": 8,
           "raw": -15.0,
-          "vs_team": -13.12,
+          "vs_team": -12.94,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
@@ -1407,7 +1415,7 @@
         {
           "minute": 9,
           "raw": 10.0,
-          "vs_team": 10.03,
+          "vs_team": 10.34,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
@@ -1421,7 +1429,7 @@
         {
           "minute": 0,
           "raw": 0.43,
-          "vs_team": 1.21,
+          "vs_team": 1.15,
           "minutes": 11.5,
           "stints": 12,
           "reliable": true
@@ -1429,7 +1437,7 @@
         {
           "minute": 1,
           "raw": -5.91,
-          "vs_team": -4.78,
+          "vs_team": -4.64,
           "minutes": 11.0,
           "stints": 11,
           "reliable": true
@@ -1437,7 +1445,7 @@
         {
           "minute": 2,
           "raw": 0.45,
-          "vs_team": 1.81,
+          "vs_team": 1.95,
           "minutes": 11.0,
           "stints": 11,
           "reliable": true
@@ -1445,7 +1453,7 @@
         {
           "minute": 3,
           "raw": 0.5,
-          "vs_team": 0.91,
+          "vs_team": 1.1,
           "minutes": 10.1,
           "stints": 11,
           "reliable": true
@@ -1453,7 +1461,7 @@
         {
           "minute": 4,
           "raw": -9.05,
-          "vs_team": -7.78,
+          "vs_team": -7.64,
           "minutes": 7.7,
           "stints": 10,
           "reliable": true
@@ -1461,7 +1469,7 @@
         {
           "minute": 5,
           "raw": 0.0,
-          "vs_team": 1.05,
+          "vs_team": 1.07,
           "minutes": 5.3,
           "stints": 6,
           "reliable": false
@@ -1469,9 +1477,95 @@
         {
           "minute": 6,
           "raw": 7.96,
-          "vs_team": 9.34,
+          "vs_team": 9.55,
           "minutes": 1.9,
           "stints": 4,
+          "reliable": false
+        }
+      ]
+    },
+    {
+      "pId": 1642791,
+      "name": "Zaay Green",
+      "points": [
+        {
+          "minute": 0,
+          "raw": 2.92,
+          "vs_team": 3.65,
+          "minutes": 12.0,
+          "stints": 12,
+          "reliable": true
+        },
+        {
+          "minute": 1,
+          "raw": -9.13,
+          "vs_team": -7.89,
+          "minutes": 10.4,
+          "stints": 12,
+          "reliable": true
+        },
+        {
+          "minute": 2,
+          "raw": 0.0,
+          "vs_team": 1.49,
+          "minutes": 7.6,
+          "stints": 8,
+          "reliable": false
+        },
+        {
+          "minute": 3,
+          "raw": -3.23,
+          "vs_team": -2.66,
+          "minutes": 6.2,
+          "stints": 7,
+          "reliable": false
+        },
+        {
+          "minute": 4,
+          "raw": 0.0,
+          "vs_team": 1.49,
+          "minutes": 3.5,
+          "stints": 4,
+          "reliable": false
+        },
+        {
+          "minute": 5,
+          "raw": -7.39,
+          "vs_team": -6.34,
+          "minutes": 2.0,
+          "stints": 3,
+          "reliable": false
+        },
+        {
+          "minute": 6,
+          "raw": 10.0,
+          "vs_team": 11.57,
+          "minutes": 1.0,
+          "stints": 1,
+          "reliable": false
+        },
+        {
+          "minute": 7,
+          "raw": 25.0,
+          "vs_team": 26.29,
+          "minutes": 1.0,
+          "stints": 1,
+          "reliable": false
+        },
+        {
+          "minute": 8,
+          "raw": 15.0,
+          "vs_team": 17.18,
+          "minutes": 1.0,
+          "stints": 1,
+          "reliable": false
+        },
+        {
+          "minute": 9,
+          "raw": -10.0,
+          "vs_team": -9.78,
+          "minutes": 1.0,
+          "stints": 1,
           "reliable": false
         }
       ]
@@ -1483,7 +1577,7 @@
         {
           "minute": 0,
           "raw": -3.16,
-          "vs_team": -2.42,
+          "vs_team": -2.48,
           "minutes": 12.7,
           "stints": 13,
           "reliable": true
@@ -1491,7 +1585,7 @@
         {
           "minute": 1,
           "raw": -4.07,
-          "vs_team": -2.92,
+          "vs_team": -2.79,
           "minutes": 9.8,
           "stints": 10,
           "reliable": true
@@ -1499,7 +1593,7 @@
         {
           "minute": 2,
           "raw": -2.27,
-          "vs_team": -0.94,
+          "vs_team": -0.8,
           "minutes": 8.8,
           "stints": 9,
           "reliable": false
@@ -1507,7 +1601,7 @@
         {
           "minute": 3,
           "raw": -10.2,
-          "vs_team": -9.85,
+          "vs_team": -9.66,
           "minutes": 4.9,
           "stints": 7,
           "reliable": false
@@ -1515,7 +1609,7 @@
         {
           "minute": 4,
           "raw": -6.53,
-          "vs_team": -5.2,
+          "vs_team": -5.06,
           "minutes": 3.1,
           "stints": 4,
           "reliable": false
@@ -1523,7 +1617,7 @@
         {
           "minute": 5,
           "raw": 15.0,
-          "vs_team": 16.07,
+          "vs_team": 16.09,
           "minutes": 1.0,
           "stints": 1,
           "reliable": false
